@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 const showTitle = keyframes`
   to {
-    transform: translate3d(100%, 0, 0);
+    transform: translate3d(150%, 0, 0);
   }
 `;
 
@@ -16,46 +16,21 @@ const showDescription = keyframes`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 10rem;
 
-  padding: 1rem 3rem;
-`;
+  height: 100vh;
 
-const AuthButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-`;
-
-const Button = styled.button`
-  width: 6rem;
-
-  border-radius: 4px;
-
-  padding: 0.5rem 0;
-`;
-
-const SignupButton = styled(Button)`
-  background: none;
-
-  ${({ theme: { colors } }) => `
-    color: ${colors.RED_ORANGE_500};
-
-    border: 0.8px solid ${colors.RED_ORANGE_500};
-  `}
-`;
-
-const LoginButton = styled(Button)`
-  ${({ theme: { colors } }) => `
-    background: ${colors.RED_ORANGE_500};
-    color: ${colors.WHITE_100};
-  `}
+  padding: 0 5%;
 `;
 
 const DescriptionContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5rem;
+
+  width: 90%;
 
   margin: 0 10%;
 `;
@@ -65,7 +40,7 @@ const Title = styled.div`
   flex-direction: column;
   gap: 1.5rem;
 
-  transform: translate3d(-100%, 0, 0);
+  transform: translate3d(-150%, 0, 0);
 
   font-size: 2.4rem;
   font-weight: 500;
@@ -103,12 +78,13 @@ const Description = styled.div`
   }
 `;
 
-export {
-  Container,
-  AuthButtonContainer,
-  SignupButton,
-  LoginButton,
-  DescriptionContainer,
-  Title,
-  Description,
-};
+const KakaoLoginImg = styled.img`
+  width: 20rem;
+
+  opacity: 0;
+
+  animation: ${showDescription} 1s forwards;
+  animation-delay: 4s;
+`;
+
+export { Container, DescriptionContainer, Title, Description, KakaoLoginImg };

@@ -2,7 +2,7 @@ import { ThemeProvider } from '@emotion/react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { BROWSER_PATH } from '@/constants/path';
-import Main from '@/pages/Main';
+import Landing from '@/pages/Landing';
 import OAuth from '@/pages/OAuth';
 import GlobalStyle from '@/styles/global';
 import theme from '@/styles/theme';
@@ -19,7 +19,7 @@ const App = () => {
       <GlobalStyle />
       <Router>
         <Routes>
-          <Route path={BROWSER_PATH.BASE} element={<Main />} />
+          <Route path={BROWSER_PATH.BASE} element={<Landing />} />
           <Route path={BROWSER_PATH.OAUTH} element={<OAuth />} />
         </Routes>
       </Router>

@@ -1,20 +1,15 @@
-import { Link } from 'react-router-dom';
-
 import * as S from './index.styles';
 
+import { baseURL } from '@/apis/axios';
+import kakaoLoginImage from '@/assets/kakao-login.png';
 import { BROWSER_PATH } from '@/constants/path';
+import { getKakaoAuthUri } from '@/utils/kakao';
 
-const Main = () => {
+const redirectUri = `${baseURL}${BROWSER_PATH.OAUTH}`;
+
+const Landing = () => {
   return (
     <S.Container>
-      <S.AuthButtonContainer>
-        <Link to={BROWSER_PATH.SIGNUP}>
-          <S.SignupButton type="button">회원가입</S.SignupButton>
-        </Link>
-        <Link to={BROWSER_PATH.LOGIN}>
-          <S.LoginButton type="button">로그인</S.LoginButton>
-        </Link>
-      </S.AuthButtonContainer>
       <S.DescriptionContainer>
         <S.Title>
           <p>
@@ -30,8 +25,11 @@ const Main = () => {
           <p>이제에서의 이력서 제작을 시작해보세요.</p>
         </S.Description>
       </S.DescriptionContainer>
+      <a href={getKakaoAuthUri(redirectUri)}>
+        <S.KakaoLoginImg src={kakaoLoginImage} alt="카카오 로그인 버튼" />
+      </a>
     </S.Container>
   );
 };
 
-export default Main;
+export default Landing;

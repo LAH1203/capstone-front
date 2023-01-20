@@ -1,6 +1,5 @@
 const BROWSER_PATH = {
   BASE: '/',
-  LOGIN: '/login',
   SIGNUP: '/signup',
   OAUTH: '/oauth',
 };

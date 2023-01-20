@@ -15,6 +15,10 @@ const globalStyle = css`
     text-decoration: none;
   }
 
+  input {
+    outline: none;
+  }
+
   button {
     border: none;
 

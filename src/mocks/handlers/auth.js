@@ -1,9 +1,10 @@
 import { rest } from 'msw';
 
+import { baseURL } from '@/apis/axios';
 import { API_PATH } from '@/constants/path';
 
 const authHandlers = [
-  rest.post(API_PATH.LOGIN, (req, res, ctx) => {
+  rest.post(`${baseURL}${API_PATH.LOGIN}`, (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({
@@ -13,7 +14,7 @@ const authHandlers = [
       }),
     );
   }),
-  rest.post(API_PATH.SIGNUP, (req, res, ctx) => {
+  rest.post(`${baseURL}${API_PATH.SIGNUP}`, (req, res, ctx) => {
     return res(
       ctx.status(201),
       ctx.json({

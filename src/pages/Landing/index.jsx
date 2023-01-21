@@ -1,11 +1,10 @@
 import * as S from './index.styles';
 
-import { baseURL } from '@/apis/axios';
 import kakaoLoginImage from '@/assets/kakao-login.png';
 import { BROWSER_PATH } from '@/constants/path';
 import { getKakaoAuthUri } from '@/utils/kakao';
 
-const redirectUri = `${baseURL}${BROWSER_PATH.OAUTH}`;
+const redirectUri = `${window.location.href.slice(0, -1)}${BROWSER_PATH.OAUTH}`;
 
 const Landing = () => {
   return (

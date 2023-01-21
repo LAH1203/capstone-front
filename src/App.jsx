@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { BROWSER_PATH } from '@/constants/path';
 import Landing from '@/pages/Landing';
+import NotFound from '@/pages/NotFound';
 import OAuth from '@/pages/OAuth';
 import Signup from '@/pages/Signup';
 import GlobalStyle from '@/styles/global';
@@ -25,6 +26,7 @@ const App = () => {
             <Route path={BROWSER_PATH.BASE} element={<Landing />} />
             <Route path={BROWSER_PATH.SIGNUP} element={<Signup />} />
             <Route path={BROWSER_PATH.OAUTH} element={<OAuth />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
       </Provider>

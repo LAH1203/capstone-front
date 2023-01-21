@@ -2,7 +2,7 @@ import Axios from 'axios';
 
 import { accessTokenProvider } from '@/utils/token';
 
-const baseURL = 'http://localhost:3000';
+const baseURL = 'https://97405a6b-4168-4347-97f8-ca4732694228.mock.pstmn.io';
 
 const axios = Axios.create({
   baseURL,

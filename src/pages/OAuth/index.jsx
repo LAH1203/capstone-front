@@ -3,8 +3,10 @@ import { useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
 import { requestLogin } from '@/apis/request/auth';
+import { GUIDE_MESSAGE } from '@/constants/message';
 import { BROWSER_PATH } from '@/constants/path';
 import useError from '@/hooks/useError';
+import useSnackbar from '@/hooks/useSnackbar';
 import { accessTokenProvider } from '@/utils/token';
 
 const OAuth = () => {
@@ -12,6 +14,7 @@ const OAuth = () => {
   const code = searchParams.get('code');
 
   const handleError = useError();
+  const { showSnackbar } = useSnackbar();
 
   const navigate = useNavigate();
 
@@ -21,7 +24,15 @@ const OAuth = () => {
         .then(({ new: newUser, accessToken }) => {
           accessTokenProvider.set(accessToken);
 
-          navigate(newUser ? BROWSER_PATH.SIGNUP : BROWSER_PATH.BASE);
+          if (newUser) {
+            showSnackbar(GUIDE_MESSAGE.NEW_USER);
+            navigate(BROWSER_PATH.SIGNUP);
+
+            return;
+          }
+
+          showSnackbar(GUIDE_MESSAGE.SUCCESS_LOGIN);
+          navigate(BROWSER_PATH.BASE);
         })
         .catch(error => {
           alert(handleError(error.code));
@@ -29,7 +40,7 @@ const OAuth = () => {
           navigate(BROWSER_PATH.BASE);
         });
     }
-  }, [code, handleError, navigate]);
+  }, [code, handleError, navigate, showSnackbar]);
 
   return <>카카오 로그인 중...</>;
 };

@@ -9,9 +9,11 @@ import { validateUserData } from './validate';
 import { requestSignup } from '@/apis/request/auth';
 import Button from '@/components/Button';
 import FieldModal from '@/components/FieldModal';
+import { GUIDE_MESSAGE } from '@/constants/message';
 import { BROWSER_PATH } from '@/constants/path';
 import useError from '@/hooks/useError';
 import useInput from '@/hooks/useInput';
+import useSnackbar from '@/hooks/useSnackbar';
 import { accessTokenProvider } from '@/utils/token';
 
 const Signup = () => {
@@ -21,6 +23,7 @@ const Signup = () => {
   const [income, changeIncome] = useInput(0);
 
   const handleError = useError();
+  const { showSnackbar } = useSnackbar();
 
   const navigate = useNavigate();
 
@@ -37,6 +40,7 @@ const Signup = () => {
 
     requestSignup({ nickname, work, field, income })
       .then(accessToken => {
+        showSnackbar(GUIDE_MESSAGE.SUCCESS_SIGNUP);
         accessTokenProvider.set(accessToken);
 
         navigate(BROWSER_PATH.BASE);

@@ -2,6 +2,7 @@ import { ThemeProvider } from '@emotion/react';
 import { Provider } from 'jotai';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
+import Snackbar from '@/components/Snackbar';
 import { BROWSER_PATH } from '@/constants/path';
 import Landing from '@/pages/Landing';
 import NotFound from '@/pages/NotFound';
@@ -29,6 +30,7 @@ const App = () => {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
+        <Snackbar />
       </Provider>
     </ThemeProvider>
   );

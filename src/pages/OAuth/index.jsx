@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
 import { requestLogin } from '@/apis/request/auth';
-import { GUIDE_MESSAGE } from '@/constants/message';
+import { CLIENT_MESSAGE } from '@/constants/message';
 import { BROWSER_PATH } from '@/constants/path';
 import useError from '@/hooks/useError';
 import useSnackbar from '@/hooks/useSnackbar';
@@ -25,13 +25,13 @@ const OAuth = () => {
           accessTokenProvider.set(accessToken);
 
           if (newUser) {
-            showSnackbar(GUIDE_MESSAGE.NEW_USER);
+            showSnackbar(CLIENT_MESSAGE.GUIDE.NEW_USER);
             navigate(BROWSER_PATH.SIGNUP);
 
             return;
           }
 
-          showSnackbar(GUIDE_MESSAGE.SUCCESS_LOGIN);
+          showSnackbar(CLIENT_MESSAGE.GUIDE.SUCCESS_LOGIN);
           navigate(BROWSER_PATH.BASE);
         })
         .catch(error => {

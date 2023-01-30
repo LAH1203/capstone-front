@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ import { validateUserData } from './validate';
 import { requestSignup } from '@/apis/request/auth';
 import Button from '@/components/Button';
 import FieldModal from '@/components/FieldModal';
-import { GUIDE_MESSAGE } from '@/constants/message';
+import { CLIENT_MESSAGE } from '@/constants/message';
 import { BROWSER_PATH } from '@/constants/path';
 import useError from '@/hooks/useError';
 import useInput from '@/hooks/useInput';
@@ -40,7 +40,7 @@ const Signup = () => {
 
     requestSignup({ nickname, work, field, income })
       .then(accessToken => {
-        showSnackbar(GUIDE_MESSAGE.SUCCESS_SIGNUP);
+        showSnackbar(CLIENT_MESSAGE.GUIDE.SUCCESS_SIGNUP);
         accessTokenProvider.set(accessToken);
 
         navigate(BROWSER_PATH.BASE);
@@ -53,6 +53,12 @@ const Signup = () => {
   const toggleWork = () => {
     setWork(prev => !prev);
   };
+
+  useEffect(() => {
+    if (!accessTokenProvider.get()) {
+      showSnackbar(CLIENT_MESSAGE.ERROR.EMPTY_ACCESS_TOKEN);
+    }
+  }, [showSnackbar]);
 
   return (
     <S.Container>

@@ -11,16 +11,6 @@ const openDimmer = keyframes`
   }
 `;
 
-const openModal = keyframes`
-  0% {
-    transform: scale3d(0.5, 0.5, 0.5);
-  }
-
-  100% {
-    transform: scale3d(1, 1, 1);
-  }
-`;
-
 const closeDimmer = keyframes`
   from {
     opacity: 1;
@@ -31,13 +21,23 @@ const closeDimmer = keyframes`
   }
 `;
 
+const openModal = keyframes`
+  0% {
+    transform: translate3d(0, -10%, 0);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+`;
+
 const closeModal = keyframes`
   from {
-    transform: scale3d(1, 1, 1);
+    transform: translate3d(0, 0, 0);
   }
 
   to {
-    transform: scale3d(0.5, 0.5, 0.5);
+    transform: translate3d(0, -10%, 0);
   }
 `;
 
@@ -57,10 +57,11 @@ const Dimmer = styled.div`
   padding: 0 5%;
   box-sizing: border-box;
 
-  background: ${({ theme: { colors } }) => colors.BLACK_300};
   backdrop-filter: saturate(100%) blur(5px);
 
-  ${({ animationTime }) => css`
+  ${({ theme: { colors }, animationTime }) => css`
+    background: ${colors.BLACK_300};
+
     animation: ${openDimmer} ${animationTime}ms;
 
     &.close {
@@ -79,18 +80,20 @@ const Content = styled.div`
   max-width: 21rem;
 
   border-radius: 16px;
-  padding: 10%;
+  padding: 5%;
 
-  ${({ theme: { colors } }) => `
+  ${({ theme: { colors, breakpoints }, animationTime }) => css`
     background: ${colors.WHITE_100};
     filter: drop-shadow(0 0 4px ${colors.GRAY_800});
-  `}
 
-  ${({ animationTime }) => css`
     animation: ${openModal} ${animationTime}ms;
 
     &.close {
       animation: ${closeModal} ${animationTime}ms;
+    }
+
+    @media only screen and (max-width: ${breakpoints.md}px) {
+      padding: 8%;
     }
   `}
 `;

@@ -17,17 +17,16 @@ const Button = styled.button`
   height: fit-content;
   min-height: 3rem;
 
-  background: none;
-
+  border: none;
   border-radius: 4px;
 
   transition: background-color 0.5s;
 
   ${({ theme: { colors } }) => `
-    border: 1px solid ${colors.GRAY_500};
+    background: ${colors.GRAY_100};
 
     &:hover {
-      background: ${colors.GRAY_200};
+      background: ${colors.GRAY_250};
     }
   `}
 `;

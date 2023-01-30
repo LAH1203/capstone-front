@@ -1,5 +1,5 @@
 const ANIMATION_TIME = {
-  MODAL: 150,
+  MODAL: 200,
 };
 
 export { ANIMATION_TIME };

@@ -7,7 +7,7 @@ import { CLIENT_MESSAGE } from '@/constants/message';
 import { BROWSER_PATH } from '@/constants/path';
 import useError from '@/hooks/useError';
 import useSnackbar from '@/hooks/useSnackbar';
-import { accessTokenProvider } from '@/utils/token';
+import { kakaoAccessTokenProvider } from '@/utils/token';
 
 const OAuth = () => {
   const [searchParams] = useSearchParams();
@@ -22,7 +22,7 @@ const OAuth = () => {
     if (code) {
       requestLogin(code)
         .then(({ new: newUser, accessToken }) => {
-          accessTokenProvider.set(accessToken);
+          kakaoAccessTokenProvider.set(accessToken);
 
           if (newUser) {
             showSnackbar(CLIENT_MESSAGE.GUIDE.NEW_USER);

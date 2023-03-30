@@ -1,74 +1,45 @@
 import * as S from './index.styles';
 
-import Button from '@/components/Button';
-import Input from '@/components/Input';
-import ToggleButton from '@/components/ToggleButton';
 import { RULE } from '@/constants/rule';
-import useModal from '@/hooks/useModal';
 
 const Inputs = ({
+  email,
+  changeEmail,
+  isValidEmail,
   nickname,
   changeNickname,
-  work,
-  toggleWork,
-  field,
-  income,
-  changeIncome,
+  isValidNickname,
 }) => {
-  const { showFieldModal } = useModal();
-
   return (
     <S.Container>
-      <S.InputContainer>
+      <S.Wrapper>
+        <label>이메일</label>
+        <S.Input
+          type="email"
+          value={email}
+          onChange={changeEmail}
+          className={isValidEmail ? '' : 'invalid'}
+          required
+        />
+        <S.Description className={isValidEmail ? '' : 'invalid'}>
+          이메일 형식이 올바르지 않아요.
+        </S.Description>
+      </S.Wrapper>
+
+      <S.Wrapper>
         <label>닉네임</label>
-        <S.Wrapper>
-          <Input
-            type="text"
-            value={nickname}
-            onChange={changeNickname}
-            required
-          />
-        </S.Wrapper>
-        <S.Description>
-          닉네임은 {RULE.NICKNAME.MIN}자 이상 {RULE.NICKNAME.MAX}자 이하여야
-          합니다.
+        <S.Input
+          type="text"
+          value={nickname}
+          onChange={changeNickname}
+          className={isValidNickname ? '' : 'invalid'}
+          required
+        />
+        <S.Description className={isValidNickname ? '' : 'invalid'}>
+          닉네임은 {RULE.NICKNAME.MIN} ~ {RULE.NICKNAME.MAX}자까지 입력할 수
+          있어요.
         </S.Description>
-      </S.InputContainer>
-
-      <S.InputContainer>
-        <label>재직 유무</label>
-        <ToggleButton checked={work} toggleChecked={toggleWork} />
-      </S.InputContainer>
-
-      <S.InputContainer>
-        <label>희망 분야</label>
-        <S.FieldWrapper>
-          <p>{field}</p>
-          <Button type="button" onClick={showFieldModal}>
-            선택하기
-          </Button>
-        </S.FieldWrapper>
-      </S.InputContainer>
-
-      <S.InputContainer>
-        <label>희망 연봉</label>
-        <S.Wrapper>
-          <p>
-            <Input
-              type="number"
-              value={income ? income : ''}
-              onChange={changeIncome}
-              min={RULE.INCOME.MIN}
-              step={RULE.INCOME.STEP}
-            />
-            만원
-          </p>
-        </S.Wrapper>
-        <S.Description>
-          희망 연봉은 {RULE.INCOME.MIN}만원 이상이며 {RULE.INCOME.STEP}만원
-          단위여야 합니다.
-        </S.Description>
-      </S.InputContainer>
+      </S.Wrapper>
     </S.Container>
   );
 };

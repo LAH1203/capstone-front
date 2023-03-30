@@ -37,7 +37,7 @@ module.exports = {
         },
       },
       {
-        test: /\.(png|jpe?g)$/i,
+        test: /\.(png|jpe?g|svg|gif)$/i,
         type: 'asset/resource',
       },
     ],
@@ -45,7 +45,6 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '../public/index.html'),
-      favicon: path.resolve(__dirname, '../src/assets/favicon.png'),
     }),
     new DefinePlugin({
       'process.env.KAKAO_LOGIN_KEY': JSON.stringify(

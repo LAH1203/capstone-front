@@ -1,5 +1,6 @@
 const BROWSER_PATH = {
   BASE: '/',
+  LANDING: '/landing',
   SIGNUP: '/signup',
   OAUTH: '/oauth',
 };
@@ -9,4 +10,6 @@ const API_PATH = {
   SIGNUP: '/signup',
 };
 
-export { BROWSER_PATH, API_PATH };
+const KAKAO_REDIRECT_URI = `${window.location.origin}${BROWSER_PATH.OAUTH}`;
+
+export { BROWSER_PATH, API_PATH, KAKAO_REDIRECT_URI };

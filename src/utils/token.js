@@ -10,4 +10,16 @@ const accessTokenProvider = {
   },
 };
 
-export { accessTokenProvider };
+const kakaoAccessTokenProvider = {
+  get: () => {
+    return localStorage.getItem('kakaoAccessToken') ?? '';
+  },
+  set: accessToken => {
+    localStorage.setItem('kakaoAccessToken', accessToken);
+  },
+  remove: () => {
+    localStorage.removeItem('kakaoAccessToken');
+  },
+};
+
+export { accessTokenProvider, kakaoAccessTokenProvider };

@@ -1,4 +1,4 @@
-import { axios, axiosWithAccessToken } from '@/apis/axios';
+import { axios } from '@/apis/axios';
 import { API_PATH } from '@/constants/path';
 
 const requestLogin = code => {
@@ -6,7 +6,7 @@ const requestLogin = code => {
 };
 
 const requestSignup = userData => {
-  return axiosWithAccessToken
+  return axios
     .post(API_PATH.SIGNUP, userData)
     .then(response => response.data.accessToken);
 };

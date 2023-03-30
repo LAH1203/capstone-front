@@ -1,6 +1,6 @@
 const ANIMATION_TIME = {
-  MODAL: 200,
-  SNACKBAR: 300,
+  SNACKBAR: 500,
+  SLIDER: 200,
 };
 
 export { ANIMATION_TIME };

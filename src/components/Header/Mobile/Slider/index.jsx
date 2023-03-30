@@ -21,6 +21,7 @@ const Slider = ({ isClosing, closeSlider }) => {
 
     logout();
     showSnackbar(CLIENT_MESSAGE.GUIDE.SUCCESS_LOGOUT);
+    closeSlider();
   };
 
   return (

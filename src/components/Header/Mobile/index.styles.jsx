@@ -11,6 +11,10 @@ const Container = styled.div`
 `;
 
 const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   background: none;
 
   padding: 0;

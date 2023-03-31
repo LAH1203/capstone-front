@@ -23,14 +23,12 @@ const Wrapper = styled.div`
 `;
 
 const Button = styled.button`
-  width: 50%;
-
   background: none;
 
   padding: 0;
 
   img {
-    width: 100%;
+    width: 70%;
   }
 `;
 

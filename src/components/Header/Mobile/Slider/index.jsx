@@ -36,9 +36,9 @@ const Slider = ({ isClosing, closeSlider }) => {
         </S.ArrowButton>
         <S.List>
           <li>
-            <S.MenuButton type="button">
-              <a href={BROWSER_PATH.BASE}>홈</a>
-            </S.MenuButton>
+            <a href={BROWSER_PATH.BASE}>
+              <S.MenuButton type="button">홈</S.MenuButton>
+            </a>
           </li>
           {isLogin ? (
             <>
@@ -56,9 +56,9 @@ const Slider = ({ isClosing, closeSlider }) => {
             </>
           ) : (
             <li>
-              <S.MenuButton type="button">
-                <a href={getKakaoAuthUri(KAKAO_REDIRECT_URI)}>로그인</a>
-              </S.MenuButton>
+              <a href={getKakaoAuthUri(KAKAO_REDIRECT_URI)}>
+                <S.MenuButton type="button">로그인</S.MenuButton>
+              </a>
             </li>
           )}
         </S.List>

@@ -23,11 +23,11 @@ const Mobile = () => {
 
   return (
     <S.Container>
-      <S.Button type="button">
-        <a href={BROWSER_PATH.BASE}>
+      <a href={BROWSER_PATH.BASE}>
+        <S.Button type="button">
           <img src={homeSVG} alt="홈 버튼" />
-        </a>
-      </S.Button>
+        </S.Button>
+      </a>
       <S.MenuButton type="button" onClick={closeSlider}>
         <img src={hamburgerSVG} alt="메뉴 버튼" />
       </S.MenuButton>

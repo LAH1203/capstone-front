@@ -24,11 +24,11 @@ const Desktop = () => {
 
   return (
     <S.Container>
-      <S.Button type="button">
-        <a href={BROWSER_PATH.BASE}>
+      <a href={BROWSER_PATH.BASE}>
+        <S.Button type="button">
           <img src={homeSVG} alt="홈 버튼" />
-        </a>
-      </S.Button>
+        </S.Button>
+      </a>
       {isLogin ? (
         <S.Wrapper>
           <S.Button type="button">
@@ -42,11 +42,11 @@ const Desktop = () => {
           </S.Button>
         </S.Wrapper>
       ) : (
-        <S.Button type="button">
-          <a href={getKakaoAuthUri(KAKAO_REDIRECT_URI)}>
+        <a href={getKakaoAuthUri(KAKAO_REDIRECT_URI)}>
+          <S.Button type="button">
             <img src={loginSVG} alt="로그인 버튼" />
-          </a>
-        </S.Button>
+          </S.Button>
+        </a>
       )}
     </S.Container>
   );

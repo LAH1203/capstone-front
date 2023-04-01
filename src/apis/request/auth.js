@@ -6,9 +6,7 @@ const requestLogin = code => {
 };
 
 const requestSignup = userData => {
-  return axios
-    .post(API_PATH.SIGNUP, userData)
-    .then(response => response.data.accessToken);
+  return axios.post(API_PATH.SIGNUP, userData).then(response => response.data);
 };
 
 const requestReissueAccessToken = () => {

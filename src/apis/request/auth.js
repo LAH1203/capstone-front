@@ -1,4 +1,4 @@
-import { axios, axiosWithAccessToken } from '@/apis/axios';
+import { axios, axiosWithRefreshToken } from '@/apis/axios';
 import { API_PATH } from '@/constants/path';
 
 const requestLogin = code => {
@@ -6,9 +6,22 @@ const requestLogin = code => {
 };
 
 const requestSignup = userData => {
-  return axiosWithAccessToken
-    .post(API_PATH.SIGNUP, userData)
+  return axios.post(API_PATH.SIGNUP, userData).then(response => response.data);
+};
+
+const requestReissueAccessToken = () => {
+  return axiosWithRefreshToken
+    .post(API_PATH.REISSUE)
     .then(response => response.data.accessToken);
 };
 
-export { requestLogin, requestSignup };
+const requestLogout = () => {
+  return axiosWithRefreshToken.post(API_PATH.LOGOUT);
+};
+
+export {
+  requestLogin,
+  requestSignup,
+  requestReissueAccessToken,
+  requestLogout,
+};

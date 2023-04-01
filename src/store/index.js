@@ -1,10 +1,14 @@
 import { atom } from 'jotai';
 
-const modalAtom = atom('off');
+import { accessTokenProvider } from '@/utils/token';
+
+const userAtom = atom({
+  isLogin: accessTokenProvider.get() ? true : false,
+});
 
 const snackbarAtom = atom({
   isShowing: false,
   message: '',
 });
 
-export { modalAtom, snackbarAtom };
+export { userAtom, snackbarAtom };

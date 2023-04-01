@@ -3,61 +3,32 @@ import styled from '@emotion/styled';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
 `;
 
-const InputContainer = styled.div`
+const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
-  gap: 1rem;
+  gap: 0.7rem;
 
   label {
     text-align: center;
 
     color: ${({ theme: { colors } }) => colors.GRAY_600};
   }
-
-  input {
-    padding: 0.4rem;
-  }
-
-  input[type='text'] {
-    width: 90%;
-    min-width: 10rem;
-    max-width: 16.5rem;
-  }
-
-  input[type='number'] {
-    width: 5rem;
-  }
 `;
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  grid-column: 2 / span 2;
-
-  p {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-`;
-
-const FieldWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+const Input = styled.input`
   grid-column: 2 / span 2;
 
   width: 90%;
+  max-width: 16.5rem;
 
-  p {
-    color: ${({ theme: { colors } }) => colors.RED_ORANGE_600};
+  transition: border 0.5s;
 
-    margin: auto;
+  &.invalid {
+    border: 1px solid ${({ theme: { colors } }) => colors.RED_500};
   }
 `;
 
@@ -65,9 +36,15 @@ const Description = styled.div`
   display: block;
   grid-column: 2 / span 2;
 
-  color: ${({ theme: { colors } }) => colors.GRAY_800};
+  color: ${({ theme: { colors } }) => colors.GREEN_100};
 
   font-size: 0.9rem;
+
+  transition: color 0.5s;
+
+  &.invalid {
+    color: ${({ theme: { colors } }) => colors.RED_500};
+  }
 `;
 
-export { Container, InputContainer, Wrapper, Description, FieldWrapper };
+export { Container, Wrapper, Input, Description };

@@ -4,24 +4,24 @@ import { useNavigate } from 'react-router-dom';
 
 import * as S from './index.styles';
 import Inputs from './Inputs';
-import { validateUserData } from './validate';
 
 import { requestSignup } from '@/apis/request/auth';
-import Button from '@/components/Button';
-import FieldModal from '@/components/FieldModal';
 import { CLIENT_MESSAGE } from '@/constants/message';
 import { BROWSER_PATH } from '@/constants/path';
+import { RULE } from '@/constants/rule';
 import useError from '@/hooks/useError';
 import useInput from '@/hooks/useInput';
 import useSnackbar from '@/hooks/useSnackbar';
-import { accessTokenProvider } from '@/utils/token';
+import useUser from '@/hooks/useUser';
+import { kakaoAccessTokenProvider } from '@/utils/token';
 
 const Signup = () => {
+  const [email, changeEmail] = useInput('');
   const [nickname, changeNickname] = useInput('');
-  const [work, setWork] = useState(false);
-  const [field, setField] = useState('');
-  const [income, changeIncome] = useInput(0);
+  const [isValidEmail, setIsValidEmail] = useState(false);
+  const [isValidNickname, setIsValidNickname] = useState(false);
 
+  const { login } = useUser();
   const handleError = useError();
   const { showSnackbar } = useSnackbar();
 
@@ -30,18 +30,20 @@ const Signup = () => {
   const signup = e => {
     e.preventDefault();
 
-    const { valid, message } = validateUserData({ nickname, field, income });
-
-    if (!valid) {
-      alert(message);
+    if (!isValidEmail || !isValidNickname) {
+      alert('입력값을 확인해주세요.');
 
       return;
     }
 
-    requestSignup({ nickname, work, field, income })
-      .then(accessToken => {
+    requestSignup({
+      accessToken: kakaoAccessTokenProvider.get(),
+      email,
+      nickname,
+    })
+      .then(({ accessToken, refreshToken }) => {
         showSnackbar(CLIENT_MESSAGE.GUIDE.SUCCESS_SIGNUP);
-        accessTokenProvider.set(accessToken);
+        login(accessToken, refreshToken);
 
         navigate(BROWSER_PATH.BASE);
       })
@@ -50,32 +52,46 @@ const Signup = () => {
       });
   };
 
-  const toggleWork = () => {
-    setWork(prev => !prev);
-  };
-
   useEffect(() => {
-    if (!accessTokenProvider.get()) {
+    if (!kakaoAccessTokenProvider.get()) {
       showSnackbar(CLIENT_MESSAGE.ERROR.EMPTY_ACCESS_TOKEN);
     }
   }, [showSnackbar]);
 
+  useEffect(() => {
+    setIsValidEmail(
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email),
+    );
+  }, [email]);
+
+  useEffect(() => {
+    setIsValidNickname(
+      nickname.length >= RULE.NICKNAME.MIN &&
+        nickname.length <= RULE.NICKNAME.MAX,
+    );
+  }, [nickname]);
+
   return (
     <S.Container>
+      <S.Wrapper>
+        <p>
+          새로운 회원이시군요! <span>리마이어리</span>에 오신 걸 환영합니다 :)
+        </p>
+        <p>다음의 정보만 입력해주시면 가입이 완료돼요!</p>
+      </S.Wrapper>
       <S.Form onSubmit={signup}>
-        <div>다음의 정보를 입력하시면 이제의 완벽한 회원이 되실 수 있어요!</div>
         <Inputs
+          email={email}
+          changeEmail={changeEmail}
+          isValidEmail={isValidEmail}
           nickname={nickname}
           changeNickname={changeNickname}
-          work={work}
-          toggleWork={toggleWork}
-          field={field}
-          income={income}
-          changeIncome={changeIncome}
+          isValidNickname={isValidNickname}
         />
-        <Button size="wide">회원가입</Button>
+        <S.Button disabled={!isValidEmail || !isValidNickname}>
+          회원가입
+        </S.Button>
       </S.Form>
-      <FieldModal setField={setField} />
     </S.Container>
   );
 };

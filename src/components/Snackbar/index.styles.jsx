@@ -63,7 +63,8 @@ const Wrapper = styled.div`
   }
 
   ${({ theme: { colors } }) => `
-    background: ${colors.RED_ORANGE_200};
+    background: ${colors.GREEN_400};
+    color: ${colors.INPUT_BACKGROUND};
   `}
 `;
 

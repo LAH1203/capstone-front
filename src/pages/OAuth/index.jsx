@@ -7,7 +7,8 @@ import { CLIENT_MESSAGE } from '@/constants/message';
 import { BROWSER_PATH } from '@/constants/path';
 import useError from '@/hooks/useError';
 import useSnackbar from '@/hooks/useSnackbar';
-import { accessTokenProvider } from '@/utils/token';
+import useUser from '@/hooks/useUser';
+import { kakaoAccessTokenProvider } from '@/utils/token';
 
 const OAuth = () => {
   const [searchParams] = useSearchParams();
@@ -15,14 +16,15 @@ const OAuth = () => {
 
   const handleError = useError();
   const { showSnackbar } = useSnackbar();
+  const { login } = useUser();
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (code) {
       requestLogin(code)
-        .then(({ new: newUser, accessToken }) => {
-          accessTokenProvider.set(accessToken);
+        .then(({ new: newUser, accessToken, refreshToken }) => {
+          kakaoAccessTokenProvider.set(accessToken);
 
           if (newUser) {
             showSnackbar(CLIENT_MESSAGE.GUIDE.NEW_USER);
@@ -31,6 +33,7 @@ const OAuth = () => {
             return;
           }
 
+          login(accessToken, refreshToken);
           showSnackbar(CLIENT_MESSAGE.GUIDE.SUCCESS_LOGIN);
           navigate(BROWSER_PATH.BASE);
         })
@@ -40,7 +43,7 @@ const OAuth = () => {
           navigate(BROWSER_PATH.BASE);
         });
     }
-  }, [code, handleError, navigate, showSnackbar]);
+  }, [code, handleError, navigate, showSnackbar, login]);
 
   return <>카카오 로그인 중...</>;
 };

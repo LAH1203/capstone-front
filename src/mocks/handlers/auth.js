@@ -20,8 +20,22 @@ const authHandlers = [
       ctx.json({
         accessToken:
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkluQm9uZyBTb25nIiwiaWF0IjoxNTE2MjM5MDIyfQ.XikBQw8OOU87xoWsYVTJjx6Vpb114WW4FfBoWqqVYHU',
+        refreshToken:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkluQm9uZyBTb25nIiwiaWF0IjoxNTE2MjM5MDIyfQ.XikBQw8OOU87xoWsYVTJjx6Vpb114WW4FfBoWqqVYHU',
       }),
     );
+  }),
+  rest.post(`${baseURL}${API_PATH.REISSUE}`, (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        accessToken:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkluQm9uZyBTb25nIiwiaWF0IjoxNTE2MjM5MDIyfQ.XikBQw8OOU87xoWsYVTJjx6Vpb114WW4FfBoWqqVYHU',
+      }),
+    );
+  }),
+  rest.post(`${baseURL}${API_PATH.LOGOUT}`, (req, res, ctx) => {
+    return res(ctx.status(200));
   }),
 ];
 

@@ -1,19 +1,25 @@
 import { useAtom } from 'jotai';
 
 import { userAtom } from '@/store';
-import { accessTokenProvider, kakaoAccessTokenProvider } from '@/utils/token';
+import {
+  accessTokenProvider,
+  refreshTokenProvider,
+  kakaoAccessTokenProvider,
+} from '@/utils/token';
 
 const useUser = () => {
   const [{ isLogin }, setUser] = useAtom(userAtom);
 
-  const login = accessToken => {
+  const login = (accessToken, refreshToken) => {
     accessTokenProvider.set(accessToken);
+    refreshTokenProvider.set(refreshToken);
     kakaoAccessTokenProvider.remove();
     setUser({ isLogin: true });
   };
 
   const logout = () => {
     accessTokenProvider.remove();
+    refreshTokenProvider.remove();
     kakaoAccessTokenProvider.remove();
     setUser({ isLogin: false });
   };

@@ -6,8 +6,10 @@ const BROWSER_PATH = {
 };
 
 const API_PATH = {
-  LOGIN: '/login',
-  SIGNUP: '/signup',
+  LOGIN: '/auth/login',
+  SIGNUP: '/auth/signup',
+  REISSUE: '/auth/reissue',
+  LOGOUT: '/auth/logout',
 };
 
 const KAKAO_REDIRECT_URI = `${window.location.origin}${BROWSER_PATH.OAUTH}`;

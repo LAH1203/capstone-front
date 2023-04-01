@@ -1,9 +1,11 @@
 import * as S from './index.styles';
 
+import { requestLogout } from '@/apis/request/auth';
 import arrowSVG from '@/assets/arrow.svg';
 import { CLIENT_MESSAGE } from '@/constants/message';
 import { BROWSER_PATH, KAKAO_REDIRECT_URI } from '@/constants/path';
 import { ANIMATION_TIME } from '@/constants/time';
+import useError from '@/hooks/useError';
 import useSnackbar from '@/hooks/useSnackbar';
 import useUser from '@/hooks/useUser';
 import { getKakaoAuthUri } from '@/utils/kakao';
@@ -11,6 +13,7 @@ import { getKakaoAuthUri } from '@/utils/kakao';
 const Slider = ({ isClosing, closeSlider }) => {
   const { isLogin, logout } = useUser();
   const { showSnackbar } = useSnackbar();
+  const handleError = useError();
 
   const preventBubbling = e => {
     e.stopPropagation();
@@ -19,9 +22,15 @@ const Slider = ({ isClosing, closeSlider }) => {
   const confirmLogout = () => {
     if (!window.confirm(CLIENT_MESSAGE.GUIDE.CONFIRM_LOGOUT)) return;
 
-    logout();
-    showSnackbar(CLIENT_MESSAGE.GUIDE.SUCCESS_LOGOUT);
-    closeSlider();
+    requestLogout()
+      .then(() => {
+        logout();
+        showSnackbar(CLIENT_MESSAGE.GUIDE.SUCCESS_LOGOUT);
+        closeSlider();
+      })
+      .catch(error => {
+        alert(handleError(error.code));
+      });
   };
 
   return (

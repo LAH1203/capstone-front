@@ -41,9 +41,9 @@ const Signup = () => {
       email,
       nickname,
     })
-      .then(accessToken => {
+      .then((accessToken, refreshToken) => {
         showSnackbar(CLIENT_MESSAGE.GUIDE.SUCCESS_SIGNUP);
-        login(accessToken);
+        login(accessToken, refreshToken);
 
         navigate(BROWSER_PATH.BASE);
       })

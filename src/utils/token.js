@@ -10,6 +10,18 @@ const accessTokenProvider = {
   },
 };
 
+const refreshTokenProvider = {
+  get: () => {
+    return localStorage.getItem('refreshToken') ?? '';
+  },
+  set: refreshToken => {
+    localStorage.setItem('refreshToken', refreshToken);
+  },
+  remove: () => {
+    localStorage.removeItem('refreshToken');
+  },
+};
+
 const kakaoAccessTokenProvider = {
   get: () => {
     return localStorage.getItem('kakaoAccessToken') ?? '';
@@ -22,4 +34,4 @@ const kakaoAccessTokenProvider = {
   },
 };
 
-export { accessTokenProvider, kakaoAccessTokenProvider };
+export { accessTokenProvider, refreshTokenProvider, kakaoAccessTokenProvider };

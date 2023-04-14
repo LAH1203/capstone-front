@@ -7,7 +7,9 @@ const Container = styled.div`
 
   main {
     overflow: scroll;
-
+    &::-webkit-scrollbar {
+      display: none;
+    }
     width: 100%;
     height: 100%;
 

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import * as S from './index.styles';
 
 import { requestLogout } from '@/apis/request/auth';
@@ -52,7 +54,9 @@ const Slider = ({ isClosing, closeSlider }) => {
           {isLogin ? (
             <>
               <li>
-                <S.MenuButton type="button">일기 쓰기</S.MenuButton>
+                <Link to={BROWSER_PATH.EDIT}>
+                  <S.MenuButton type="button">일기 쓰기</S.MenuButton>
+                </Link>
               </li>
               <li>
                 <S.MenuButton type="button">마이페이지</S.MenuButton>

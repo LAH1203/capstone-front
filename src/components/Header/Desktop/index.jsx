@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import * as S from './index.styles';
 
 import { requestLogout } from '@/apis/request/auth';
@@ -40,9 +42,11 @@ const Desktop = () => {
       </a>
       {isLogin ? (
         <S.Wrapper>
-          <S.Button type="button">
-            <img src={writeSVG} alt="일기 작성 버튼" />
-          </S.Button>
+          <Link to={BROWSER_PATH.EDIT}>
+            <S.Button type="button">
+              <img src={writeSVG} alt="일기 작성 버튼" />
+            </S.Button>
+          </Link>
           <S.Button type="button">
             <img src={userSVG} alt="사용자 버튼" />
           </S.Button>

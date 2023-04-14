@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import Snackbar from '@/components/Snackbar';
 import { BROWSER_PATH } from '@/constants/path';
+import Edit from '@/pages/Edit';
 import Landing from '@/pages/Landing';
 import Main from '@/pages/Main';
 import NotFound from '@/pages/NotFound';
@@ -31,6 +32,7 @@ const App = () => {
               <Route path={BROWSER_PATH.LANDING} element={<Landing />} />
               <Route path={BROWSER_PATH.SIGNUP} element={<Signup />} />
               <Route path={BROWSER_PATH.OAUTH} element={<OAuth />} />
+              <Route path={BROWSER_PATH.EDIT} element={<Edit />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Layout>

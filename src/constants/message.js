@@ -8,6 +8,12 @@ const CLIENT_MESSAGE = {
   },
   ERROR: {
     EMPTY_ACCESS_TOKEN: '로그인 정보가 유효하지 않습니다. 다시 로그인해주세요.',
+    EMPTY_HASHTAG: '해시태그 값을 입력해주세요',
+    FULL_HASHTAG_LIST: '해시태그는 5개까지만 가능합니다.',
+    DUPLICATED_HASHTAG: '이미 존재하는 해시태그입니다.',
+    NOT_INCLUDE_HASHTAG: '해당 해시태그 값이 존재하지 않습니다.',
+    FAIL_GET_LOCATION: '위치 정보를 가져올 수 없습니다.',
+    FAIL_GET_WEATHER: '현재 날씨를 가져올 수 없습니다.',
   },
 };
 

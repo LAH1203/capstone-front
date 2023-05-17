@@ -16,8 +16,8 @@ import useUser from '@/hooks/useUser';
 import { kakaoAccessTokenProvider } from '@/utils/token';
 
 const Signup = () => {
-  const [email, changeEmail] = useInput('');
-  const [nickname, changeNickname] = useInput('');
+  const { value: email, onChangeValue: changeEmail } = useInput('');
+  const { value: nickname, onChangeValue: changeNickname } = useInput('');
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isValidNickname, setIsValidNickname] = useState(false);
 
@@ -31,7 +31,7 @@ const Signup = () => {
     e.preventDefault();
 
     if (!isValidEmail || !isValidNickname) {
-      alert('입력값을 확인해주세요.');
+      alert(CLIENT_MESSAGE.ERROR.INVAILD_INPUT);
 
       return;
     }

@@ -37,6 +37,25 @@ const authHandlers = [
   rest.post(`${baseURL}${API_PATH.LOGOUT}`, (req, res, ctx) => {
     return res(ctx.status(200));
   }),
+  rest.patch(`${baseURL}${API_PATH.UPDATE_EMAIL}`, (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        email: 'rewritestar@naver.com',
+      }),
+    );
+  }),
+  rest.patch(`${baseURL}${API_PATH.UPDATE_NICKNAME}`, (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        nickname: 'rewritestar',
+      }),
+    );
+  }),
+  rest.delete(`${baseURL}${API_PATH.WITHDRAWAL}`, (req, res, ctx) => {
+    return res(ctx.status(204));
+  }),
 ];
 
 export default authHandlers;

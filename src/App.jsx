@@ -8,10 +8,10 @@ import { BROWSER_PATH } from '@/constants/path';
 import Edit from '@/pages/Edit';
 import Landing from '@/pages/Landing';
 import Main from '@/pages/Main';
+import Mypage from '@/pages/Mypage';
 import NotFound from '@/pages/NotFound';
 import OAuth from '@/pages/OAuth';
 import Signup from '@/pages/Signup';
-import Mypage from '@/pages/Mypage';
 import GlobalStyle from '@/styles/global';
 import theme from '@/styles/theme';
 

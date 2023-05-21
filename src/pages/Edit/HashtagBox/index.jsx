@@ -7,7 +7,11 @@ import useSnackbar from '@/hooks/useSnackbar';
 import { isBlank } from '@/utils/hashtag';
 
 const HashtagBox = ({ addHashtagItem, removeHashtag, hashtagList }) => {
-  const [newHashtag, onChangeNewHashtag, resetNewHashtag] = useInput('');
+  const {
+    value: newHashtag,
+    onChangeValue: onChangeNewHashtag,
+    resetValue: resetNewHashtag,
+  } = useInput('');
   const { showSnackbar } = useSnackbar();
   const addHashtag = ({ nativeEvent: { key, isComposing } }) => {
     if (key !== 'Enter' || isComposing) return;

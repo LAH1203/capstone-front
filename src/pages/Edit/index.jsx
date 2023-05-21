@@ -16,8 +16,8 @@ import useWeather from '@/hooks/useWeather';
 const Edit = () => {
   const date = new Date();
   const [hashtagList, setHashtagList] = useState([]);
-  const [mood, onChangeMood] = useInput('');
-  const [title, onChangeTitle] = useInput('');
+  const { value: mood, onChangeValue: onChangeMood } = useInput('');
+  const { value: title, onChangeValue: onChangeTitle } = useInput('');
 
   const navigate = useNavigate();
   const { weather } = useWeather();

@@ -50,6 +50,9 @@ module.exports = {
       'process.env.KAKAO_LOGIN_KEY': JSON.stringify(
         process.env.KAKAO_LOGIN_KEY,
       ),
+      'process.env.WEATHER_API_KEY': JSON.stringify(
+        process.env.WEATHER_API_KEY,
+      ),
     }),
   ],
 };

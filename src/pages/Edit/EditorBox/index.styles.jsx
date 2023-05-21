@@ -22,4 +22,14 @@ const EditELementBox = styled.div`
   border-bottom: 0.5px solid ${({ theme: { colors } }) => colors.GREEN_500};
 `;
 
-export { Container, EditELementBox };
+const Blocks = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.725rem;
+  margin-left: 0.725rem;
+  margin-top: 0.75rem;
+  margin-right: 1.25rem;
+`;
+
+export { Container, EditELementBox, Blocks };

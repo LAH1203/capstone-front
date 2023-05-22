@@ -1,4 +1,4 @@
-import { keyframes } from '@emotion/react';
+import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
 const showBtn = keyframes`
@@ -71,21 +71,21 @@ const BlockButtonWrap = styled.div`
 const Image = styled.img`
   width: 40%;
 
-  @media screen and (min-width: ${({ theme }) =>
-      theme.breakpoints.md + 1}px) and (max-width: ${({ theme }) =>
-      theme.breakpoints.lg}px) {
-    width: 60%;
-  }
+  ${({ theme: { breakpoints } }) => css`
+    @media screen and (min-width: ${breakpoints.md +
+      1}px) and (max-width: ${breakpoints.lg}px) {
+      width: 60%;
+    }
 
-  @media screen and (min-width: ${({ theme }) =>
-      theme.breakpoints.sm + 1}px) and (max-width: ${({ theme }) =>
-      theme.breakpoints.md}px) {
-    width: 70%;
-  }
+    @media screen and (min-width: ${breakpoints.sm +
+      1}px) and (max-width: ${breakpoints.md}px) {
+      width: 70%;
+    }
 
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
-    width: 90%;
-  }
+    @media screen and (max-width: ${breakpoints.sm}px) {
+      width: 80%;
+    }
+  `}
 `;
 
 export { Container, BlockButtonWrap, Image };

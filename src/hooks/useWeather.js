@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 
 import { getWeatherData } from '@/apis/request/weather';
+import useEffectWithoutFirstRender from '@/hooks/useEffectWithoutFirstRender';
 
 const useWeather = () => {
   const [position, setPosition] = useState({
@@ -18,9 +19,9 @@ const useWeather = () => {
     enabled: false,
   });
 
-  useEffect(() => {
+  useEffectWithoutFirstRender(() => {
     refetch();
-  }, [position, refetch]);
+  }, [position]);
 
   useEffect(() => {
     const successGetLocation = async pos => {

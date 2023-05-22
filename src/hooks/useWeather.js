@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 
 import { getWeatherData } from '@/apis/request/weather';
-import useEffectWithoutFirstRender from '@/hooks/useEffectWithoutFirstRender';
+import useMount from '@/hooks/useMount';
 
 const useWeather = () => {
   const [position, setPosition] = useState({
@@ -19,7 +19,7 @@ const useWeather = () => {
     enabled: false,
   });
 
-  useEffectWithoutFirstRender(() => {
+  useMount(() => {
     refetch();
   }, [position]);
 

@@ -6,14 +6,15 @@ import useInput from '@/hooks/useInput';
 import useSnackbar from '@/hooks/useSnackbar';
 import { isBlank } from '@/utils/hashtag';
 
-const HashtagBox = ({ addHashtagItem, removeHashtag, hashtagList }) => {
+const HashtagBox = ({ addHashtag, removeHashtag, hashtagList }) => {
   const {
     value: newHashtag,
     onChangeValue: onChangeNewHashtag,
     resetValue: resetNewHashtag,
   } = useInput('');
   const { showSnackbar } = useSnackbar();
-  const addHashtag = ({ nativeEvent: { key, isComposing } }) => {
+
+  const addHashtagByInput = ({ nativeEvent: { key, isComposing } }) => {
     if (key !== 'Enter' || isComposing) return;
     if (isBlank(newHashtag)) {
       showSnackbar(CLIENT_MESSAGE.ERROR.EMPTY_HASHTAG);
@@ -33,7 +34,7 @@ const HashtagBox = ({ addHashtagItem, removeHashtag, hashtagList }) => {
       return;
     }
 
-    addHashtagItem(newHashtag);
+    addHashtag(newHashtag);
     resetNewHashtag();
   };
 
@@ -43,21 +44,21 @@ const HashtagBox = ({ addHashtagItem, removeHashtag, hashtagList }) => {
         <S.Input>
           <p>#</p>
           <S.GuideLineDesktop>
-            해시태그는 최대 5개까지 추가할 수 있어요 <br />
+            해시태그는 최대 5개까지 추가할 수 있어요. <br />
             입력 후 엔터를 치면 자동으로 추가되고, <br />
-            이미 추가된 해시태그를 클릭하면 삭제돼요
+            이미 추가된 해시태그를 클릭하면 삭제돼요.
           </S.GuideLineDesktop>
           <input
             type="text"
             value={newHashtag}
             onChange={onChangeNewHashtag}
-            onKeyDown={addHashtag}
+            onKeyDown={addHashtagByInput}
           />
         </S.Input>
         <S.GuideLineMobile>
-          해시태그는 최대 5개까지 추가할 수 있어요 <br />
+          해시태그는 최대 5개까지 추가할 수 있어요. <br />
           입력 후 엔터를 치면 자동으로 추가되고, <br />
-          이미 추가된 해시태그를 클릭하면 삭제돼요
+          이미 추가된 해시태그를 클릭하면 삭제돼요.
         </S.GuideLineMobile>
       </S.InputBox>
       <S.HashtagList>

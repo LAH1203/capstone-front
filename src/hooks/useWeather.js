@@ -1,41 +1,46 @@
 import { useEffect, useState } from 'react';
 
-import { useNavigate } from 'react-router-dom';
+import { useQuery } from 'react-query';
 
 import { getWeatherData } from '@/apis/request/weather';
-import { CLIENT_MESSAGE } from '@/constants/message';
-import { BROWSER_PATH } from '@/constants/path';
 
 const useWeather = () => {
-  const [weather, setWeather] = useState('');
-
-  const navigate = useNavigate();
+  const [position, setPosition] = useState({
+    lat: 0,
+    lon: 0,
+  });
+  const {
+    data: weather,
+    isError,
+    isLoading,
+    refetch,
+  } = useQuery('weather', () => getWeatherData(position), {
+    enabled: false,
+  });
 
   useEffect(() => {
+    refetch();
+  }, [position, refetch]);
+
+  useEffect(() => {
+    const successGetLocation = async pos => {
+      setPosition({
+        lat: pos.coords.latitude,
+        lon: pos.coords.longitude,
+      });
+    };
+
+    const failGetLocation = () => {
+      setPosition(null);
+    };
+
     navigator.geolocation.getCurrentPosition(
       successGetLocation,
       failGetLocation,
     );
   }, []);
 
-  const successGetLocation = async position => {
-    try {
-      const data = await getWeatherData({
-        lat: position.coords.latitude,
-        lon: position.coords.longitude,
-      });
-      setWeather(data);
-    } catch (e) {
-      alert(CLIENT_MESSAGE.ERROR.FAIL_GET_WEATHER);
-      navigate(BROWSER_PATH.BASE);
-    }
-  };
-  const failGetLocation = () => {
-    alert(CLIENT_MESSAGE.ERROR.FAIL_GET_LOCATION);
-    navigate(BROWSER_PATH.BASE);
-  };
-
-  return { weather };
+  return { weather, isLoading, isError };
 };
 
 export default useWeather;

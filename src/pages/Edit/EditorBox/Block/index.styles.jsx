@@ -2,10 +2,10 @@ import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
 const showBtn = keyframes`
-  0%, 100%{
+  0%, 100% {
     opacity: 0;
   }
-  30%, 60%{
+  30%, 60% {
     opacity: 1;
   }
 `;
@@ -13,6 +13,7 @@ const showBtn = keyframes`
 const Container = styled.div`
   display: flex;
   width: 100%;
+  line-height: 1.7rem;
   gap: 0.25rem;
   font-size: 1.125rem;
   border-top: 2px solid ${({ dragOver }) => (dragOver ? 'black' : 'white')};
@@ -33,19 +34,22 @@ const Container = styled.div`
   &:hover .block-button {
     opacity: 1;
   }
-  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.sm}px) {
-    font-size: 0.725rem;
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
+    line-height: 1.1rem;
+    font-size: 0.9rem;
+
     .content-editable {
       width: 85%;
-    }
-    .block-button {
-      font-size: 0.625rem;
     }
   }
 `;
 
 const BlockButtonWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 1.7rem;
   animation: ${showBtn} 2s;
   opacity: 0;
   transition: all 0.2s ease-in;
@@ -56,6 +60,11 @@ const BlockButtonWrap = styled.div`
 
   .drag {
     cursor: grab;
+  }
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
+    height: 1.1rem;
+    font-size: 1rem;
   }
 `;
 export { Container, BlockButtonWrap };

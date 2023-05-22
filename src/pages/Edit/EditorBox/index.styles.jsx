@@ -8,10 +8,6 @@ const Container = styled.div`
 
   min-width: 100%;
   min-height: 40rem;
-  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.sm}px) {
-    min-height: 15rem;
-  }
 `;
 
 const EditELementBox = styled.div`
@@ -27,6 +23,7 @@ const Blocks = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 0.725rem;
+
   margin-left: 0.725rem;
   margin-top: 0.75rem;
   margin-right: 1.25rem;

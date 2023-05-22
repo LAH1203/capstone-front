@@ -1,3 +1,3 @@
-const getDay = day => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].at(day);
+const getDay = day => ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].at(day);
 
 export { getDay };

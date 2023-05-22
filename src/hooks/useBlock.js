@@ -124,6 +124,14 @@ const useBlock = () => {
           text = text.replace('</strike>', '');
         }
         break;
+      case 'code':
+        text = `<pre><code>${block.data.text}</code></pre>`;
+
+        if (block.data.text.includes('<pre><code>')) {
+          text = block.data.text.replace('<pre><code>', '');
+          text = text.replace('</code></pre>', '');
+        }
+        break;
       default:
       // DO NOTHING
     }
@@ -150,6 +158,7 @@ const useBlock = () => {
     makeItalic: makeStyle('italic'),
     makeUnderline: makeStyle('underline'),
     makeStrike: makeStyle('strike'),
+    makeCode: makeStyle('code'),
   };
 };
 

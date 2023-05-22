@@ -110,6 +110,14 @@ const ContentEditable = styled(ReactContentEditable)`
   i {
     font-style: italic;
   }
+  pre {
+    width: 100%;
+    border-radius: 8px;
+    padding: 1rem;
+    box-sizing: border-box;
+
+    background: ${({ theme: { colors } }) => colors.GREEN_200};
+  }
 
   @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
     width: 85%;

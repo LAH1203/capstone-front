@@ -25,6 +25,10 @@ const Block = ({ block, index, dragStart, onDropItem }) => {
     setEndContentEditable(blockRef.current);
   }, [focusId, block]);
 
+  useEffect(() => {
+    content.current = block.data.text;
+  }, [block.data.text]);
+
   const changeContent = e => {
     content.current = e.target.value;
     editBlock({ ...block, data: { ...block.data, text: content.current } });

@@ -28,6 +28,7 @@ const Navigator = () => {
     makeItalic,
     makeUnderline,
     makeStrike,
+    makeCode,
   } = useBlock();
   const { imgLink, resetImg, uploadImg } = useImage();
 
@@ -72,7 +73,7 @@ const Navigator = () => {
       <S.Button onClick={makeStrike}>
         <RiStrikethrough />
       </S.Button>
-      <S.Button>
+      <S.Button onClick={makeCode}>
         <RiCodeFill />
       </S.Button>
       <S.Button>

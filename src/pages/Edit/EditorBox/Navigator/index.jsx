@@ -6,13 +6,25 @@ import {
   RiStrikethrough,
   RiCodeFill,
   RiAlignLeft,
-  RiAlignRight,
   RiAlignCenter,
+  RiAlignRight,
 } from 'react-icons/ri';
 
 import * as S from './index.styles';
 
-const Navigator = () => {
+import useImage from '@/hooks/useImage';
+import useMount from '@/hooks/useMount';
+
+const Navigator = ({ addImgBlock }) => {
+  const { imgLink, resetImg, uploadImg } = useImage();
+
+  useMount(() => {
+    if (imgLink) {
+      addImgBlock(imgLink);
+    }
+    resetImg();
+  }, [imgLink]);
+
   return (
     <S.Container>
       <S.Select name="font" id="font-select">
@@ -44,14 +56,15 @@ const Navigator = () => {
         <RiAlignLeft />
       </S.Button>
       <S.Button>
-        <RiAlignRight />
-      </S.Button>
-      <S.Button>
         <RiAlignCenter />
       </S.Button>
       <S.Button>
-        <CgImage />
+        <RiAlignRight />
       </S.Button>
+      <S.Image>
+        <CgImage />
+        <input type="file" accept=".jpg, .jpeg, .png" onChange={uploadImg} />
+      </S.Image>
     </S.Container>
   );
 };

@@ -11,8 +11,8 @@ import { setEndContentEditable } from '@/utils/contentEditable';
 const Block = ({
   block,
   index,
-  addBlock,
-  removeBlock,
+  addTextBlock,
+  removeTextBlock,
   editBlock,
   focusId,
   changeFocus,
@@ -24,12 +24,12 @@ const Block = ({
   const focusRef = useRef(null);
 
   useEffect(() => {
-    if (!focusRef || focusId !== block.id) return;
+    if (!focusRef || focusId !== block.id || block.type === 'img') return;
 
     focusRef.current.focus();
 
     setEndContentEditable(focusRef.current);
-  }, [focusId, block.id]);
+  }, [focusId, block]);
 
   const changeContent = e => {
     content.current = e.target.value;
@@ -37,7 +37,7 @@ const Block = ({
   };
 
   const makeNewBlock = () => {
-    addBlock(block.id);
+    addTextBlock(block.id);
   };
 
   const controlBlock = e => {
@@ -46,14 +46,14 @@ const Block = ({
         if (!e.shiftKey) return;
         e.preventDefault();
 
-        addBlock(block.id);
+        addTextBlock(block.id);
         break;
 
       case 'Backspace':
         if (content.current.length > 0 && content.current !== '<br>') return;
         e.preventDefault();
 
-        removeBlock(block.id);
+        removeTextBlock(block.id);
         break;
 
       default:
@@ -96,14 +96,22 @@ const Block = ({
         <AiOutlinePlus className="add" onClick={makeNewBlock} />
         <MdDragIndicator className="drag" onClick={changeFocus(block.id)} />
       </S.BlockButtonWrap>
-      <ContentEditable
-        className="content-editable"
-        placeholder="새로운 블럭은 Shift+Enter를 눌러주세요"
-        html={content.current}
-        innerRef={focusRef}
-        onChange={changeContent}
-        onFocus={changeFocus(block.id)}
-      />
+      {block.type === 'text' ? (
+        <ContentEditable
+          className="content-editable"
+          placeholder="새로운 블럭은 Shift+Enter를 눌러주세요"
+          html={content.current}
+          innerRef={focusRef}
+          onChange={changeContent}
+          onFocus={changeFocus(block.id)}
+        />
+      ) : (
+        <S.Image
+          src={block.data.link}
+          alt="이미지"
+          onClick={changeFocus(block.id)}
+        />
+      )}
     </S.Container>
   );
 };

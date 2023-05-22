@@ -67,4 +67,25 @@ const BlockButtonWrap = styled.div`
     font-size: 1rem;
   }
 `;
-export { Container, BlockButtonWrap };
+
+const Image = styled.img`
+  width: 40%;
+
+  @media screen and (min-width: ${({ theme }) =>
+      theme.breakpoints.md + 1}px) and (max-width: ${({ theme }) =>
+      theme.breakpoints.lg}px) {
+    width: 60%;
+  }
+
+  @media screen and (min-width: ${({ theme }) =>
+      theme.breakpoints.sm + 1}px) and (max-width: ${({ theme }) =>
+      theme.breakpoints.md}px) {
+    width: 70%;
+  }
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
+    width: 90%;
+  }
+`;
+
+export { Container, BlockButtonWrap, Image };

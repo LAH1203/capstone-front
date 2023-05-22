@@ -16,9 +16,10 @@ const Blocks = styled.div`
   align-items: flex-start;
   gap: 0.725rem;
 
-  margin-left: 0.725rem;
-  margin-top: 0.75rem;
-  margin-right: 1.25rem;
+  height: 40rem;
+  overflow-y: scroll;
+
+  margin: 1rem 1rem 1rem 0.725rem;
 `;
 
 export { Container, Blocks };

@@ -11,42 +11,35 @@ import useDebounce from '@/hooks/useDebounce';
 import { blocksAtom } from '@/store/blocks';
 
 const EditorBox = () => {
-  const [focusId, setFocusId] = useState(0);
-  const [startIndex, setStartIndex] = useState(0);
   const [blocks, setBlocks] = useAtom(blocksAtom);
+  const [dragStartIdx, setDragStartIdx] = useState(0);
+  const [focusId, setFocusId] = useState(blocks[0].id);
 
   const debounce = useDebounce();
 
-  const controlBlock = action => id => {
+  const controlTextBlock = action => id => {
+    const newBlocks = [...blocks];
+    const index = blocks.findIndex(block => block.id === id);
+
     switch (action) {
       case 'add':
-        setBlocks(() => {
-          const newBlocks = [...blocks];
-          const index = blocks.findIndex(block => block.id === id);
+        newBlocks.splice(index + 1, 0, { ...INITIAL_BLOCK, id: Date.now() });
+        setFocusId(newBlocks[index + 1].id);
+        setBlocks(newBlocks);
 
-          newBlocks.splice(index + 1, 0, { ...INITIAL_BLOCK, id: Date.now() });
-          setFocusId(newBlocks[index + 1].id);
-
-          return newBlocks;
-        });
         break;
 
       case 'remove':
-        setBlocks(() => {
-          if (blocks.length === 1) return blocks;
+        if (blocks.length === 1) return;
 
-          const newBlocks = [...blocks];
-          const index = blocks.findIndex(block => block.id === id);
+        newBlocks.splice(index, 1);
+        setFocusId(
+          index === newBlocks.length
+            ? newBlocks[index - 1].id
+            : newBlocks[index].id,
+        );
+        setBlocks(newBlocks);
 
-          newBlocks.splice(index, 1);
-          setFocusId(
-            index === newBlocks.length
-              ? newBlocks[index - 1].id
-              : newBlocks[index].id,
-          );
-
-          return newBlocks;
-        });
         break;
 
       default:
@@ -55,49 +48,62 @@ const EditorBox = () => {
   };
 
   const editBlock = debounce(block => {
-    setBlocks(() => {
-      const newBlocks = [...blocks];
-      const index = blocks.findIndex(({ id }) => id === block.id);
+    const newBlocks = [...blocks];
+    const index = blocks.findIndex(({ id }) => id === block.id);
 
-      if (index === -1) return newBlocks;
-      newBlocks.splice(index, 1, block);
+    if (index === -1) {
+      setBlocks(newBlocks);
+    }
 
-      return newBlocks;
-    });
+    newBlocks.splice(index, 1, block);
+    setBlocks(newBlocks);
   }, 100);
 
-  const changeFocusId = id => () => {
+  const addImgBlock = imgLink => {
+    const newBlocks = [...blocks];
+    const index = blocks.findIndex(block => block.id === focusId);
+
+    newBlocks.splice(index + 1, 0, {
+      type: 'img',
+      id: Date.now(),
+      data: { link: imgLink },
+    });
+    setFocusId(newBlocks[index + 1].id);
+    setBlocks(newBlocks);
+  };
+
+  const changeFocus = id => () => {
     setFocusId(id);
   };
 
-  const dragStart = index => () => {
-    setStartIndex(index);
+  const dragStart = idx => () => {
+    setDragStartIdx(idx);
   };
 
-  const onDrop = dropIndex => {
-    const dragItem = blocks[startIndex];
+  const onDrop = dropIdx => {
+    const dragItem = blocks[dragStartIdx];
     const list = [...blocks];
-    list.splice(startIndex, 1);
+    list.splice(dragStartIdx, 1);
     const newListData =
-      dropIndex === blocks.length - 1
-        ? [...list.slice(0, dropIndex), dragItem]
-        : startIndex < dropIndex
+      dropIdx === blocks.length - 1
+        ? [...list.slice(0, dropIdx), dragItem]
+        : dragStartIdx < dropIdx
         ? [
-            ...list.slice(0, dropIndex - 1),
+            ...list.slice(0, dropIdx - 1),
             dragItem,
-            ...list.slice(dropIndex - 1, list.length),
+            ...list.slice(dropIdx - 1, list.length),
           ]
         : [
-            ...list.slice(0, dropIndex),
+            ...list.slice(0, dropIdx),
             dragItem,
-            ...list.slice(dropIndex, list.length),
+            ...list.slice(dropIdx, list.length),
           ];
     setBlocks(newListData);
   };
 
   return (
     <S.Container>
-      <Navigator />
+      <Navigator addImgBlock={addImgBlock} />
       <S.Blocks>
         {blocks.map((block, index) => (
           <Block
@@ -105,9 +111,9 @@ const EditorBox = () => {
             index={index}
             key={`block-${block.id}`}
             focusId={focusId}
-            changeFocus={changeFocusId}
-            addBlock={controlBlock('add')}
-            removeBlock={controlBlock('remove')}
+            changeFocus={changeFocus}
+            addTextBlock={controlTextBlock('add')}
+            removeTextBlock={controlTextBlock('remove')}
             editBlock={editBlock}
             dragStart={dragStart}
             onDropItem={onDrop}

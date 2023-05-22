@@ -53,4 +53,20 @@ const Button = styled.button`
 `;
 Button.defaultProps = { type: 'button' };
 
-export { Container, Select, Button };
+const Image = styled.label`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0 1rem;
+
+  font-size: 1.2rem;
+
+  cursor: pointer;
+
+  input {
+    display: none;
+  }
+`;
+
+export { Container, Select, Button, Image };

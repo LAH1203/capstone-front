@@ -108,7 +108,9 @@ const Block = ({ block, index, dragStart, onDropItem }) => {
         />
       ) : (
         <S.ContentEditable
-          className={block.type === 'heading' ? `h${block.data.level}` : ''}
+          className={`${block.data.sort} ${
+            block.type === 'heading' ? `h${block.data.level}` : ''
+          }`}
           placeholder="새로운 블럭은 Shift+Enter를 눌러주세요"
           html={block.data.text}
           innerRef={blockRef}

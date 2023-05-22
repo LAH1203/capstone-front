@@ -83,6 +83,15 @@ const ContentEditable = styled(ReactContentEditable)`
     opacity: 0.3;
   }
 
+  &.left {
+    text-align: left;
+  }
+  &.center {
+    text-align: center;
+  }
+  &.right {
+    text-align: right;
+  }
   &.h1 {
     font-size: 1.6rem;
     font-weight: 700;

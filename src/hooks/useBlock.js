@@ -146,6 +146,39 @@ const useBlock = () => {
     setBlocks(newBlocks);
   };
 
+  const changeAlign = align => () => {
+    const focusedBlockIdx = blocks.findIndex(({ id }) => id === focusId);
+    const block = blocks[focusedBlockIdx];
+
+    if (block.type === 'img') return;
+
+    const newBlocks = [...blocks];
+    let sort = '';
+
+    switch (align) {
+      case 'left':
+        sort = 'left';
+        break;
+      case 'center':
+        sort = 'center';
+        break;
+      case 'right':
+        sort = 'right';
+        break;
+      default:
+      // DO NOTHING
+    }
+
+    newBlocks.splice(focusedBlockIdx, 1, {
+      ...block,
+      data: {
+        ...block.data,
+        sort,
+      },
+    });
+    setBlocks(newBlocks);
+  };
+
   return {
     addTextBlock: controlTextBlock('add'),
     removeTextBlock: controlTextBlock('remove'),
@@ -159,6 +192,9 @@ const useBlock = () => {
     makeUnderline: makeStyle('underline'),
     makeStrike: makeStyle('strike'),
     makeCode: makeStyle('code'),
+    makeAlignLeft: changeAlign('left'),
+    makeAlignCenter: changeAlign('center'),
+    makeAlignRight: changeAlign('right'),
   };
 };
 

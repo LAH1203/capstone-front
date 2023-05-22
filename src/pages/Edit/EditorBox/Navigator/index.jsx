@@ -29,6 +29,9 @@ const Navigator = () => {
     makeUnderline,
     makeStrike,
     makeCode,
+    makeAlignLeft,
+    makeAlignCenter,
+    makeAlignRight,
   } = useBlock();
   const { imgLink, resetImg, uploadImg } = useImage();
 
@@ -76,13 +79,13 @@ const Navigator = () => {
       <S.Button onClick={makeCode}>
         <RiCodeFill />
       </S.Button>
-      <S.Button>
+      <S.Button onClick={makeAlignLeft}>
         <RiAlignLeft />
       </S.Button>
-      <S.Button>
+      <S.Button onClick={makeAlignCenter}>
         <RiAlignCenter />
       </S.Button>
-      <S.Button>
+      <S.Button onClick={makeAlignRight}>
         <RiAlignRight />
       </S.Button>
       <S.Image>

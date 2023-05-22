@@ -14,11 +14,21 @@ import {
 
 import * as S from './index.styles';
 
+import useBlock from '@/hooks/useBlock';
 import useImage from '@/hooks/useImage';
 import useMount from '@/hooks/useMount';
 
-const Navigator = ({ addHeadingBlock, addImgBlock }) => {
+const Navigator = () => {
   const headingRef = useRef(null);
+
+  const {
+    addHeadingBlock,
+    addImgBlock,
+    makeBold,
+    makeItalic,
+    makeUnderline,
+    makeStrike,
+  } = useBlock();
   const { imgLink, resetImg, uploadImg } = useImage();
 
   useMount(() => {
@@ -50,16 +60,16 @@ const Navigator = ({ addHeadingBlock, addImgBlock }) => {
         <option value="3">H3</option>
         <option value="4">H4</option>
       </S.Select>
-      <S.Button>
+      <S.Button onClick={makeBold}>
         <RiBold />
       </S.Button>
-      <S.Button>
+      <S.Button onClick={makeItalic}>
         <RiItalic />
       </S.Button>
-      <S.Button>
+      <S.Button onClick={makeUnderline}>
         <RiUnderline />
       </S.Button>
-      <S.Button>
+      <S.Button onClick={makeStrike}>
         <RiStrikethrough />
       </S.Button>
       <S.Button>

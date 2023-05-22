@@ -104,6 +104,13 @@ const ContentEditable = styled(ReactContentEditable)`
     line-height: 1.85rem;
   }
 
+  b {
+    font-weight: 700;
+  }
+  i {
+    font-style: italic;
+  }
+
   @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
     width: 85%;
   }

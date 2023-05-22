@@ -1,34 +1,28 @@
 import { useEffect, useRef, useState } from 'react';
 
-import ContentEditable from 'react-contenteditable';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { MdDragIndicator } from 'react-icons/md';
 
 import * as S from './index.styles';
 
+import useBlock from '@/hooks/useBlock';
 import { setEndContentEditable } from '@/utils/contentEditable';
 
-const Block = ({
-  block,
-  index,
-  addTextBlock,
-  removeTextBlock,
-  editBlock,
-  focusId,
-  changeFocus,
-  dragStart,
-  onDropItem,
-}) => {
+const Block = ({ block, index, dragStart, onDropItem }) => {
   const [dragOver, setDragOver] = useState(false);
-  const content = useRef('');
-  const focusRef = useRef(null);
+
+  const content = useRef(block.data.text);
+  const blockRef = useRef(null);
+
+  const { addTextBlock, removeTextBlock, editBlock, focusId, changeFocusId } =
+    useBlock();
 
   useEffect(() => {
-    if (!focusRef || focusId !== block.id || block.type === 'img') return;
+    if (!blockRef || focusId !== block.id || block.type === 'img') return;
 
-    focusRef.current.focus();
+    blockRef.current.focus();
 
-    setEndContentEditable(focusRef.current);
+    setEndContentEditable(blockRef.current);
   }, [focusId, block]);
 
   const changeContent = e => {
@@ -36,7 +30,8 @@ const Block = ({
     editBlock({ ...block, data: { ...block.data, text: content.current } });
   };
 
-  const makeNewBlock = () => {
+  const makeNewBlock = e => {
+    e.stopPropagation();
     addTextBlock(block.id);
   };
 
@@ -91,6 +86,7 @@ const Block = ({
       onDragLeave={controlDrag('leave')}
       onDrop={controlDrag('drop')}
       onKeyDown={controlBlock}
+      onClick={changeFocusId(block.id)}
     >
       <S.ButtonWrapper
         className={`block-button ${
@@ -98,22 +94,22 @@ const Block = ({
         }`}
       >
         <AiOutlinePlus className="add" onClick={makeNewBlock} />
-        <MdDragIndicator className="drag" onClick={changeFocus(block.id)} />
+        <MdDragIndicator className="drag" />
       </S.ButtonWrapper>
       {block.type === 'img' ? (
         <S.Image
           src={block.data.link}
           alt="이미지"
-          onClick={changeFocus(block.id)}
+          onClick={changeFocusId(block.id)}
         />
       ) : (
         <S.ContentEditable
           className={block.type === 'heading' ? `h${block.data.level}` : ''}
           placeholder="새로운 블럭은 Shift+Enter를 눌러주세요"
-          html={content.current}
-          innerRef={focusRef}
+          html={block.data.text}
+          innerRef={blockRef}
           onChange={changeContent}
-          onFocus={changeFocus(block.id)}
+          onFocus={changeFocusId(block.id)}
         />
       )}
     </S.Container>

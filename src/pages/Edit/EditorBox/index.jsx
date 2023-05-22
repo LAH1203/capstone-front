@@ -59,13 +59,26 @@ const EditorBox = () => {
     setBlocks(newBlocks);
   }, 100);
 
+  const addHeadingBlock = ({ target: { value: level } }) => {
+    const newBlocks = [...blocks];
+    const index = blocks.findIndex(block => block.id === focusId);
+
+    newBlocks.splice(index + 1, 0, {
+      id: Date.now(),
+      type: 'heading',
+      data: { text: '', level },
+    });
+    setFocusId(newBlocks[index + 1].id);
+    setBlocks(newBlocks);
+  };
+
   const addImgBlock = imgLink => {
     const newBlocks = [...blocks];
     const index = blocks.findIndex(block => block.id === focusId);
 
     newBlocks.splice(index + 1, 0, {
-      type: 'img',
       id: Date.now(),
+      type: 'img',
       data: { link: imgLink },
     });
     setFocusId(newBlocks[index + 1].id);
@@ -103,7 +116,7 @@ const EditorBox = () => {
 
   return (
     <S.Container>
-      <Navigator addImgBlock={addImgBlock} />
+      <Navigator addHeadingBlock={addHeadingBlock} addImgBlock={addImgBlock} />
       <S.Blocks>
         {blocks.map((block, index) => (
           <Block

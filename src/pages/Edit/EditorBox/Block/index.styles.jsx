@@ -1,58 +1,42 @@
-import { css, keyframes } from '@emotion/react';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-
-const showBtn = keyframes`
-  0%, 100% {
-    opacity: 0;
-  }
-  30%, 60% {
-    opacity: 1;
-  }
-`;
+import ReactContentEditable from 'react-contenteditable';
 
 const Container = styled.div`
   display: flex;
-  width: 100%;
-  line-height: 1.7rem;
   gap: 0.25rem;
-  font-size: 1.125rem;
+
+  width: 100%;
+
   border-top: 2px solid ${({ dragOver }) => (dragOver ? 'black' : 'white')};
-
-  .content-editable {
-    height: fit-content;
-    width: 93%;
-    cursor: text;
-    word-break: break-all;
-    outline: none;
-  }
-
-  .content-editable:empty:before {
-    content: attr(placeholder);
-    opacity: 0.3;
-  }
 
   &:hover .block-button {
     opacity: 1;
   }
-
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
-    line-height: 1.1rem;
-    font-size: 0.9rem;
-
-    .content-editable {
-      width: 85%;
-    }
-  }
 `;
 
-const BlockButtonWrap = styled.div`
+const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   height: 1.7rem;
-  animation: ${showBtn} 2s;
+
   opacity: 0;
   transition: all 0.2s ease-in;
+
+  &.h1 {
+    height: 2.3rem;
+  }
+  &.h2 {
+    height: 2.15rem;
+  }
+  &.h3 {
+    height: 2rem;
+  }
+  &.h4 {
+    height: 1.85rem;
+  }
 
   .add {
     cursor: pointer;
@@ -60,11 +44,6 @@ const BlockButtonWrap = styled.div`
 
   .drag {
     cursor: grab;
-  }
-
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
-    height: 1.1rem;
-    font-size: 1rem;
   }
 `;
 
@@ -88,4 +67,46 @@ const Image = styled.img`
   `}
 `;
 
-export { Container, BlockButtonWrap, Image };
+const ContentEditable = styled(ReactContentEditable)`
+  width: 93%;
+  height: fit-content;
+
+  word-break: break-all;
+  outline: none;
+  font-size: 1rem;
+  line-height: 1.7rem;
+
+  cursor: text;
+
+  &:empty:before {
+    content: attr(placeholder);
+    opacity: 0.3;
+  }
+
+  &.h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 2.3rem;
+  }
+  &.h2 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    line-height: 2.15rem;
+  }
+  &.h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 2rem;
+  }
+  &.h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.85rem;
+  }
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
+    width: 85%;
+  }
+`;
+
+export { Container, ButtonWrapper, Image, ContentEditable };

@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+
 import { CgImage } from 'react-icons/cg';
 import {
   RiBold,
@@ -15,7 +17,8 @@ import * as S from './index.styles';
 import useImage from '@/hooks/useImage';
 import useMount from '@/hooks/useMount';
 
-const Navigator = ({ addImgBlock }) => {
+const Navigator = ({ addHeadingBlock, addImgBlock }) => {
+  const headingRef = useRef(null);
   const { imgLink, resetImg, uploadImg } = useImage();
 
   useMount(() => {
@@ -25,17 +28,27 @@ const Navigator = ({ addImgBlock }) => {
     resetImg();
   }, [imgLink]);
 
+  const resetHeadingOption = () => {
+    if (!headingRef.current) return;
+
+    headingRef.current.value = 0;
+  };
+
   return (
     <S.Container>
-      <S.Select name="font" id="font-select">
+      <S.Select>
         <option value="돋움">돋움</option>
         <option value="바탕">바탕</option>
       </S.Select>
-      <S.Select name="heading" id="heading-select">
-        <option value="level1">H1</option>
-        <option value="level2">H2</option>
-        <option value="level3">H3</option>
-        <option value="level4">H4</option>
+      <S.Select
+        ref={headingRef}
+        onFocus={resetHeadingOption}
+        onChange={addHeadingBlock}
+      >
+        <option value="1">H1</option>
+        <option value="2">H2</option>
+        <option value="3">H3</option>
+        <option value="4">H4</option>
       </S.Select>
       <S.Button>
         <RiBold />

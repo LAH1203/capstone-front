@@ -92,24 +92,28 @@ const Block = ({
       onDrop={controlDrag('drop')}
       onKeyDown={controlBlock}
     >
-      <S.BlockButtonWrap className="block-button">
+      <S.ButtonWrapper
+        className={`block-button ${
+          block.type === 'heading' ? `h${block.data.level}` : ''
+        }`}
+      >
         <AiOutlinePlus className="add" onClick={makeNewBlock} />
         <MdDragIndicator className="drag" onClick={changeFocus(block.id)} />
-      </S.BlockButtonWrap>
-      {block.type === 'text' ? (
-        <ContentEditable
-          className="content-editable"
+      </S.ButtonWrapper>
+      {block.type === 'img' ? (
+        <S.Image
+          src={block.data.link}
+          alt="이미지"
+          onClick={changeFocus(block.id)}
+        />
+      ) : (
+        <S.ContentEditable
+          className={block.type === 'heading' ? `h${block.data.level}` : ''}
           placeholder="새로운 블럭은 Shift+Enter를 눌러주세요"
           html={content.current}
           innerRef={focusRef}
           onChange={changeContent}
           onFocus={changeFocus(block.id)}
-        />
-      ) : (
-        <S.Image
-          src={block.data.link}
-          alt="이미지"
-          onClick={changeFocus(block.id)}
         />
       )}
     </S.Container>

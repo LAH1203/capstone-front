@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
-import useInput from '@/hooks/useInput';
-import { RULE } from '@/constants/rule';
-import { CLIENT_MESSAGE } from '@/constants/message';
-import { requestUpdateEmail, requestUpdateNickname } from '@/apis/request/auth';
-import { requestWithdrawal } from '@/apis/request/auth';
+
 import { useNavigate } from 'react-router-dom';
-import { BROWSER_PATH } from '@/constants/path';
-import useError from '@/hooks/useError';
-import useUser from '@/hooks/useUser';
-import useSnackbar from '@/hooks/useSnackbar';
+
+import * as S from './index.styles';
 import Inputs from './Inputs';
 import WithdrawalModal from './WithdrawalModal';
-import * as S from './index.styles';
+
+import { requestUpdateEmail, requestUpdateNickname } from '@/apis/request/auth';
+import { requestWithdrawal } from '@/apis/request/auth';
+import { CLIENT_MESSAGE } from '@/constants/message';
+import { BROWSER_PATH } from '@/constants/path';
+import { RULE } from '@/constants/rule';
+import useError from '@/hooks/useError';
+import useInput from '@/hooks/useInput';
+import useSnackbar from '@/hooks/useSnackbar';
+import useUser from '@/hooks/useUser';
 
 const Info = props => {
   const {
@@ -49,7 +52,7 @@ const Info = props => {
     e.preventDefault();
 
     if (!isValidEmail) {
-      alert(CLIENT_MESSAGE.ERROR.INVAILD_INPUT);
+      alert(CLIENT_MESSAGE.ERROR.INVALID_INPUT);
       return;
     }
 
@@ -67,7 +70,7 @@ const Info = props => {
     e.preventDefault();
 
     if (!isValidNickname) {
-      alert(CLIENT_MESSAGE.ERROR.INVAILD_INPUT);
+      alert(CLIENT_MESSAGE.ERROR.INVALID_INPUT);
       return;
     }
 

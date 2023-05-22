@@ -31,7 +31,7 @@ const Signup = () => {
     e.preventDefault();
 
     if (!isValidEmail || !isValidNickname) {
-      alert(CLIENT_MESSAGE.ERROR.INVAILD_INPUT);
+      alert(CLIENT_MESSAGE.ERROR.INVALID_INPUT);
 
       return;
     }

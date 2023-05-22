@@ -33,7 +33,7 @@ const Block = ({
 
   const changeContent = e => {
     content.current = e.target.value;
-    editBlock();
+    editBlock({ ...block, data: { ...block.data, text: content.current } });
   };
 
   const makeNewBlock = () => {

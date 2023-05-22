@@ -6,16 +6,8 @@ const Container = styled.div`
   border: 0.5px solid ${({ theme: { colors } }) => colors.GREEN_500};
   border-radius: 10px;
 
-  min-width: 100%;
+  width: 100%;
   min-height: 40rem;
-`;
-
-const EditELementBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 1rem 0;
-  border-bottom: 0.5px solid ${({ theme: { colors } }) => colors.GREEN_500};
 `;
 
 const Blocks = styled.div`
@@ -29,4 +21,4 @@ const Blocks = styled.div`
   margin-right: 1.25rem;
 `;
 
-export { Container, EditELementBox, Blocks };
+export { Container, Blocks };

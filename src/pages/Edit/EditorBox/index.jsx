@@ -4,6 +4,7 @@ import { useAtom } from 'jotai';
 
 import Block from './Block';
 import * as S from './index.styles';
+import Navigator from './Navigator';
 
 import { INITIAL_BLOCK } from '@/constants/block';
 import useDebounce from '@/hooks/useDebounce';
@@ -96,25 +97,7 @@ const EditorBox = () => {
 
   return (
     <S.Container>
-      <S.EditELementBox>
-        <p>Sans-serif</p>
-        <p>H</p>
-        <p>
-          <b>B</b>
-        </p>
-        <p>
-          <i>I</i>
-        </p>
-        <p>
-          <ins>U</ins>
-        </p>
-        <p>
-          <strike>S</strike>
-        </p>
-        <p>{'< >'}</p>
-        <p>줄간격</p>
-        <p>이미지</p>
-      </S.EditELementBox>
+      <Navigator />
       <S.Blocks>
         {blocks.map((block, index) => (
           <Block

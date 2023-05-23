@@ -101,11 +101,13 @@ const Block = ({ block, index, dragStart, onDropItem }) => {
         <MdDragIndicator className="drag" />
       </S.ButtonWrapper>
       {block.type === 'img' ? (
-        <S.Image
-          src={block.data.link}
-          alt="이미지"
-          onClick={changeFocusId(block.id)}
-        />
+        <S.ImageWrapper className={block.data.sort}>
+          <S.Image
+            src={block.data.link}
+            alt="이미지"
+            onClick={changeFocusId(block.id)}
+          />
+        </S.ImageWrapper>
       ) : (
         <S.ContentEditable
           className={`${block.data.sort} ${

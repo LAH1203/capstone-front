@@ -150,8 +150,6 @@ const useBlock = () => {
     const focusedBlockIdx = blocks.findIndex(({ id }) => id === focusId);
     const block = blocks[focusedBlockIdx];
 
-    if (block.type === 'img') return;
-
     const newBlocks = [...blocks];
     let sort = '';
 

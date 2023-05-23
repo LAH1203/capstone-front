@@ -47,6 +47,21 @@ const ButtonWrapper = styled.div`
   }
 `;
 
+const ImageWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
+  &.left {
+    justify-content: left;
+  }
+  &.center {
+    justify-content: center;
+  }
+  &.right {
+    justify-content: right;
+  }
+`;
+
 const Image = styled.img`
   width: 40%;
 
@@ -133,4 +148,4 @@ const ContentEditable = styled(ReactContentEditable)`
   }
 `;
 
-export { Container, ButtonWrapper, Image, ContentEditable };
+export { Container, ButtonWrapper, ImageWrapper, Image, ContentEditable };

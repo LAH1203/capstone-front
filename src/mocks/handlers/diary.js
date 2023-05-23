@@ -14,7 +14,7 @@ const images = [
 const diaryHandlers = [
   rest.post(`${baseURL}${API_PATH.IMAGE}`, (req, res, ctx) => {
     return res(
-      ctx.status(200),
+      ctx.status(201),
       ctx.set('location', images[Math.floor(Math.random() * images.length)]),
     );
   }),

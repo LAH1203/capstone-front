@@ -16,7 +16,11 @@ const useBlock = () => {
 
     switch (action) {
       case 'add':
-        newBlocks.splice(index + 1, 0, { ...INITIAL_BLOCK, id: Date.now() });
+        newBlocks.splice(index + 1, 0, {
+          ...INITIAL_BLOCK,
+          id: Date.now(),
+          ref: null,
+        });
         setFocusId(newBlocks[index + 1].id);
         setBlocks(newBlocks);
 
@@ -135,6 +139,8 @@ const useBlock = () => {
       default:
       // DO NOTHING
     }
+
+    block.ref.current = text;
 
     newBlocks.splice(focusedBlockIdx, 1, {
       ...block,

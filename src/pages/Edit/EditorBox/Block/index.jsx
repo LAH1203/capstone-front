@@ -23,11 +23,9 @@ const Block = ({ block, index, dragStart, onDropItem }) => {
     blockRef.current.focus();
 
     setEndContentEditable(blockRef.current);
-  }, [focusId, block]);
-
-  useEffect(() => {
-    content.current = block.data.text;
-  }, [block.data.text]);
+    editBlock({ ...block, ref: content });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const changeContent = e => {
     content.current = e.target.value;
@@ -114,7 +112,7 @@ const Block = ({ block, index, dragStart, onDropItem }) => {
             block.type === 'heading' ? `h${block.data.level}` : ''
           }`}
           placeholder="새로운 블럭은 Shift+Enter를 눌러주세요"
-          html={block.data.text}
+          html={content.current}
           innerRef={blockRef}
           onChange={changeContent}
           onFocus={changeFocusId(block.id)}

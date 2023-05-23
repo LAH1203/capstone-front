@@ -101,7 +101,7 @@ const Block = ({ block, index, dragStart, onDropItem }) => {
         <MdDragIndicator className="drag" />
       </S.ButtonWrapper>
       {block.type === 'img' ? (
-        <S.ImageWrapper className={block.data.sort}>
+        <S.ImageWrapper className={block.data.sort || 'left'}>
           <S.Image
             src={block.data.link}
             alt="이미지"
@@ -110,7 +110,7 @@ const Block = ({ block, index, dragStart, onDropItem }) => {
         </S.ImageWrapper>
       ) : (
         <S.ContentEditable
-          className={`${block.data.sort} ${
+          className={`${block.data.sort || 'left'} ${
             block.type === 'heading' ? `h${block.data.level}` : ''
           }`}
           placeholder="새로운 블럭은 Shift+Enter를 눌러주세요"

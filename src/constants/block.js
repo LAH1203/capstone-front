@@ -3,7 +3,7 @@ const INITIAL_BLOCK = {
   data: {
     text: '',
     font: null,
-    sort: null,
+    sort: 'left',
   },
 };
 

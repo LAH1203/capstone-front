@@ -13,7 +13,7 @@ const Title = ({ title, setTitle, date, setWeather, mood, setMood }) => {
         <span>
           {`${date.getFullYear()}/ ${
             date.getMonth() + 1
-          }/ ${date.getDate()} (${getDay()})`}
+          }/ ${date.getDate()} (${getDay(date.getDay())})`}
         </span>
         <label>weather</label>
         <ErrorBoundary fallback="🤷">

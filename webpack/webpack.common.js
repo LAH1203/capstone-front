@@ -1,3 +1,4 @@
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { DefinePlugin } = require('webpack');
 
@@ -37,12 +38,20 @@ module.exports = {
         },
       },
       {
-        test: /\.(png|jpe?g|svg|gif)$/i,
+        test: /\.(woff(2)?|ttf|png|jpe?g|svg|gif)$/i,
         type: 'asset/resource',
       },
     ],
   },
   plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'src/assets/font',
+          to: 'font',
+        },
+      ],
+    }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '../public/index.html'),
     }),

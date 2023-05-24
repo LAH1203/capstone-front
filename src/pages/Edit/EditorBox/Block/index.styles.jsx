@@ -51,6 +51,8 @@ const ImageWrapper = styled.div`
   display: flex;
   align-items: center;
 
+  width: 100%;
+
   &.left {
     justify-content: left;
   }

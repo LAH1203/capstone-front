@@ -14,25 +14,26 @@ const Block = ({ block, index, dragStart, onDropItem }) => {
   const content = useRef(block.data.text);
   const blockRef = useRef(null);
 
-  const { addTextBlock, removeTextBlock, editBlock, focusId, changeFocusId } =
-    useBlock();
+  const {
+    addTextBlock,
+    removeBlock,
+    editBlock,
+    focusId,
+    changeFocusId,
+    changeFocusToPrevBlock,
+  } = useBlock();
 
   useEffect(() => {
-    if (!blockRef || focusId !== block.id || block.type === 'img') return;
-
-    blockRef.current.focus();
-
-    setEndContentEditable(blockRef.current);
     editBlock({ ...block, ref: content });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (focusId !== block.id) return;
+    if (focusId !== block.id || block.type === 'img') return;
 
     blockRef.current.focus();
     setEndContentEditable(blockRef.current);
-  }, [block.id, focusId]);
+  }, [block, focusId]);
 
   const changeContent = e => {
     content.current = e.target.value;
@@ -45,6 +46,8 @@ const Block = ({ block, index, dragStart, onDropItem }) => {
   };
 
   const controlBlock = e => {
+    const cursorLocation = window.getSelection().getRangeAt(0).startOffset;
+
     switch (e.key) {
       case 'Enter':
         if (!e.shiftKey) return;
@@ -57,7 +60,14 @@ const Block = ({ block, index, dragStart, onDropItem }) => {
         if (content.current.length > 0 && content.current !== '<br>') return;
         e.preventDefault();
 
-        removeTextBlock(block.id);
+        removeBlock(block.id);
+        break;
+
+      case 'ArrowLeft':
+        if (cursorLocation <= 0) {
+          changeFocusToPrevBlock(block.id);
+          e.preventDefault();
+        }
         break;
 
       default:
@@ -94,8 +104,8 @@ const Block = ({ block, index, dragStart, onDropItem }) => {
       onDragEnter={controlDrag('enter')}
       onDragLeave={controlDrag('leave')}
       onDrop={controlDrag('drop')}
-      onKeyDown={controlBlock}
       onClick={changeFocusId(block.id)}
+      onKeyDown={controlBlock}
     >
       <S.ButtonWrapper
         className={`block-button ${

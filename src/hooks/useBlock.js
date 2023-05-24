@@ -10,59 +10,76 @@ const useBlock = () => {
 
   const debounce = useDebounce();
 
-  const controlTextBlock = action => id => {
+  const addBlock = type => {
     const newBlocks = [...blocks];
-    const index = blocks.findIndex(block => block.id === id);
+    const index = blocks.findIndex(block => block.id === focusId);
+    let isFocusedBlockEmpty = false;
 
-    switch (action) {
-      case 'add':
-        newBlocks.splice(index + 1, 0, {
-          ...INITIAL_BLOCK,
-          id: Date.now(),
-          ref: null,
-        });
-        setFocusId(newBlocks[index + 1].id);
-        setBlocks(newBlocks);
+    switch (type) {
+      case 'text':
+        return () => {
+          newBlocks.splice(index + 1, 0, {
+            ...INITIAL_BLOCK,
+            id: Date.now(),
+            ref: null,
+          });
+          setFocusId(newBlocks[index + 1].id);
+          setBlocks(newBlocks);
+        };
 
-        break;
+      case 'heading':
+        return ({ target: { value: level } }) => {
+          isFocusedBlockEmpty =
+            (blocks[index].type === 'heading' ||
+              blocks[index].type === 'text') &&
+            blocks[index].data.text.length <= 0;
 
-      case 'remove':
-        if (blocks.length === 1) return;
+          newBlocks.splice(
+            isFocusedBlockEmpty ? index : index + 1,
+            isFocusedBlockEmpty ? 1 : 0,
+            {
+              id: Date.now(),
+              type: 'heading',
+              data: { text: '', level },
+            },
+          );
+          setFocusId(newBlocks[isFocusedBlockEmpty ? index : index + 1].id);
+          setBlocks(newBlocks);
+        };
 
-        newBlocks.splice(index, 1);
-        setFocusId(newBlocks[index - 1].id);
-        setBlocks(newBlocks);
+      case 'img':
+        return imgLink => {
+          isFocusedBlockEmpty =
+            (blocks[index].type === 'heading' ||
+              blocks[index].type === 'text') &&
+            blocks[index].data.text.length <= 0;
 
-        break;
+          newBlocks.splice(
+            isFocusedBlockEmpty ? index : index + 1,
+            isFocusedBlockEmpty ? 1 : 0,
+            {
+              id: Date.now(),
+              type: 'img',
+              data: { link: imgLink },
+            },
+          );
+          setFocusId(newBlocks[isFocusedBlockEmpty ? index : index + 1].id);
+          setBlocks(newBlocks);
+        };
 
       default:
       // DO NOTHING
     }
   };
 
-  const addHeadingBlock = ({ target: { value: level } }) => {
+  const removeBlock = id => {
     const newBlocks = [...blocks];
-    const index = blocks.findIndex(block => block.id === focusId);
+    const index = blocks.findIndex(block => block.id === id);
 
-    newBlocks.splice(index + 1, 0, {
-      id: Date.now(),
-      type: 'heading',
-      data: { text: '', level },
-    });
-    setFocusId(newBlocks[index + 1].id);
-    setBlocks(newBlocks);
-  };
+    if (blocks.length === 1) return;
 
-  const addImgBlock = imgLink => {
-    const newBlocks = [...blocks];
-    const index = blocks.findIndex(block => block.id === focusId);
-
-    newBlocks.splice(index + 1, 0, {
-      id: Date.now(),
-      type: 'img',
-      data: { link: imgLink },
-    });
-    setFocusId(newBlocks[index + 1].id);
+    newBlocks.splice(index, 1);
+    setFocusId(newBlocks[index - 1].id);
     setBlocks(newBlocks);
   };
 
@@ -83,119 +100,21 @@ const useBlock = () => {
     setFocusId(id);
   };
 
-  const makeStyle = style => () => {
-    const focusedBlockIdx = blocks.findIndex(({ id }) => id === focusId);
-    const block = blocks[focusedBlockIdx];
+  const changeFocusToPrevBlock = id => {
+    const index = blocks.findIndex(({ id: blockId }) => blockId === id);
 
-    if (block.type === 'img') return;
-
-    const newBlocks = [...blocks];
-    let text = '';
-
-    switch (style) {
-      case 'bold':
-        text = `<b>${block.data.text}</b>`;
-
-        if (block.data.text.includes('<b>')) {
-          text = block.data.text.replace('<b>', '');
-          text = text.replace('</b>', '');
-        }
-        break;
-      case 'italic':
-        text = `<i>${block.data.text}</i>`;
-
-        if (block.data.text.includes('<i>')) {
-          text = block.data.text.replace('<i>', '');
-          text = text.replace('</i>', '');
-        }
-        break;
-      case 'underline':
-        text = `<ins>${block.data.text}</ins>`;
-
-        if (block.data.text.includes('<ins>')) {
-          text = block.data.text.replace('<ins>', '');
-          text = text.replace('</ins>', '');
-        }
-        break;
-      case 'strike':
-        text = `<strike>${block.data.text}</strike>`;
-
-        if (block.data.text.includes('<strike>')) {
-          text = block.data.text.replace('<strike>', '');
-          text = text.replace('</strike>', '');
-        }
-        break;
-      case 'code':
-        text = `<pre><code>${block.data.text}</code></pre>`;
-
-        if (block.data.text.includes('<pre><code>')) {
-          text = block.data.text.replace('<pre><code>', '');
-          text = text.replace('</code></pre>', '');
-        }
-        break;
-      default:
-      // DO NOTHING
-    }
-
-    block.ref.current = text;
-
-    newBlocks.splice(focusedBlockIdx, 1, {
-      ...block,
-      data: {
-        ...block.data,
-        text,
-      },
-    });
-    setBlocks(newBlocks);
-  };
-
-  const changeAlign = align => () => {
-    const focusedBlockIdx = blocks.findIndex(({ id }) => id === focusId);
-    const block = blocks[focusedBlockIdx];
-
-    const newBlocks = [...blocks];
-    let sort = '';
-
-    switch (align) {
-      case 'left':
-        sort = 'left';
-        break;
-      case 'center':
-        sort = 'center';
-        break;
-      case 'right':
-        sort = 'right';
-        break;
-      default:
-      // DO NOTHING
-    }
-
-    newBlocks.splice(focusedBlockIdx, 1, {
-      ...block,
-      data: {
-        ...block.data,
-        sort,
-      },
-    });
-    setBlocks(newBlocks);
+    setFocusId(index > 0 ? blocks[index - 1].id : id);
   };
 
   return {
-    addTextBlock: controlTextBlock('add'),
-    removeTextBlock: controlTextBlock('remove'),
-    addHeadingBlock,
-    addImgBlock,
+    addTextBlock: addBlock('text'),
+    addHeadingBlock: addBlock('heading'),
+    addImgBlock: addBlock('img'),
+    removeBlock,
     editBlock,
     focusId,
     changeFocusId,
-    makeBold: makeStyle('bold'),
-    makeItalic: makeStyle('italic'),
-    makeUnderline: makeStyle('underline'),
-    makeStrike: makeStyle('strike'),
-    makeCode: makeStyle('code'),
-    makeAlignLeft: changeAlign('left'),
-    makeAlignCenter: changeAlign('center'),
-    makeAlignRight: changeAlign('right'),
+    changeFocusToPrevBlock,
   };
 };
 

@@ -15,15 +15,15 @@ import {
 import * as S from './index.styles';
 
 import useBlock from '@/hooks/useBlock';
+import useBlockStyle from '@/hooks/useBlockStyle';
 import useImage from '@/hooks/useImage';
 import useMount from '@/hooks/useMount';
 
 const Navigator = ({ changeFont }) => {
   const headingRef = useRef(null);
 
+  const { addHeadingBlock, addImgBlock } = useBlock();
   const {
-    addHeadingBlock,
-    addImgBlock,
     makeBold,
     makeItalic,
     makeUnderline,
@@ -32,7 +32,7 @@ const Navigator = ({ changeFont }) => {
     makeAlignLeft,
     makeAlignCenter,
     makeAlignRight,
-  } = useBlock();
+  } = useBlockStyle();
   const { imgLink, resetImg, uploadImg } = useImage();
 
   useMount(() => {

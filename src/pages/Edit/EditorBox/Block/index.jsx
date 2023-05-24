@@ -27,6 +27,13 @@ const Block = ({ block, index, dragStart, onDropItem }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (focusId !== block.id) return;
+
+    blockRef.current.focus();
+    setEndContentEditable(blockRef.current);
+  }, [block.id, focusId]);
+
   const changeContent = e => {
     content.current = e.target.value;
     editBlock({ ...block, data: { ...block.data, text: content.current } });

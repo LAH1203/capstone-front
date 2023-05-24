@@ -30,11 +30,7 @@ const useBlock = () => {
         if (blocks.length === 1) return;
 
         newBlocks.splice(index, 1);
-        setFocusId(
-          index === newBlocks.length
-            ? newBlocks[index - 1].id
-            : newBlocks[index].id,
-        );
+        setFocusId(newBlocks[index - 1].id);
         setBlocks(newBlocks);
 
         break;
@@ -76,6 +72,7 @@ const useBlock = () => {
 
     if (index === -1) {
       setBlocks(newBlocks);
+      return;
     }
 
     newBlocks.splice(index, 1, block);

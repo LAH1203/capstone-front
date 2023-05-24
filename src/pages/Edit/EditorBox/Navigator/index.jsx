@@ -18,7 +18,7 @@ import useBlock from '@/hooks/useBlock';
 import useImage from '@/hooks/useImage';
 import useMount from '@/hooks/useMount';
 
-const Navigator = () => {
+const Navigator = ({ changeFont }) => {
   const headingRef = useRef(null);
 
   const {
@@ -50,9 +50,14 @@ const Navigator = () => {
 
   return (
     <S.Container>
-      <S.Select>
-        <option value="돋움">돋움</option>
-        <option value="바탕">바탕</option>
+      <S.Select onChange={changeFont}>
+        <option value="basic">기본</option>
+        <option value="neo">고딕</option>
+        <option value="namsan">남산</option>
+        <option value="maru">명조</option>
+        <option value="hyemin">혜민</option>
+        <option value="diary">다이어리</option>
+        <option value="zziba">찌바</option>
       </S.Select>
       <S.Select
         ref={headingRef}

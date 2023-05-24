@@ -20,6 +20,28 @@ const Blocks = styled.div`
   overflow-y: scroll;
 
   margin: 1rem 1rem 1rem 0.725rem;
+
+  &.basic {
+    font-family: 'IBMPlexSansKR';
+  }
+  &.neo {
+    font-family: 'NanumSquareNeo';
+  }
+  &.namsan {
+    font-family: 'SeoulNamsan';
+  }
+  &.maru {
+    font-family: 'MaruBuri';
+  }
+  &.hyemin {
+    font-family: 'IMHyemin';
+  }
+  &.diary {
+    font-family: 'Diary';
+  }
+  &.zziba {
+    font-family: 'UhBeeZZIBA';
+  }
 `;
 
 export { Container, Blocks };

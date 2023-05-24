@@ -17,6 +17,7 @@ const Edit = () => {
   const [weather, setWeather] = useState(null);
   const { value: mood, onChangeValue: onChangeMood } = useInput('');
   const { value: title, onChangeValue: onChangeTitle } = useInput('');
+  const [font, setFont] = useState('basic');
 
   const navigate = useNavigate();
   const { showSnackbar } = useSnackbar();
@@ -31,6 +32,10 @@ const Edit = () => {
       return;
     }
     setHashtagList(hashtagList.filter(hash => hash !== name));
+  };
+
+  const changeFont = ({ target: { value: font } }) => {
+    setFont(font);
   };
 
   const goToPrevPage = () => {
@@ -52,7 +57,7 @@ const Edit = () => {
         mood={mood}
         setMood={onChangeMood}
       />
-      <EditorBox />
+      <EditorBox font={font} changeFont={changeFont} />
       <HashtagBox
         addHashtag={addHashtag}
         removeHashtag={removeHashtag}

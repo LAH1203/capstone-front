@@ -8,7 +8,7 @@ import Navigator from './Navigator';
 
 import { blocksAtom } from '@/store/blocks';
 
-const EditorBox = () => {
+const EditorBox = ({ font, changeFont }) => {
   const [dragStartIdx, setDragStartIdx] = useState(0);
 
   const [blocks, setBlocks] = useAtom(blocksAtom);
@@ -41,8 +41,8 @@ const EditorBox = () => {
 
   return (
     <S.Container>
-      <Navigator />
-      <S.Blocks>
+      <Navigator changeFont={changeFont} />
+      <S.Blocks className={font}>
         {blocks.map((block, index) => (
           <Block
             block={block}

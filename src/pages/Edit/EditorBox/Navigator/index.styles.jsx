@@ -24,7 +24,7 @@ const Container = styled.div`
 const Select = styled.select`
   text-align: center;
 
-  width: 4rem;
+  width: 5rem;
 
   border: 0;
   outline: 0;

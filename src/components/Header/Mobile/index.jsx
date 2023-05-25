@@ -1,10 +1,11 @@
 import { useState } from 'react';
 
+import { RxHamburgerMenu } from 'react-icons/rx';
+import { SlHome } from 'react-icons/sl';
+
 import * as S from './index.styles';
 import Slider from './Slider';
 
-import hamburgerSVG from '@/assets/hamburger.svg';
-import homeSVG from '@/assets/home.svg';
 import { BROWSER_PATH } from '@/constants/path';
 import { ANIMATION_TIME } from '@/constants/time';
 import useClosing from '@/hooks/useClosing';
@@ -25,11 +26,11 @@ const Mobile = () => {
     <S.Container>
       <a href={BROWSER_PATH.BASE}>
         <S.Button type="button">
-          <img src={homeSVG} alt="홈 버튼" />
+          <SlHome />
         </S.Button>
       </a>
       <S.MenuButton type="button" onClick={closeSlider}>
-        <img src={hamburgerSVG} alt="메뉴 버튼" />
+        <RxHamburgerMenu />
       </S.MenuButton>
       {isSliderOpen && (
         <Slider isClosing={isClosing} closeSlider={closeSlider} />

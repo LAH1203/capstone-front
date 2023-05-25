@@ -63,8 +63,11 @@ const Button = styled.button`
 const ArrowButton = styled(Button)`
   width: 2.8rem;
 
-  img {
-    width: 70%;
+  color: white;
+  font-size: 2rem;
+
+  svg {
+    width: 60%;
   }
 `;
 

@@ -24,11 +24,14 @@ const Wrapper = styled.div`
 
 const Button = styled.button`
   background: none;
+  color: white;
 
   padding: 0;
 
-  img {
-    width: 70%;
+  font-size: 2rem;
+
+  svg {
+    width: 80%;
   }
 `;
 

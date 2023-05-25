@@ -16,10 +16,13 @@ const Button = styled.button`
   align-items: center;
 
   background: none;
+  color: white;
 
   padding: 0;
 
-  img {
+  font-size: 2rem;
+
+  svg {
     width: 70%;
   }
 `;

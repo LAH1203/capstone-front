@@ -10,6 +10,7 @@ const CLIENT_MESSAGE = {
     SUCCESS_UPDATE_EMAIL: '이메일 수정에 성공하였습니다.',
     SUCCESS_UPDATE_NICKNAME: '닉네임 수정에 성공하였습니다.',
     SUCCESS_WITHDRAWAL: '회원 탈퇴에 성공하였습니다.',
+    CONFIRM_DELETE_IMAGE: '이미지를 삭제하시겠습니까?',
   },
   ERROR: {
     EMPTY_ACCESS_TOKEN: '로그인 정보가 유효하지 않습니다. 다시 로그인해주세요.',

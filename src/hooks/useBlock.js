@@ -74,8 +74,10 @@ const useBlock = () => {
     if (blocks.length === 1) return;
 
     const newBlocks = blocks.filter((block, idx) => {
-      if (block.id === id) setFocusId(blocks[idx - 1].id);
-
+      if (block.id === id) {
+        if (idx > 0) setFocusId(blocks[idx - 1].id);
+        else setFocusId(blocks[idx + 1].id);
+      }
       return block.id !== id;
     });
     setBlocks(newBlocks);

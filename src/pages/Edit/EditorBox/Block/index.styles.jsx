@@ -1,6 +1,4 @@
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import ReactContentEditable from 'react-contenteditable';
 
 const Container = styled.div`
   display: flex;
@@ -8,7 +6,11 @@ const Container = styled.div`
 
   width: 100%;
 
-  border-top: 2px solid ${({ dragOver }) => (dragOver ? 'black' : 'white')};
+  border-top: 1px dashed
+    ${({ theme: { colors }, isDragOver }) =>
+      isDragOver ? colors.GREEN_900_OP_40 : colors.INPUT_BACKGROUND};
+
+  transition: all 0.3s ease-in-out;
 
   &:hover .block-button {
     opacity: 1;
@@ -41,113 +43,9 @@ const ButtonWrapper = styled.div`
   .add {
     cursor: pointer;
   }
-
   .drag {
     cursor: grab;
   }
 `;
 
-const ImageWrapper = styled.div`
-  display: flex;
-  align-items: center;
-
-  width: 100%;
-
-  &.left {
-    justify-content: left;
-  }
-  &.center {
-    justify-content: center;
-  }
-  &.right {
-    justify-content: right;
-  }
-`;
-
-const Image = styled.img`
-  width: 40%;
-
-  ${({ theme: { breakpoints } }) => css`
-    @media screen and (min-width: ${breakpoints.md +
-      1}px) and (max-width: ${breakpoints.lg}px) {
-      width: 60%;
-    }
-
-    @media screen and (min-width: ${breakpoints.sm +
-      1}px) and (max-width: ${breakpoints.md}px) {
-      width: 70%;
-    }
-
-    @media screen and (max-width: ${breakpoints.sm}px) {
-      width: 80%;
-    }
-  `}
-`;
-
-const ContentEditable = styled(ReactContentEditable)`
-  width: 93%;
-  height: fit-content;
-
-  word-break: break-all;
-  outline: none;
-  font-size: 1rem;
-  line-height: 1.7rem;
-
-  cursor: text;
-
-  &:empty:before {
-    content: attr(placeholder);
-    opacity: 0.3;
-  }
-
-  &.left {
-    text-align: left;
-  }
-  &.center {
-    text-align: center;
-  }
-  &.right {
-    text-align: right;
-  }
-  &.h1 {
-    font-size: 1.6rem;
-    font-weight: 700;
-    line-height: 2.3rem;
-  }
-  &.h2 {
-    font-size: 1.45rem;
-    font-weight: 700;
-    line-height: 2.15rem;
-  }
-  &.h3 {
-    font-size: 1.3rem;
-    font-weight: 700;
-    line-height: 2rem;
-  }
-  &.h4 {
-    font-size: 1.15rem;
-    font-weight: 700;
-    line-height: 1.85rem;
-  }
-
-  b {
-    font-weight: 700;
-  }
-  i {
-    font-style: italic;
-  }
-  pre {
-    width: 100%;
-    border-radius: 8px;
-    padding: 1rem;
-    box-sizing: border-box;
-
-    background: ${({ theme: { colors } }) => colors.GREEN_200};
-  }
-
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
-    width: 85%;
-  }
-`;
-
-export { Container, ButtonWrapper, ImageWrapper, Image, ContentEditable };
+export { Container, ButtonWrapper };

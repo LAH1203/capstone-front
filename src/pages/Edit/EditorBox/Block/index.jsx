@@ -1,44 +1,24 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 
 import { AiOutlinePlus } from 'react-icons/ai';
 import { MdDragIndicator } from 'react-icons/md';
 
+import ImageBlock from './ImageBlock';
 import * as S from './index.styles';
+import TextBlock from './TextBlock';
 
 import useBlock from '@/hooks/useBlock';
-import { setEndContentEditable } from '@/utils/contentEditable';
 
 const Block = ({ block, index, dragStart, onDropItem }) => {
-  const [dragOver, setDragOver] = useState(false);
-
-  const content = useRef(block.data.text);
-  const blockRef = useRef(null);
+  const [isDragOver, setIsDragOver] = useState(false);
 
   const {
     addTextBlock,
     removeBlock,
-    editBlock,
-    focusId,
+    mergeContentToPrevBlock,
     changeFocusId,
     changeFocusToPrevBlock,
   } = useBlock();
-
-  useEffect(() => {
-    editBlock({ ...block, ref: content });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (focusId !== block.id || block.type === 'img') return;
-
-    blockRef.current.focus();
-    setEndContentEditable(blockRef.current);
-  }, [block, focusId]);
-
-  const changeContent = e => {
-    content.current = e.target.value;
-    editBlock({ ...block, data: { ...block.data, text: content.current } });
-  };
 
   const makeNewBlock = e => {
     e.stopPropagation();
@@ -57,7 +37,18 @@ const Block = ({ block, index, dragStart, onDropItem }) => {
         break;
 
       case 'Backspace':
-        if (content.current.length > 0 && content.current !== '<br>') return;
+        if (cursorLocation <= 0) {
+          e.preventDefault();
+          mergeContentToPrevBlock();
+
+          return;
+        }
+        if (
+          block.contentRef.current.length > 0 &&
+          block.contentRef.current !== '<br>'
+        )
+          return;
+
         e.preventDefault();
 
         removeBlock(block.id);
@@ -76,36 +67,23 @@ const Block = ({ block, index, dragStart, onDropItem }) => {
   };
 
   const controlDrag = action => e => {
-    switch (action) {
-      case 'enter':
-        setDragOver(true);
-        break;
-      case 'leave':
-        setDragOver(false);
-        break;
-      case 'over':
-        e.preventDefault();
-        break;
-      case 'drop':
-        onDropItem(index);
-        setDragOver(false);
-        break;
-      default:
-      //none
-    }
+    e.preventDefault();
+
+    if (action === 'drop') onDropItem(index);
+
+    setIsDragOver(action === 'over');
   };
 
   return (
     <S.Container
-      dragOver={dragOver}
-      draggable
-      onDragStart={dragStart(index)}
-      onDragOver={controlDrag('over')}
-      onDragEnter={controlDrag('enter')}
-      onDragLeave={controlDrag('leave')}
-      onDrop={controlDrag('drop')}
       onClick={changeFocusId(block.id)}
       onKeyDown={controlBlock}
+      draggable
+      isDragOver={isDragOver}
+      onDragStart={dragStart(index)}
+      onDragOver={controlDrag('over')}
+      onDragLeave={controlDrag('leave')}
+      onDrop={controlDrag('drop')}
     >
       <S.ButtonWrapper
         className={`block-button ${
@@ -116,24 +94,9 @@ const Block = ({ block, index, dragStart, onDropItem }) => {
         <MdDragIndicator className="drag" />
       </S.ButtonWrapper>
       {block.type === 'img' ? (
-        <S.ImageWrapper className={block.data.sort || 'left'}>
-          <S.Image
-            src={block.data.link}
-            alt="이미지"
-            onClick={changeFocusId(block.id)}
-          />
-        </S.ImageWrapper>
+        <ImageBlock block={block} />
       ) : (
-        <S.ContentEditable
-          className={`${block.data.sort || 'left'} ${
-            block.type === 'heading' ? `h${block.data.level}` : ''
-          }`}
-          placeholder="새로운 블럭은 Shift+Enter를 눌러주세요"
-          html={content.current}
-          innerRef={blockRef}
-          onChange={changeContent}
-          onFocus={changeFocusId(block.id)}
-        />
+        <TextBlock block={block} />
       )}
     </S.Container>
   );

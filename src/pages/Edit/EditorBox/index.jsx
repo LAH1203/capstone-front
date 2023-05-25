@@ -22,19 +22,14 @@ const EditorBox = ({ font, changeFont }) => {
     const list = [...blocks];
     list.splice(dragStartIdx, 1);
 
+    const targetIdx = dragStartIdx <= dropIdx ? dropIdx - 1 : dropIdx;
     const newListData =
-      dropIdx === blocks.length - 1
-        ? [...list.slice(0, dropIdx), dragItem]
-        : dragStartIdx < dropIdx
-        ? [
-            ...list.slice(0, dropIdx - 1),
-            dragItem,
-            ...list.slice(dropIdx - 1, list.length),
-          ]
+      dropIdx >= blocks.length - 1
+        ? [...list, dragItem]
         : [
-            ...list.slice(0, dropIdx),
+            ...list.slice(0, targetIdx),
             dragItem,
-            ...list.slice(dropIdx, list.length),
+            ...list.slice(targetIdx, list.length),
           ];
     setBlocks(newListData);
   };

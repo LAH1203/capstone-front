@@ -14,6 +14,7 @@ import {
 
 import * as S from './index.styles';
 
+import { FONTS } from '@/constants/font';
 import useBlock from '@/hooks/useBlock';
 import useBlockStyle from '@/hooks/useBlockStyle';
 import useImage from '@/hooks/useImage';
@@ -48,16 +49,25 @@ const Navigator = ({ changeFont }) => {
     headingRef.current.value = 0;
   };
 
+  const styleButtons = [
+    { icon: <RiBold />, clickFn: makeBold },
+    { icon: <RiItalic />, clickFn: makeItalic },
+    { icon: <RiUnderline />, clickFn: makeUnderline },
+    { icon: <RiStrikethrough />, clickFn: makeStrike },
+    { icon: <RiCodeFill />, clickFn: makeCode },
+    { icon: <RiAlignLeft />, clickFn: makeAlignLeft },
+    { icon: <RiAlignCenter />, clickFn: makeAlignCenter },
+    { icon: <RiAlignRight />, clickFn: makeAlignRight },
+  ];
+
   return (
     <S.Container>
       <S.Select onChange={changeFont}>
-        <option value="basic">기본</option>
-        <option value="neo">고딕</option>
-        <option value="namsan">남산</option>
-        <option value="maru">명조</option>
-        <option value="hyemin">혜민</option>
-        <option value="diary">다이어리</option>
-        <option value="zziba">찌바</option>
+        {FONTS.map(({ name, value }) => (
+          <option value={value} key={name}>
+            {name}
+          </option>
+        ))}
       </S.Select>
       <S.Select
         ref={headingRef}
@@ -69,30 +79,11 @@ const Navigator = ({ changeFont }) => {
         <option value="3">H3</option>
         <option value="4">H4</option>
       </S.Select>
-      <S.Button onClick={makeBold}>
-        <RiBold />
-      </S.Button>
-      <S.Button onClick={makeItalic}>
-        <RiItalic />
-      </S.Button>
-      <S.Button onClick={makeUnderline}>
-        <RiUnderline />
-      </S.Button>
-      <S.Button onClick={makeStrike}>
-        <RiStrikethrough />
-      </S.Button>
-      <S.Button onClick={makeCode}>
-        <RiCodeFill />
-      </S.Button>
-      <S.Button onClick={makeAlignLeft}>
-        <RiAlignLeft />
-      </S.Button>
-      <S.Button onClick={makeAlignCenter}>
-        <RiAlignCenter />
-      </S.Button>
-      <S.Button onClick={makeAlignRight}>
-        <RiAlignRight />
-      </S.Button>
+      {styleButtons.map(({ icon, clickFn }, idx) => (
+        <S.Button type="button" onClick={clickFn} key={idx}>
+          {icon}
+        </S.Button>
+      ))}
       <S.Image>
         <CgImage />
         <input type="file" accept=".jpg, .jpeg, .png" onChange={uploadImg} />

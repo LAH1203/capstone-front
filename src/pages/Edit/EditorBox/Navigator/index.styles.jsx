@@ -51,7 +51,6 @@ const Button = styled.button`
     font-size: 1rem;
   }
 `;
-Button.defaultProps = { type: 'button' };
 
 const Image = styled.label`
   display: flex;

@@ -1,6 +1,10 @@
 import { useAtom } from 'jotai';
 
-import { INITIAL_BLOCK } from '@/constants/block';
+import {
+  INITIAL_TEXT_BLOCK,
+  INITIAL_HEADING_BLOCK,
+  INITIAL_IMAGE_BLOCK,
+} from '@/constants/block';
 import useDebounce from '@/hooks/useDebounce';
 import { blocksAtom, focusIdAtom } from '@/store/blocks';
 
@@ -12,44 +16,37 @@ const useBlock = () => {
 
   const addBlock = type => {
     const newBlocks = [...blocks];
-    const index = blocks.findIndex(block => block.id === focusId);
-    let isFocusedBlockEmpty = false;
+    const initBlock =
+      type === 'text'
+        ? {
+            ...INITIAL_TEXT_BLOCK,
+            id: Date.now(),
+          }
+        : type === 'heading'
+        ? {
+            ...INITIAL_HEADING_BLOCK,
+            id: Date.now(),
+          }
+        : {
+            ...INITIAL_IMAGE_BLOCK,
+            id: Date.now(),
+          };
 
     switch (type) {
       case 'text':
-        return () => {
-          newBlocks.splice(index + 1, 0, {
-            ...INITIAL_BLOCK,
-            id: Date.now(),
-            ref: null,
-          });
+        return id => {
+          const index = blocks.findIndex(block => block.id === id);
+
+          newBlocks.splice(index + 1, 0, { ...initBlock });
           setFocusId(newBlocks[index + 1].id);
           setBlocks(newBlocks);
         };
 
       case 'heading':
-        return ({ target: { value: level } }) => {
-          isFocusedBlockEmpty =
-            (blocks[index].type === 'heading' ||
-              blocks[index].type === 'text') &&
-            blocks[index].data.text.length <= 0;
-
-          newBlocks.splice(
-            isFocusedBlockEmpty ? index : index + 1,
-            isFocusedBlockEmpty ? 1 : 0,
-            {
-              id: Date.now(),
-              type: 'heading',
-              data: { text: '', level },
-            },
-          );
-          setFocusId(newBlocks[isFocusedBlockEmpty ? index : index + 1].id);
-          setBlocks(newBlocks);
-        };
-
       case 'img':
-        return imgLink => {
-          isFocusedBlockEmpty =
+        return prop => {
+          const index = blocks.findIndex(block => block.id === focusId);
+          const isFocusedBlockEmpty =
             (blocks[index].type === 'heading' ||
               blocks[index].type === 'text') &&
             blocks[index].data.text.length <= 0;
@@ -57,11 +54,12 @@ const useBlock = () => {
           newBlocks.splice(
             isFocusedBlockEmpty ? index : index + 1,
             isFocusedBlockEmpty ? 1 : 0,
-            {
-              id: Date.now(),
-              type: 'img',
-              data: { link: imgLink },
-            },
+            type === 'heading'
+              ? {
+                  ...initBlock,
+                  data: { ...initBlock.data, level: prop.target.value },
+                }
+              : { ...initBlock, data: { ...initBlock.data, link: prop } },
           );
           setFocusId(newBlocks[isFocusedBlockEmpty ? index : index + 1].id);
           setBlocks(newBlocks);
@@ -73,28 +71,43 @@ const useBlock = () => {
   };
 
   const removeBlock = id => {
-    const newBlocks = [...blocks];
-    const index = blocks.findIndex(block => block.id === id);
-
     if (blocks.length === 1) return;
 
-    newBlocks.splice(index, 1);
-    setFocusId(newBlocks[index - 1].id);
+    const newBlocks = blocks.filter((block, idx) => {
+      if (block.id === id) setFocusId(blocks[idx - 1].id);
+
+      return block.id !== id;
+    });
     setBlocks(newBlocks);
   };
 
   const editBlock = debounce(block => {
-    const newBlocks = [...blocks];
-    const index = blocks.findIndex(({ id }) => id === block.id);
-
-    if (index === -1) {
-      setBlocks(newBlocks);
-      return;
-    }
-
-    newBlocks.splice(index, 1, block);
-    setBlocks(newBlocks);
+    setBlocks(blocks =>
+      blocks.map(blockEl => (blockEl.id !== block.id ? blockEl : block)),
+    );
   }, 100);
+
+  const mergeContentToPrevBlock = () => {
+    const newBlocks = [...blocks];
+    const index = blocks.findIndex(({ id }) => id === focusId);
+
+    if (index <= 0 || blocks[index - 1].type === 'img') return;
+
+    const text =
+      blocks[index - 1].contentRef.current + blocks[index].contentRef.current;
+
+    newBlocks.splice(index - 1, 2, {
+      ...blocks[index - 1],
+      data: {
+        ...blocks[index - 1].data,
+        text,
+      },
+    });
+    newBlocks[index - 1].contentRef.current = text;
+
+    setFocusId(blocks[index - 1].id);
+    setBlocks(newBlocks);
+  };
 
   const changeFocusId = id => () => {
     setFocusId(id);
@@ -112,6 +125,7 @@ const useBlock = () => {
     addImgBlock: addBlock('img'),
     removeBlock,
     editBlock,
+    mergeContentToPrevBlock,
     focusId,
     changeFocusId,
     changeFocusToPrevBlock,

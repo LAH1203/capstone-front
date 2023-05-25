@@ -93,7 +93,11 @@ const useBlock = () => {
     const newBlocks = [...blocks];
     const index = blocks.findIndex(({ id }) => id === focusId);
 
-    if (index <= 0 || blocks[index - 1].type === 'img') return;
+    if (index === 0 && blocks[index].data.text.length === 0) {
+      removeBlock(blocks[index].id);
+      return;
+    }
+    if (index < 0 || blocks[index - 1].type === 'img') return;
 
     const text =
       blocks[index - 1].contentRef.current + blocks[index].contentRef.current;

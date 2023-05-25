@@ -1,8 +1,8 @@
 import { atom } from 'jotai';
 
-import { INITIAL_BLOCK } from '@/constants/block';
+import { INITIAL_TEXT_BLOCK } from '@/constants/block';
 
-const blocksAtom = atom([{ ...INITIAL_BLOCK, id: Date.now(), ref: null }]);
+const blocksAtom = atom([{ ...INITIAL_TEXT_BLOCK, id: Date.now() }]);
 
 const focusIdAtom = atom(Date.now());
 

@@ -26,7 +26,7 @@ const Block = ({ block, index, dragStart, onDropItem }) => {
   };
 
   const controlBlock = e => {
-    const cursorLocation = window.getSelection().getRangeAt(0).startOffset;
+    const { startOffset, endOffset } = window.getSelection().getRangeAt(0);
 
     switch (e.key) {
       case 'Enter':
@@ -37,7 +37,7 @@ const Block = ({ block, index, dragStart, onDropItem }) => {
         break;
 
       case 'Backspace':
-        if (cursorLocation <= 0) {
+        if (startOffset <= 0 && startOffset === endOffset) {
           e.preventDefault();
           mergeContentToPrevBlock();
 
@@ -55,7 +55,7 @@ const Block = ({ block, index, dragStart, onDropItem }) => {
         break;
 
       case 'ArrowLeft':
-        if (cursorLocation <= 0) {
+        if (startOffset <= 0) {
           changeFocusToPrevBlock(block.id);
           e.preventDefault();
         }

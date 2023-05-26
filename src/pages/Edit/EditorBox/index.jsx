@@ -22,7 +22,7 @@ const EditorBox = ({ font, changeFont }) => {
     const list = [...blocks];
     list.splice(dragStartIdx, 1);
 
-    const targetIdx = dragStartIdx <= dropIdx ? dropIdx - 1 : dropIdx;
+    const targetIdx = dragStartIdx < dropIdx ? dropIdx - 1 : dropIdx;
     const newListData =
       dropIdx >= blocks.length - 1
         ? [...list, dragItem]

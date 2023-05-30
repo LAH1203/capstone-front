@@ -1,21 +1,20 @@
 import styled from '@emotion/styled';
 
-const Container = styled.div`
+const Container = styled.form`
   box-sizing: border-box;
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 2rem;
 
   width: 100%;
+  height: fit-content;
   min-height: 100%;
-  padding: 4rem 6rem;
+  padding: 3rem 2rem;
 
-  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.sm}px) {
-    padding: 3rem 1.75rem;
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
+    padding: 2.5rem 1.75rem;
     gap: 1rem;
   }
 `;
@@ -31,18 +30,18 @@ const BtnBox = styled.div`
     border-radius: 10px;
     font-weight: 800;
     font-size: 0.9rem;
-  }
-  button:first-of-type {
-    color: #fff;
-    background-color: ${({ theme: { colors } }) => colors.GREEN_500};
-  }
-  button:last-of-type {
-    color: ${({ theme: { colors } }) => colors.GREEN_500};
-    background-color: ${({ theme: { colors } }) => colors.GREEN_100};
+
+    &:first-of-type {
+      color: #fff;
+      background-color: ${({ theme: { colors } }) => colors.GREEN_500};
+    }
+    &:last-of-type {
+      color: ${({ theme: { colors } }) => colors.GREEN_500};
+      background-color: ${({ theme: { colors } }) => colors.GREEN_100};
+    }
   }
 
-  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.sm}px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
     justify-content: center;
 
     button {

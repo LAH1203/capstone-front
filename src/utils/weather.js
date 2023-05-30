@@ -11,7 +11,6 @@ import {
   MdOutlineWbSunny,
 } from 'react-icons/md';
 import { TbMist } from 'react-icons/tb';
-import { ColorRing } from 'react-loader-spinner';
 
 const weatherToIcon = weather => {
   switch (weather) {
@@ -36,16 +35,7 @@ const weatherToIcon = weather => {
     case 'Thunderstorm':
       return <MdOutlineThunderstorm />;
     default:
-      return (
-        <ColorRing
-          visible={true}
-          height="1rem"
-          width="1rem"
-          ariaLabel="blocks-loading"
-          wrapperClass="blocks-wrapper"
-          colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
-        />
-      );
+    // DO NOTHING
   }
 };
 

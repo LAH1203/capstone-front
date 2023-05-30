@@ -1,63 +1,64 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 
-import ContentEditable from 'react-contenteditable';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { MdDragIndicator } from 'react-icons/md';
 
+import ImageBlock from './ImageBlock';
 import * as S from './index.styles';
+import TextBlock from './TextBlock';
 
-import useDebounce from '@/hooks/useDebounce';
-import { setEndContentEditable } from '@/utils/contentEditable';
+import useBlock from '@/hooks/useBlock';
 
-const Block = ({
-  block,
-  index,
-  addBlock,
-  removeBlock,
-  editBlock,
-  current,
-  changeFocus,
-  onDragStart,
-  onDropItem,
-}) => {
-  const [dragOver, setDragOver] = useState(false);
-  const content = useRef('');
-  const focusRef = useRef(null);
-  const debounce = useDebounce();
+const Block = ({ block, index, dragStart, onDropItem }) => {
+  const [isDragOver, setIsDragOver] = useState(false);
 
-  useEffect(() => {
-    if (!focusRef || current !== block.id) return;
-    focusRef.current.focus();
-    try {
-      setEndContentEditable(focusRef.current);
-    } catch (e) {}
-  }, [current, block]);
+  const {
+    addTextBlock,
+    removeBlock,
+    mergeContentToPrevBlock,
+    changeFocusId,
+    changeFocusToPrevBlock,
+  } = useBlock();
 
-  const editDebounce = debounce(() => {
-    editBlock({ ...block, data: { ...block.data, text: content.current } });
-  }, 100);
-
-  const onChangeContent = e => {
-    content.current = e.target.value;
-    editDebounce();
-  };
-
-  const onClickNewBlock = () => {
-    addBlock(block.id);
+  const makeNewBlock = e => {
+    e.stopPropagation();
+    addTextBlock(block.id);
   };
 
   const controlBlock = e => {
+    const { startOffset, endOffset } = window.getSelection().getRangeAt(0);
+
     switch (e.key) {
       case 'Enter':
         if (!e.shiftKey) return;
         e.preventDefault();
-        addBlock(block.id);
+
+        addTextBlock(block.id);
         break;
 
       case 'Backspace':
-        if (content.current.length > 0 && content.current !== '<br>') return;
+        if (startOffset <= 0 && startOffset === endOffset) {
+          e.preventDefault();
+          mergeContentToPrevBlock();
+
+          return;
+        }
+        if (
+          block.contentRef.current.length > 0 &&
+          block.contentRef.current !== '<br>'
+        )
+          return;
+
         e.preventDefault();
+
         removeBlock(block.id);
+        break;
+
+      case 'ArrowLeft':
+        if (startOffset <= 0) {
+          changeFocusToPrevBlock(block.id);
+          e.preventDefault();
+        }
         break;
 
       default:
@@ -66,48 +67,37 @@ const Block = ({
   };
 
   const controlDrag = action => e => {
-    switch (action) {
-      case 'enter':
-        setDragOver(true);
-        break;
-      case 'leave':
-        setDragOver(false);
-        break;
-      case 'over':
-        e.preventDefault();
-        break;
-      case 'drop':
-        onDropItem(index);
-        setDragOver(false);
-        break;
-      default:
-      //none
-    }
+    e.preventDefault();
+
+    if (action === 'drop') onDropItem(index);
+
+    setIsDragOver(action === 'over');
   };
 
   return (
     <S.Container
-      dragOver={dragOver}
+      onClick={changeFocusId(block.id)}
+      onKeyDown={controlBlock}
       draggable
-      onDragStart={onDragStart(index)}
+      isDragOver={isDragOver}
+      onDragStart={dragStart(index)}
       onDragOver={controlDrag('over')}
-      onDragEnter={controlDrag('enter')}
       onDragLeave={controlDrag('leave')}
       onDrop={controlDrag('drop')}
-      onKeyDown={controlBlock}
     >
-      <S.BlockButtonWrap className="block-button">
-        <AiOutlinePlus className="add" onClick={onClickNewBlock} />
-        <MdDragIndicator className="drag" onClick={changeFocus(block.id)} />
-      </S.BlockButtonWrap>
-      <ContentEditable
-        className="content-editable"
-        placeholder="새로운 블럭은 Shift+Enter를 눌러주세요"
-        html={content.current}
-        innerRef={focusRef}
-        onChange={onChangeContent}
-        onFocus={changeFocus(block.id)}
-      />
+      <S.ButtonWrapper
+        className={`block-button ${
+          block.type === 'heading' ? `h${block.data.level}` : ''
+        }`}
+      >
+        <AiOutlinePlus className="add" onClick={makeNewBlock} />
+        <MdDragIndicator className="drag" />
+      </S.ButtonWrapper>
+      {block.type === 'img' ? (
+        <ImageBlock block={block} />
+      ) : (
+        <TextBlock block={block} />
+      )}
     </S.Container>
   );
 };

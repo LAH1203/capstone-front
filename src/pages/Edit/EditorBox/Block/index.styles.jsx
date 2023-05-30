@@ -1,61 +1,51 @@
-import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-
-const showBtn = keyframes`
-  0%, 100%{
-    opacity: 0;
-  }
-  30%, 60%{
-    opacity: 1;
-  }
-`;
 
 const Container = styled.div`
   display: flex;
-  width: 100%;
   gap: 0.25rem;
-  font-size: 1.125rem;
-  border-top: 2px solid ${({ dragOver }) => (dragOver ? 'black' : 'white')};
 
-  .content-editable {
-    height: fit-content;
-    width: 93%;
-    cursor: text;
-    word-break: break-all;
-    outline: none;
-  }
+  width: 100%;
 
-  .content-editable:empty:before {
-    content: attr(placeholder);
-    opacity: 0.3;
-  }
+  border-top: 1px dashed
+    ${({ theme: { colors }, isDragOver }) =>
+      isDragOver ? colors.GREEN_900_OP_40 : colors.INPUT_BACKGROUND};
+
+  transition: all 0.3s ease-in-out;
 
   &:hover .block-button {
     opacity: 1;
   }
-  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.sm}px) {
-    font-size: 0.725rem;
-    .content-editable {
-      width: 85%;
-    }
-    .block-button {
-      font-size: 0.625rem;
-    }
-  }
 `;
 
-const BlockButtonWrap = styled.div`
-  animation: ${showBtn} 2s;
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 1.7rem;
+
   opacity: 0;
   transition: all 0.2s ease-in;
+
+  &.h1 {
+    height: 2.3rem;
+  }
+  &.h2 {
+    height: 2.15rem;
+  }
+  &.h3 {
+    height: 2rem;
+  }
+  &.h4 {
+    height: 1.85rem;
+  }
 
   .add {
     cursor: pointer;
   }
-
   .drag {
     cursor: grab;
   }
 `;
-export { Container, BlockButtonWrap };
+
+export { Container, ButtonWrapper };

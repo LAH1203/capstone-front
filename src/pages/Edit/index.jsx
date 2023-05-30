@@ -8,38 +8,43 @@ import * as S from './index.styles';
 import Title from './Title';
 
 import { CLIENT_MESSAGE } from '@/constants/message';
-import { BROWSER_PATH } from '@/constants/path';
 import useInput from '@/hooks/useInput';
 import useSnackbar from '@/hooks/useSnackbar';
-import useWeather from '@/hooks/useWeather';
 
 const Edit = () => {
   const date = new Date();
   const [hashtagList, setHashtagList] = useState([]);
+  const [weather, setWeather] = useState(null);
   const { value: mood, onChangeValue: onChangeMood } = useInput('');
   const { value: title, onChangeValue: onChangeTitle } = useInput('');
+  const [font, setFont] = useState('basic');
 
   const navigate = useNavigate();
-  const { weather } = useWeather();
   const { showSnackbar } = useSnackbar();
 
-  const addHashtagItem = newHashtag =>
+  const addHashtag = newHashtag => {
     setHashtagList(prev => [...prev, newHashtag]);
+  };
 
   const removeHashtag = name => () => {
-    if (!hashtagList.findIndex(() => name) === -1) {
+    if (!hashtagList.findIndex(hashtag => hashtag === name) === -1) {
       showSnackbar(CLIENT_MESSAGE.ERROR.NOT_INCLUDE_HASHTAG);
       return;
     }
     setHashtagList(hashtagList.filter(hash => hash !== name));
   };
 
-  const goToPrevPage = () => {
-    navigate(BROWSER_PATH.BASE);
+  const changeFont = ({ target: { value: font } }) => {
+    setFont(font);
   };
 
-  const postNewDiary = () => {
-    // 등록 버튼 제작 필요
+  const goToPrevPage = () => {
+    navigate(-1);
+  };
+
+  const makeNewDiary = e => {
+    // TODO: 일기 작성 API 요청 및 처리
+    e.preventDefault();
   };
 
   return (
@@ -48,19 +53,21 @@ const Edit = () => {
         title={title}
         setTitle={onChangeTitle}
         date={date}
-        weather={weather}
+        setWeather={setWeather}
         mood={mood}
         setMood={onChangeMood}
       />
-      <EditorBox />
+      <EditorBox font={font} changeFont={changeFont} />
       <HashtagBox
-        addHashtagItem={addHashtagItem}
+        addHashtag={addHashtag}
         removeHashtag={removeHashtag}
         hashtagList={hashtagList}
       />
       <S.BtnBox>
-        <button onClick={postNewDiary}>작성</button>
-        <button onClick={goToPrevPage}>취소</button>
+        <button onClick={makeNewDiary}>작성</button>
+        <button type="button" onClick={goToPrevPage}>
+          취소
+        </button>
       </S.BtnBox>
     </S.Container>
   );

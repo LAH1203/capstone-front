@@ -1,6 +1,7 @@
 import { ThemeProvider } from '@emotion/react';
 import { Provider } from 'jotai';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Layout from '@/components/Layout';
@@ -51,6 +52,7 @@ const App = () => {
           </Router>
           <Snackbar />
         </Provider>
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </ThemeProvider>
   );

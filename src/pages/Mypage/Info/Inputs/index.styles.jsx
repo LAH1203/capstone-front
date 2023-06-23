@@ -15,17 +15,23 @@ const Form = styled.form`
   label {
     color: ${({ theme: { colors } }) => colors.GRAY_600};
   }
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.md}px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
 `;
 
 const Input = styled.input`
   grid-column: 2 / span 2;
-
-  width: 90%;
   max-width: 16.5rem;
+  min-width: 14rem;
   transition: border 0.5s;
 
   &.invalid {
     border: 1px solid ${({ theme: { colors } }) => colors.RED_500};
+  }
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.md}px) {
+    grid-column: 2 / span 3;
   }
 `;
 
@@ -33,6 +39,11 @@ const ButtonWrapper = styled.div`
   grid-column: 4 / span 2;
   display: flex;
   justify-content: end;
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.md}px) {
+    grid-row: 3;
+    grid-column: 2 / span 3;
+  }
 `;
 
 const Description = styled.div`
@@ -46,6 +57,10 @@ const Description = styled.div`
 
   &.invalid {
     color: ${({ theme: { colors } }) => colors.RED_500};
+  }
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.md}px) {
+    grid-column: 2 / span 3;
   }
 `;
 

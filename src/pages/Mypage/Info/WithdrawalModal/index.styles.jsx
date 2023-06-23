@@ -5,7 +5,11 @@ const Container = styled.div`
   width: 70%;
   display: flex;
   justify-content: end;
-  margin-top: 10rem;
+  margin-bottom: 2rem;
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
+    width: 90%;
+  }
 `;
 
 const MainButton = styled.button`
@@ -43,14 +47,17 @@ const blowUp = keyframes`
 `;
 
 const ModalWrapper = styled.div`
-  width: 30rem;
+  width: 80vw;
   height: 20rem;
+  max-width: 30rem;
+
   background-color: ${({ theme: { colors } }) => colors.GREEN_700};
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   animation: ${blowUp} 0.1s;
 
   & > p:nth-of-type(1) {
@@ -59,9 +66,21 @@ const ModalWrapper = styled.div`
     font-size: 1.5rem;
     margin-bottom: 1rem;
   }
+
   & > p:nth-of-type(2) {
     color: ${({ theme: { colors } }) => colors.INPUT_BACKGROUND};
     font-size: 1.1rem;
+  }
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
+    height: 15rem;
+
+    & > p:nth-of-type(1) {
+      font-size: 1.2rem;
+    }
+    & > p:nth-of-type(2) {
+      font-size: 0.9rem;
+    }
   }
 `;
 
@@ -74,6 +93,13 @@ const ButtonWrapper = styled.div`
     font-size: 1rem;
     font-weight: bold;
     transition: all 0.5s ease-out;
+  }
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
+    & button {
+      padding: 0.8rem 1.5rem;
+      font-size: 0.8rem;
+    }
   }
 `;
 

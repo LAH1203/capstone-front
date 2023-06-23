@@ -3,6 +3,10 @@ import styled from '@emotion/styled';
 const Container = styled.ul`
   display: flex;
   border-bottom: 2px solid ${({ theme: { colors } }) => colors.GREEN_200};
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
+    border-bottom: 1px solid ${({ theme: { colors } }) => colors.GREEN_200};
+  }
 `;
 
 const Button = styled.button`
@@ -18,6 +22,15 @@ const Button = styled.button`
   &.selected {
     border-bottom: 3px solid ${({ theme: { colors } }) => colors.GREEN_900};
     margin-bottom: -2px;
+  }
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
+    font-size: 1rem;
+
+    &.selected {
+      border-bottom: 2px solid ${({ theme: { colors } }) => colors.GREEN_900};
+      margin-bottom: -1px;
+    }
   }
 `;
 

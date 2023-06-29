@@ -19,6 +19,7 @@ const API_PATH = {
   UPDATE_EMAIL: '/auth/update/email',
   UPDATE_NICKNAME: '/auth/update/nickname',
   WITHDRAWAL: '/auth/withdrawal',
+  DIARY: '/diary',
   DIARY_BY_MOOD: '/diary/mood',
   DIARY_NUM_BY_MOOD: '/diary/mood/num',
   IMAGE: '/upload',

@@ -31,6 +31,11 @@ const diaryHandlers = [
     );
   }),
 
+  rest.post(`${baseURL}${API_PATH.DIARY}`, (req, res, ctx) => {
+    const diary = req.json();
+    return res(ctx.status(201), ctx.set('id', 1), ctx.json(diary));
+  }),
+
   rest.get(`${baseURL}${API_PATH.DIARY_BY_MOOD}`, (req, res, ctx) => {
     const mood = req.url.searchParams.get('mood');
     const page = req.url.searchParams.get('page');

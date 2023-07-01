@@ -14,6 +14,7 @@ const colors = {
   RED_500: '#AA5656',
   BACKGROUND: '#FCF8F3',
   INPUT_BACKGROUND: '#FEFDFB',
+  SKELETON: '#e6e2dd',
 };
 
 const breakpoints = {

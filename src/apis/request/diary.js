@@ -17,9 +17,9 @@ const requestDiaryByMood = params => {
     .then(response => response.data);
 };
 
-const requestDiaryNumByMood = () => {
+const requestDiaryCountByMood = () => {
   return axiosWithAccessToken
-    .get(`${API_PATH.DIARY_NUM_BY_MOOD}`)
+    .get(`${API_PATH.DIARY_COUNT_BY_MOOD}`)
     .then(response => response.data);
 };
 
@@ -27,5 +27,5 @@ export {
   requestUploadImg,
   requestUploadDiary,
   requestDiaryByMood,
-  requestDiaryNumByMood,
+  requestDiaryCountByMood,
 };

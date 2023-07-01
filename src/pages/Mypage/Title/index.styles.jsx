@@ -3,12 +3,11 @@ import styled from '@emotion/styled';
 const Container = styled.div`
   background-color: ${({ theme: { colors } }) => colors.GREEN_200};
   padding: 1.3rem 0;
-  display: flex;
-  align-items: center;
 
   @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
-    padding: 0.7rem 0;
+    display: flex;
     justify-content: center;
+    padding: 0.7rem 0;
   }
 `;
 

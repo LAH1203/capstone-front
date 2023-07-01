@@ -43,9 +43,9 @@ const diaryHandlers = [
       ctx.status(200),
       ctx.json(
         Array(
-          Math.ceil(diaryCount[mood] / 10) !== Number(page) + 1
-            ? 10
-            : getLastPageCount(diaryCount[mood]),
+          Math.ceil(diaryCount[mood] / 10) === Number(page) + 1
+            ? getLastPageCount(diaryCount[mood])
+            : 10,
         )
           .fill()
           .map((_, idx) => ({
@@ -58,7 +58,8 @@ const diaryHandlers = [
       ),
     );
   }),
-  rest.get(`${baseURL}${API_PATH.DIARY_NUM_BY_MOOD}`, (req, res, ctx) => {
+  
+  rest.get(`${baseURL}${API_PATH.DIARY_COUNT_BY_MOOD}`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(diaryCount));
   }),
 ];

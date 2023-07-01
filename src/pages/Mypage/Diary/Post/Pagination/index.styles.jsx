@@ -4,10 +4,12 @@ const Container = styled.div`
   li {
     list-style: none;
   }
+  
+  background-color: ${({ theme: { colors } }) => colors.GREEN_100};
 
   display: flex;
   justify-content: center;
-  background-color: ${({ theme: { colors } }) => colors.GREEN_100};
+
   padding: 1rem;
   margin-top: 1rem;
 `;
@@ -16,8 +18,8 @@ const Button = styled.button`
   background-color: transparent;
   font-size: 1rem;
   padding: 0.5rem;
-  border-radius: 5px;
   margin-right: 0.5rem;
+  border-radius: 5px;
 
   &:hover {
     background-color: ${({ theme: { colors } }) => colors.GREEN_400};

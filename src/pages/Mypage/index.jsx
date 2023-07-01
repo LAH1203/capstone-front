@@ -1,32 +1,16 @@
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
-import { BROWSER_PATH } from '@/constants/path';
+import { useSearchParams } from 'react-router-dom';
+import { useRef, Suspense } from 'react';
 import Title from './Title';
 import Filter from './Filter';
 import Info from './Info';
 import Diary from './Diary';
 import * as S from './index.styles';
+import Skeleton from './Skeleton';
 
-const Mypage = props => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [filter, setFilter] = useState(searchParams.get('t'));
-  const { INFO, DIARY } = BROWSER_PATH.MYPAGE;
+const Mypage = () => {
+  const [searchParams] = useSearchParams();
   const topRef = useRef();
-  const location = useLocation();
-
-  useEffect(() => {
-    if (!location.search) setSearchParams({ t: INFO });
-  }, []);
-
-  useEffect(() => {
-    if (searchParams.get('t') === DIARY) {
-      setFilter(DIARY);
-
-      return;
-    }
-    setFilter(INFO);
-  }, [searchParams.get('t')]);
-
+  
   const toTop = () => {
     topRef.current.scrollIntoView();
   };
@@ -35,9 +19,15 @@ const Mypage = props => {
     <S.Container>
       <div ref={topRef}></div>
       <Title name="마이페이지" />
-      <Filter filter={filter} />
+      <Filter isDiary={searchParams.get('t')} />
       <S.Wrapper>
-        {filter === INFO ? <Info /> : <Diary toTop={toTop} />}
+        {searchParams.get('t') ? (
+          <Suspense fallback={<Skeleton />}>
+            <Diary toTop={toTop} />
+          </Suspense>
+        ) : (
+          <Info />
+        )}
       </S.Wrapper>
     </S.Container>
   );

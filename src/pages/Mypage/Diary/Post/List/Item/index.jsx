@@ -1,9 +1,11 @@
+import useDisplayLayout from '@/hooks/useDisplayLayout';
 import * as S from './index.style';
 
-const Item = ({ item, isThumbnail }) => {
+const Item = ({ item }) => {
+  const [display] = useDisplayLayout();
   return (
     <S.Container>
-      {!isThumbnail ? (
+      {display === 'list' ? (
         <S.WrapperList>
           <S.Title>{item.title}</S.Title>
           <S.Date>{item.createAt}</S.Date>
@@ -13,7 +15,7 @@ const Item = ({ item, isThumbnail }) => {
           <S.WrapperImg>
             <img src={item.thumbnail} alt="썸네일" />
           </S.WrapperImg>
-          <S.Title grid={true}>{item.title}</S.Title>
+          <S.Title className={display}>{item.title}</S.Title>
           <S.Date>{item.createAt}</S.Date>
         </S.WrapperGrid>
       )}

@@ -1,70 +1,73 @@
 import { MOOD } from '@/constants/diary';
 import { IoGrid } from 'react-icons/io5';
 import { FaList } from 'react-icons/fa';
-import LinkTo from '@/pages/Mypage/Diary/LinkTo';
+import LinkToDiary from '@/pages/Mypage/LinkToDiary';
 import * as S from './index.styles';
+import useDisplayLayout from '@/hooks/useDisplayLayout';
 
-const FilterDiary = ({ isThumbnail, handleThumbnail, mood, page }) => {
-  const showThumbnail = isThumbnail => () => {
-    handleThumbnail(isThumbnail);
+const FilterDiary = ({ mood }) => {
+  const [display, setDisplay] = useDisplayLayout();
+
+  const handleDisplay = display => () => {
+    setDisplay(display);
   };
 
   return (
     <S.Container>
       <section>
-        <LinkTo mood={MOOD.BEST} page={page}>
+        <LinkToDiary mood={MOOD.BEST} page={0}>
           <S.Button
             type="button"
             className={mood === MOOD.BEST ? 'selected' : ''}
           >
             최상😁
           </S.Button>
-        </LinkTo>
-        <LinkTo mood={MOOD.GOOD} page={page}>
+        </LinkToDiary>
+        <LinkToDiary mood={MOOD.GOOD} page={0}>
           <S.Button
             type="button"
             className={mood === MOOD.GOOD ? 'selected' : ''}
           >
             상😊
           </S.Button>
-        </LinkTo>
-        <LinkTo mood={MOOD.NORMAL} page={page}>
+        </LinkToDiary>
+        <LinkToDiary mood={MOOD.NORMAL} page={0}>
           <S.Button
             type="button"
             className={mood === MOOD.NORMAL ? 'selected' : ''}
           >
             중🙂
           </S.Button>
-        </LinkTo>
-        <LinkTo mood={MOOD.BAD} page={page}>
+        </LinkToDiary>
+        <LinkToDiary mood={MOOD.BAD} page={0}>
           <S.Button
             type="button"
             className={mood === MOOD.BAD ? 'selected' : ''}
           >
             하😑
           </S.Button>
-        </LinkTo>
-        <LinkTo mood={MOOD.WORST} page={page}>
+        </LinkToDiary>
+        <LinkToDiary mood={MOOD.WORST} page={0}>
           <S.Button
             type="button"
             className={mood === MOOD.WORST ? 'selected' : ''}
           >
             최하😩
           </S.Button>
-        </LinkTo>
+        </LinkToDiary>
       </section>
       <S.WrapperDisplay>
         <button
           type="button"
-          className={isThumbnail ? 'selected' : ''}
-          onClick={showThumbnail(true)}
+          className={display === 'list' ? '' : 'selected'}
+          onClick={handleDisplay('grid')}
         >
           <IoGrid />
         </button>
         <button
           type="button"
-          className={isThumbnail ? '' : 'selected'}
-          onClick={showThumbnail(false)}
+          className={display === 'list' ? 'selected' : ''}
+          onClick={handleDisplay('list')}
         >
           <FaList />
         </button>

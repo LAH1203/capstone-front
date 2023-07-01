@@ -6,7 +6,6 @@ const BROWSER_PATH = {
   EDIT: '/edit',
   MYPAGE: {
     BASE: '/me',
-    INFO: 'info',
     DIARY: 'diary',
   },
 };
@@ -21,7 +20,7 @@ const API_PATH = {
   WITHDRAWAL: '/auth/withdrawal',
   DIARY: '/diary',
   DIARY_BY_MOOD: '/diary/mood',
-  DIARY_NUM_BY_MOOD: '/diary/mood/num',
+  DIARY_COUNT_BY_MOOD: '/diary/mood/count',
   IMAGE: '/upload',
 };
 

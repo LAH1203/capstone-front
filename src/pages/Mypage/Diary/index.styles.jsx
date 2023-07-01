@@ -14,7 +14,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  flex: 1;
+  flex: 1 1 auto;
 `;
 
 export { Container, Wrapper };

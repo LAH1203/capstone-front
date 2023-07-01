@@ -1,28 +1,24 @@
 import { Link } from 'react-router-dom';
+import { MOOD } from '@/constants/diary';
+import LinkToDiary from '@/pages/Mypage/LinkToDiary';
 import * as S from './index.styles';
-import { BROWSER_PATH } from '@/constants/path';
 
-const Filter = ({ filter }) => {
-  const { INFO, DIARY } = BROWSER_PATH.MYPAGE;
-
+const Filter = ({ isDiary }) => {
   return (
     <S.Container>
       <li>
-        <Link to={`?t=${INFO}`}>
-          <S.Button type="button" className={filter === INFO ? 'selected' : ''}>
+        <Link to={`/me`}>
+          <S.Button type="button" className={isDiary ? '' : 'selected'}>
             개인 정보
           </S.Button>
         </Link>
       </li>
       <li>
-        <Link to={`?t=${DIARY}`}>
-          <S.Button
-            type="button"
-            className={filter === DIARY ? 'selected' : ''}
-          >
+        <LinkToDiary mood={MOOD.BEST} page={0}>
+          <S.Button type="button" className={isDiary ? 'selected' : ''}>
             기분 별 일기 모아보기
           </S.Button>
-        </Link>
+        </LinkToDiary>
       </li>
     </S.Container>
   );

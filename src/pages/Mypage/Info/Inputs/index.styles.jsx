@@ -30,6 +30,7 @@ const Input = styled.input`
   &.invalid {
     border: 1px solid ${({ theme: { colors } }) => colors.RED_500};
   }
+  
   @media screen and (max-width: ${({ theme }) => theme.breakpoints.md}px) {
     grid-column: 2 / span 3;
   }
@@ -37,6 +38,7 @@ const Input = styled.input`
 
 const ButtonWrapper = styled.div`
   grid-column: 4 / span 2;
+
   display: flex;
   justify-content: end;
 
@@ -47,12 +49,10 @@ const ButtonWrapper = styled.div`
 `;
 
 const Description = styled.div`
-  display: block;
   grid-column: 2 / span 2;
+
   color: ${({ theme: { colors } }) => colors.GREEN_100};
-
   font-size: 0.9rem;
-
   transition: color 0.5s;
 
   &.invalid {

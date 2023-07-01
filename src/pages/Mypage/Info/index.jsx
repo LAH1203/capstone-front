@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react';
-
 import { useNavigate } from 'react-router-dom';
-
-import * as S from './index.styles';
-import Inputs from './Inputs';
-import WithdrawalModal from './WithdrawalModal';
-
-import { requestUpdateEmail, requestUpdateNickname } from '@/apis/request/auth';
-import { requestWithdrawal } from '@/apis/request/auth';
+import {
+  requestUpdateEmail,
+  requestUpdateNickname,
+  requestWithdrawal,
+} from '@/apis/request/auth';
 import { CLIENT_MESSAGE } from '@/constants/message';
 import { BROWSER_PATH } from '@/constants/path';
 import { RULE } from '@/constants/rule';
@@ -15,6 +12,9 @@ import useError from '@/hooks/useError';
 import useInput from '@/hooks/useInput';
 import useSnackbar from '@/hooks/useSnackbar';
 import useUser from '@/hooks/useUser';
+import Inputs from './Inputs';
+import WithdrawalModal from './WithdrawalModal';
+import * as S from './index.styles';
 
 const Info = props => {
   const {

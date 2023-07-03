@@ -9,17 +9,20 @@ import useSnackbar from '@/hooks/useSnackbar';
 
 const Snackbar = () => {
   const { isShowing, message, resetSnackbar } = useSnackbar();
-  const { isClosing, close } = useClosing(ANIMATION_TIME.SNACKBAR, () => {
-    resetSnackbar();
-  });
+  const { isClosing, close } = useClosing(
+    ANIMATION_TIME.SNACKBAR,
+    resetSnackbar,
+  );
 
   useEffect(() => {
+    if (!isShowing) return;
+
     const timeout = setTimeout(() => {
       close();
     }, ANIMATION_TIME.SNACKBAR * 6);
 
     return () => clearTimeout(timeout);
-  }, [close]);
+  }, [close, isShowing]);
 
   return (
     <Portal to="snackbar">

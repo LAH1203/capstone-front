@@ -10,6 +10,7 @@ import Title from './Title';
 
 import { requestUploadDiary } from '@/apis/request/diary';
 import { CLIENT_MESSAGE } from '@/constants/message';
+import { BROWSER_PATH } from '@/constants/path';
 import useError from '@/hooks/useError';
 import useInput from '@/hooks/useInput';
 import useSnackbar from '@/hooks/useSnackbar';
@@ -68,8 +69,9 @@ const Edit = () => {
       font: font,
       blocks: [...blockForSave],
     })
-      .then(() => {
+      .then(id => {
         showSnackbar(CLIENT_MESSAGE.GUIDE.SUCCESS_POST_DIARY);
+        navigate(`${BROWSER_PATH.DETAIL}/${id}`);
       })
       .catch(err => {
         handleError(err.code);

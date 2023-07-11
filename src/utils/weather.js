@@ -13,26 +13,26 @@ import {
 import { TbMist } from 'react-icons/tb';
 
 const weatherToIcon = weather => {
-  switch (weather) {
-    case 'Clear':
+  switch (weather.toLowerCase()) {
+    case 'clear':
       return <MdOutlineWbSunny />;
-    case 'Clouds':
+    case 'clouds':
       return <MdCloudQueue />;
-    case 'Drizzle':
+    case 'drizzle':
       return <CiCloudDrizzle />;
-    case 'Rain':
+    case 'rain':
       return <BsCloudRainHeavy />;
-    case 'Snow':
+    case 'snow':
       return <BsCloudSnow />;
-    case 'Mist':
+    case 'mist':
       return <TbMist />;
-    case 'Haze':
+    case 'haze':
       return <BsCloudHaze />;
-    case 'Dust':
+    case 'dust':
       return <TbMist />;
-    case 'Fog':
+    case 'fog':
       return <BsCloudFog2 />;
-    case 'Thunderstorm':
+    case 'thunderstorm':
       return <MdOutlineThunderstorm />;
     default:
     // DO NOTHING

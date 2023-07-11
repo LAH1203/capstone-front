@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import * as S from './index.styles';
 
 import { getDiary } from '@/apis/request/diary';
+import { MOOD } from '@/constants/diary';
 import { convertDate } from '@/utils/date';
 import { weatherToIcon } from '@/utils/weather';
 
@@ -24,7 +25,12 @@ const Detail = () => {
             <span>{data.weather ? weatherToIcon(data.weather) : '🤷'}</span>
           </S.Status>
           <S.Status>
-            기분 <span>{data.mood ?? '🤷'}</span>
+            기분{' '}
+            <span>
+              {data.mood && data.mood.toUpperCase() in MOOD
+                ? MOOD[data.mood.toUpperCase()].emoji
+                : '🤷'}
+            </span>
           </S.Status>
         </S.StatusWrapper>
       </S.Description>

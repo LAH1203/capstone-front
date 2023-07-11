@@ -47,7 +47,7 @@ const diaryHandlers = [
         '해시태그4',
         '해시태그5',
       ],
-      mood: '🙂',
+      mood: 'best',
       font: 'diary',
       blocks: [
         {

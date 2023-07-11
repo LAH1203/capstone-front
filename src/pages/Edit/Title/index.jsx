@@ -2,6 +2,7 @@ import * as S from './index.styles';
 import Weather from './Weather';
 
 import ErrorBoundary from '@/components/ErrorBoundary';
+import { MOOD } from '@/constants/diary';
 import { getDay } from '@/utils/date';
 
 const Title = ({ title, setTitle, date, setWeather, mood, setMood }) => {
@@ -21,11 +22,11 @@ const Title = ({ title, setTitle, date, setWeather, mood, setMood }) => {
         </ErrorBoundary>
         <label htmlFor="mood">mood</label>
         <select name="mood" id="mood" value={mood} onChange={setMood}>
-          <option value="best">😀</option>
-          <option value="good">🙂</option>
-          <option value="medium">😐</option>
-          <option value="bad">🙁</option>
-          <option value="worst">😞</option>
+          <option value={MOOD.BEST.text}>{MOOD.BEST.emoji}</option>
+          <option value={MOOD.GOOD.text}>{MOOD.GOOD.emoji}</option>
+          <option value={MOOD.NORMAL.text}>{MOOD.NORMAL.emoji}</option>
+          <option value={MOOD.BAD.text}>{MOOD.BAD.emoji}</option>
+          <option value={MOOD.WORST.text}>{MOOD.WORST.emoji}</option>
         </select>
       </S.Description>
     </S.Container>

@@ -1,12 +1,21 @@
-import * as S from './index.styles';
+import { Suspense } from 'react';
 
+import Error from './Error';
+import * as S from './index.styles';
+import Loading from './Loading';
+
+import ErrorBoundary from '@/components/ErrorBoundary';
 import Header from '@/components/Header';
 
 const Layout = ({ children }) => {
   return (
     <S.Container>
       <Header />
-      <main>{children}</main>
+      <ErrorBoundary fallback={<Error />}>
+        <Suspense fallback={<Loading />}>
+          <main>{children}</main>
+        </Suspense>
+      </ErrorBoundary>
     </S.Container>
   );
 };

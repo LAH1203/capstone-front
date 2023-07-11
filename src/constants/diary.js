@@ -1,9 +1,24 @@
 const MOOD = {
-  BEST: 'best',
-  GOOD: 'good',
-  NORMAL: 'normal',
-  BAD: 'bad',
-  WORST: 'worst',
+  BEST: {
+    text: 'best',
+    emoji: '😀',
+  },
+  GOOD: {
+    text: 'good',
+    emoji: '🙂',
+  },
+  NORMAL: {
+    text: 'normal',
+    emoji: '😐',
+  },
+  BAD: {
+    text: 'bad',
+    emoji: '🙁',
+  },
+  WORST: {
+    text: 'worst',
+    emoji: '😞',
+  },
 };
 
 const LIMIT = {

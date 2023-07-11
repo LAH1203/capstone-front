@@ -8,6 +8,7 @@ const BROWSER_PATH = {
     BASE: '/me',
     DIARY: 'diary',
   },
+  DETAIL: '/detail',
 };
 
 const API_PATH = {

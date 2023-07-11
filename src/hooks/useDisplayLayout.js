@@ -1,4 +1,5 @@
 import { useAtom } from 'jotai';
+
 import { displayLayoutAtom } from '@/store/diary';
 
 const useDisplayLayout = () => {

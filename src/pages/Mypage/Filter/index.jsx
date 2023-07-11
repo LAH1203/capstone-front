@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
+
+import * as S from './index.styles';
+
 import { MOOD } from '@/constants/diary';
 import LinkToDiary from '@/pages/Mypage/LinkToDiary';
-import * as S from './index.styles';
 
 const Filter = ({ isDiary }) => {
   return (
@@ -14,7 +16,7 @@ const Filter = ({ isDiary }) => {
         </Link>
       </li>
       <li>
-        <LinkToDiary mood={MOOD.BEST} page={0}>
+        <LinkToDiary mood={MOOD.BEST.text} page={0}>
           <S.Button type="button" className={isDiary ? 'selected' : ''}>
             기분 별 일기 모아보기
           </S.Button>

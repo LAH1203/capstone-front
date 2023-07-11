@@ -6,7 +6,9 @@ const requestUploadImg = formData => {
 };
 
 const requestUploadDiary = diary => {
-  return axios.post(API_PATH.DIARY, diary);
+  return axiosWithAccessToken
+    .post(API_PATH.DIARY, diary)
+    .then(response => response.data.id);
 };
 
 const requestDiaryByMood = params => {

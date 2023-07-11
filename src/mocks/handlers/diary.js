@@ -32,8 +32,7 @@ const diaryHandlers = [
   }),
 
   rest.post(`${baseURL}${API_PATH.DIARY}`, (req, res, ctx) => {
-    const diary = req.json();
-    return res(ctx.status(201), ctx.set('id', 1), ctx.json(diary));
+    return res(ctx.status(201), ctx.json({ id: 1 }));
   }),
 
   rest.get(`${baseURL}${API_PATH.DIARY}/:id`, (req, res, ctx) => {

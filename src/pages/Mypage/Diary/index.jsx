@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react';
+
 import { useSearchParams } from 'react-router-dom';
+
+import FilterDiary from './FilterDiary';
+import * as S from './index.styles';
+import Post from './Post';
+
 import {
   requestDiaryByMood,
   requestDiaryCountByMood,
 } from '@/apis/request/diary';
 import { LIMIT } from '@/constants/diary';
 import { BROWSER_PATH } from '@/constants/path';
-import useMount from '@/hooks/useMount';
 import useFetchQuery from '@/hooks/useFetchQuery';
-import FilterDiary from './FilterDiary';
-import Post from './Post';
-import * as S from './index.styles';
+import useMount from '@/hooks/useMount';
 
 const Diary = ({ toTop }) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -28,13 +31,12 @@ const Diary = ({ toTop }) => {
 
   const { dataQuery: listQuery } = useFetchQuery(
     ['list', mood, page],
-    () => {
-      return requestDiaryByMood({
+    () =>
+      requestDiaryByMood({
         mood,
         page,
         size: LIMIT.PAGE,
-      });
-    },
+      }),
     1000 * 60 * 5,
   );
 

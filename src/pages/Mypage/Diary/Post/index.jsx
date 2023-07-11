@@ -1,6 +1,6 @@
+import * as S from './index.styles';
 import List from './List';
 import Pagination from './Pagination';
-import * as S from './index.style';
 
 const Post = ({ list, totalPage, mood, page, setParams }) => {
   return (

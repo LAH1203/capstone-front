@@ -36,6 +36,102 @@ const diaryHandlers = [
     return res(ctx.status(201), ctx.set('id', 1), ctx.json(diary));
   }),
 
+  rest.get(`${baseURL}${API_PATH.DIARY}/:id`, (req, res, ctx) => {
+    const diary = {
+      title: '글 제목',
+      date: '2023-07-11',
+      weather: 'rain',
+      hashtag: [
+        '해시태그1',
+        '해시태그2',
+        '해시태그3',
+        '해시태그4',
+        '해시태그5',
+      ],
+      mood: '🙂',
+      font: 'diary',
+      blocks: [
+        {
+          id: 1,
+          type: 'heading',
+          data: {
+            text: '제목1',
+            level: 1,
+            sort: 'left',
+          },
+        },
+        {
+          id: 2,
+          type: 'heading',
+          data: {
+            text: '제목2',
+            level: 2,
+            sort: 'left',
+          },
+        },
+        {
+          id: 3,
+          type: 'heading',
+          data: {
+            text: '제목3',
+            level: 3,
+            sort: 'left',
+          },
+        },
+        {
+          id: 4,
+          type: 'heading',
+          data: {
+            text: '제목4',
+            level: 4,
+            sort: 'left',
+          },
+        },
+        {
+          id: 5,
+          type: 'img',
+          data: {
+            link: 'https://ssl.pstatic.net/melona/libs/1457/1457089/f5b27008d5369a1a2918_20230705172819547.jpg',
+            sort: 'center',
+          },
+        },
+        {
+          id: 6,
+          type: 'text',
+          data: {
+            text: '왼쪽 텍스트 블록',
+            sort: 'left',
+          },
+        },
+        {
+          id: 7,
+          type: 'text',
+          data: {
+            text: '가운데 텍스트 블록',
+            sort: 'center',
+          },
+        },
+        {
+          id: 8,
+          type: 'text',
+          data: {
+            text: '오른쪽 텍스트 블록',
+            sort: 'right',
+          },
+        },
+        {
+          id: 9,
+          type: 'text',
+          data: {
+            text: '내용이 기이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이인 블록',
+            sort: 'left',
+          },
+        },
+      ],
+    };
+    return res(ctx.status(200), ctx.json(diary));
+  }),
+
   rest.get(`${baseURL}${API_PATH.DIARY_BY_MOOD}`, (req, res, ctx) => {
     const mood = req.url.searchParams.get('mood');
     const page = req.url.searchParams.get('page');
@@ -58,7 +154,7 @@ const diaryHandlers = [
       ),
     );
   }),
-  
+
   rest.get(`${baseURL}${API_PATH.DIARY_COUNT_BY_MOOD}`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(diaryCount));
   }),

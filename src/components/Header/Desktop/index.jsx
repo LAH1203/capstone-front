@@ -1,4 +1,5 @@
 import { AiOutlineLogin, AiOutlineLogout } from 'react-icons/ai';
+import { CiCalendar } from 'react-icons/ci';
 import { RxPerson, RxPencil1 } from 'react-icons/rx';
 import { SlHome } from 'react-icons/sl';
 import { Link } from 'react-router-dom';
@@ -43,6 +44,11 @@ const Desktop = () => {
           <Link to={BROWSER_PATH.EDIT}>
             <S.Button type="button">
               <RxPencil1 />
+            </S.Button>
+          </Link>
+          <Link to={BROWSER_PATH.CALENDAR}>
+            <S.Button type="button">
+              <CiCalendar />
             </S.Button>
           </Link>
           <Link to={BROWSER_PATH.MYPAGE.BASE}>

@@ -31,10 +31,17 @@ const getDiary = id => {
     .then(response => response.data);
 };
 
+const getdiaryLisyByCalendar = (year, month) => {
+  return axiosWithAccessToken
+    .get(`${API_PATH.CALENDAR}?year=${year}&month=${month}`)
+    .then(response => response.data);
+};
+
 export {
   requestUploadImg,
   requestUploadDiary,
   requestDiaryByMood,
   requestDiaryCountByMood,
   getDiary,
+  getdiaryLisyByCalendar,
 };

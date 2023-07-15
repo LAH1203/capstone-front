@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import Snackbar from '@/components/Snackbar';
 import { BROWSER_PATH } from '@/constants/path';
+import Calendar from '@/pages/Calendar';
 import Detail from '@/pages/Detail';
 import Edit from '@/pages/Edit';
 import Landing from '@/pages/Landing';
@@ -47,6 +48,7 @@ const App = () => {
                 <Route path={BROWSER_PATH.OAUTH} element={<OAuth />} />
                 <Route path={BROWSER_PATH.EDIT} element={<Edit />} />
                 <Route path={BROWSER_PATH.MYPAGE.BASE} element={<Mypage />} />
+                <Route path={BROWSER_PATH.CALENDAR} element={<Calendar />} />
                 <Route
                   path={`${BROWSER_PATH.DETAIL}/:id`}
                   element={<Detail />}

@@ -10,4 +10,4 @@ const convertDate = dateLinkByStick => {
   )}요일`;
 };
 
-export { getDay, convertDate };
+export { getDay, convertDate, getDayKorean };

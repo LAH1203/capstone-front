@@ -157,6 +157,32 @@ const diaryHandlers = [
   rest.get(`${baseURL}${API_PATH.DIARY_COUNT_BY_MOOD}`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(diaryCount));
   }),
+
+  rest.get(`${baseURL}${API_PATH.CALENDAR}`, (req, res, ctx) => {
+    const year = req.url.searchParams.get('year');
+    const month = req.url.searchParams.get('month');
+    const data = [
+      {
+        id: '1',
+        date: `${year}-${month}-01`,
+        mood: 'best',
+        desc: '오늘은 공부하려다가 진격거 정주행 해버림 ㅋㅋ',
+      },
+      {
+        id: '2',
+        date: `${year}-${month}-04`,
+        mood: 'good',
+        desc: '아 코테 내일인데 어떡하냐 ㅋㅋ',
+      },
+      {
+        id: '3',
+        date: `${year}-${month}-12`,
+        mood: 'bad',
+        desc: '나는 진짜 뭐해먹고 살지..?',
+      },
+    ];
+    return res(ctx.status(200), ctx.json(data));
+  }),
 ];
 
 export default diaryHandlers;

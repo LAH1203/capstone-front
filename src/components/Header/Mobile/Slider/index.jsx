@@ -63,7 +63,10 @@ const Slider = ({ isClosing, closeSlider }) => {
               <li onClick={goToOtherPage(BROWSER_PATH.EDIT)}>
                 <S.MenuButton type="button">일기 쓰기</S.MenuButton>
               </li>
-              <li>
+              <li onClick={goToOtherPage(BROWSER_PATH.CALENDAR)}>
+                <S.MenuButton type="button">캘린더</S.MenuButton>
+              </li>
+              <li onClick={goToOtherPage(BROWSER_PATH.MYPAGE.BASE)}>
                 <S.MenuButton type="button">마이페이지</S.MenuButton>
               </li>
               <li>

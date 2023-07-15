@@ -12,6 +12,7 @@ const colors = {
   GREEN_900_OP_40: '#15191566',
   RED_200: '#DDBBBB',
   RED_500: '#AA5656',
+  BLUE_500: '#1D57AE',
   BACKGROUND: '#FCF8F3',
   INPUT_BACKGROUND: '#FEFDFB',
   SKELETON: '#e6e2dd',

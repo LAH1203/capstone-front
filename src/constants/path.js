@@ -8,6 +8,7 @@ const BROWSER_PATH = {
     BASE: '/me',
     DIARY: 'diary',
   },
+  CALENDAR: '/calendar',
   DETAIL: '/detail',
 };
 
@@ -23,6 +24,7 @@ const API_PATH = {
   DIARY_BY_MOOD: '/mood',
   DIARY_COUNT_BY_MOOD: '/mood/count',
   IMAGE: '/upload',
+  CALENDAR: '/calendar',
 };
 
 const KAKAO_REDIRECT_URI = `${window.location.origin}${BROWSER_PATH.OAUTH}`;

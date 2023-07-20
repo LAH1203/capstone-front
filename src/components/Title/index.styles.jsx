@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 const Container = styled.div`
-  background-color: ${({ theme: { colors } }) => colors.GREEN_200};
+  background-color: ${({ theme: { colors } }) => colors.GREEN_100};
   padding: 1.3rem 0;
 
   @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
@@ -12,7 +12,7 @@ const Container = styled.div`
 `;
 
 const Name = styled.h1`
-  color: ${({ theme: { colors } }) => colors.GREEN_900};
+  color: ${({ theme: { colors } }) => colors.GREEN_500};
   font-size: 1.3rem;
   font-weight: bold;
   margin-left: 1.5rem;

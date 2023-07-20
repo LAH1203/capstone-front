@@ -1,16 +1,31 @@
-import { useSearchParams } from 'react-router-dom';
-import { useRef, Suspense } from 'react';
-import Title from './Title';
-import Filter from './Filter';
-import Info from './Info';
+import { useRef, Suspense, useEffect } from 'react';
+
+import { useNavigate, useSearchParams } from 'react-router-dom';
+
 import Diary from './Diary';
+import Filter from './Filter';
 import * as S from './index.styles';
+import Info from './Info';
 import Skeleton from './Skeleton';
 
+import Title from '@/components/Title';
+import { BROWSER_PATH } from '@/constants/path';
+import useUser from '@/hooks/useUser';
+
 const Mypage = () => {
+  const { isLogin, info, requestAndSetUserInfo } = useUser();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const topRef = useRef();
-  
+
+  useEffect(() => {
+    if (!isLogin) {
+      navigate(BROWSER_PATH.LANDING);
+    }
+    if (info) return;
+    requestAndSetUserInfo();
+  }, [isLogin, navigate, info, requestAndSetUserInfo]);
+
   const toTop = () => {
     topRef.current.scrollIntoView();
   };
@@ -26,7 +41,7 @@ const Mypage = () => {
             <Diary toTop={toTop} />
           </Suspense>
         ) : (
-          <Info />
+          info && <Info />
         )}
       </S.Wrapper>
     </S.Container>

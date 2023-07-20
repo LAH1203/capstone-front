@@ -39,6 +39,12 @@ const requestWithdrawal = () => {
   return axiosWithAccessToken.delete(API_PATH.WITHDRAWAL);
 };
 
+const requestInfo = () => {
+  return axiosWithAccessToken
+    .get(API_PATH.INFO)
+    .then(response => response.data);
+};
+
 export {
   requestLogin,
   requestSignup,
@@ -47,4 +53,5 @@ export {
   requestUpdateEmail,
   requestUpdateNickname,
   requestWithdrawal,
+  requestInfo,
 };

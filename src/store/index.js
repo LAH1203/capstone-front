@@ -4,6 +4,7 @@ import { accessTokenProvider } from '@/utils/token';
 
 const userAtom = atom({
   isLogin: accessTokenProvider.get() ? true : false,
+  info: null,
 });
 
 const snackbarAtom = atom({

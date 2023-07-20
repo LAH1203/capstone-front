@@ -56,6 +56,15 @@ const authHandlers = [
   rest.delete(`${baseURL}${API_PATH.WITHDRAWAL}`, (req, res, ctx) => {
     return res(ctx.status(204));
   }),
+  rest.get(`${baseURL}${API_PATH.INFO}`, (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        email: 'example@naver.com',
+        nickname: 'example',
+      }),
+    );
+  }),
 ];
 
 export default authHandlers;

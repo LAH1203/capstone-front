@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
+
+import * as S from './index.styles';
+import Inputs from './Inputs';
+import WithdrawalModal from './WithdrawalModal';
+
 import {
   requestUpdateEmail,
   requestUpdateNickname,
@@ -12,21 +18,19 @@ import useError from '@/hooks/useError';
 import useInput from '@/hooks/useInput';
 import useSnackbar from '@/hooks/useSnackbar';
 import useUser from '@/hooks/useUser';
-import Inputs from './Inputs';
-import WithdrawalModal from './WithdrawalModal';
-import * as S from './index.styles';
 
-const Info = props => {
+const Info = () => {
+  const { info, requestAndSetUserInfo } = useUser();
   const {
     value: email,
     onChangeValue: changeEmail,
     dangerouslySetValue: dangerouslySetEmail,
-  } = useInput('');
+  } = useInput(info.email);
   const {
     value: nickname,
     onChangeValue: changeNickname,
     dangerouslySetValue: dangerouslySetNickname,
-  } = useInput('');
+  } = useInput(info.nickname);
 
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isValidNickname, setIsValidNickname] = useState(false);
@@ -58,6 +62,7 @@ const Info = props => {
 
     requestUpdateEmail({ email })
       .then(({ email }) => {
+        requestAndSetUserInfo();
         showSnackbar(CLIENT_MESSAGE.GUIDE.SUCCESS_UPDATE_EMAIL);
         dangerouslySetEmail(email);
       })
@@ -76,6 +81,7 @@ const Info = props => {
 
     requestUpdateNickname({ nickname })
       .then(({ nickname }) => {
+        requestAndSetUserInfo();
         showSnackbar(CLIENT_MESSAGE.GUIDE.SUCCESS_UPDATE_NICKNAME);
         dangerouslySetNickname(nickname);
       })

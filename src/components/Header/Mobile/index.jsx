@@ -6,7 +6,6 @@ import { SlHome } from 'react-icons/sl';
 import * as S from './index.styles';
 import Slider from './Slider';
 
-import SearchModal from '@/components/SearchModal';
 import { BROWSER_PATH } from '@/constants/path';
 import { ANIMATION_TIME } from '@/constants/time';
 import useClosing from '@/hooks/useClosing';
@@ -15,7 +14,7 @@ import useModal from '@/hooks/useModal';
 const Mobile = () => {
   const [isSliderOpen, setIsSliderOpen] = useState(false);
 
-  const { modalState, showModal } = useModal();
+  const { showModal } = useModal();
 
   const showSearchModal = () => {
     closeSlider();
@@ -48,7 +47,6 @@ const Mobile = () => {
           showSearchModal={showSearchModal}
         />
       )}
-      {modalState === 'search' && <SearchModal />}
     </S.Container>
   );
 };

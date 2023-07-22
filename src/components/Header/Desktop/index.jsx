@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 import * as S from './index.styles';
 
 import { requestLogout } from '@/apis/request/auth';
-import SearchModal from '@/components/SearchModal';
 import { CLIENT_MESSAGE } from '@/constants/message';
 import { BROWSER_PATH, KAKAO_REDIRECT_URI } from '@/constants/path';
 import useError from '@/hooks/useError';
@@ -22,7 +21,7 @@ import { getKakaoAuthUri } from '@/utils/kakao';
 
 const Desktop = () => {
   const { isLogin, logout } = useUser();
-  const { modalState, showModal } = useModal();
+  const { showModal } = useModal();
   const { showSnackbar } = useSnackbar();
   const handleError = useError();
 
@@ -77,7 +76,6 @@ const Desktop = () => {
           </S.Button>
         </a>
       )}
-      {modalState === 'search' && <SearchModal />}
     </S.Container>
   );
 };

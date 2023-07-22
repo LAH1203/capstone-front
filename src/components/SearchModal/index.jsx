@@ -1,8 +1,12 @@
+import { useEffect, useRef, useState } from 'react';
+
 import { AiOutlineSearch } from 'react-icons/ai';
+import { useInfiniteQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
 import * as S from './index.styles';
 
+import { searchDiary } from '@/apis/request/diary';
 import Portal from '@/components/Portal';
 import { BROWSER_PATH } from '@/constants/path';
 import useClosing from '@/hooks/useClosing';
@@ -11,70 +15,24 @@ import useModal from '@/hooks/useModal';
 
 const modalAnimationTime = 150;
 
-const diaries = [
-  {
-    diaryId: '0',
-    title: '제목',
-    date: '2023-03-12',
-    content:
-      '첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만',
-    hashtag: ['해시태그1', '해시태그2', '해시태그3', '해시태그4', '해시태그5'],
-  },
-  {
-    diaryId: '1',
-    title: '제목',
-    date: '2023-03-12',
-    content:
-      '첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만',
-    hashtag: ['해시태그1', '해시태그2'],
-  },
-  {
-    diaryId: '2',
-    title: '제목',
-    date: '2023-03-12',
-    content:
-      '첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만',
-    hashtag: ['해시태그1', '해시태그2'],
-  },
-  {
-    diaryId: '3',
-    title: '제목',
-    date: '2023-03-12',
-    content:
-      '첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만',
-    hashtag: ['해시태그1', '해시태그2'],
-  },
-  {
-    diaryId: '4',
-    title: '제목',
-    date: '2023-03-12',
-    content:
-      '첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만',
-    hashtag: ['해시태그1', '해시태그2'],
-  },
-  {
-    diaryId: '5',
-    title: '제목',
-    date: '2023-03-12',
-    content:
-      '첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만',
-    hashtag: ['해시태그1', '해시태그2'],
-  },
-  {
-    diaryId: '6',
-    title: '제목',
-    date: '2023-03-12',
-    content:
-      '첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만첫 번째 문장의 텍스트만',
-    hashtag: ['해시태그1', '해시태그2'],
-  },
-];
-
 const SearchModal = () => {
   const { value, onChangeValue } = useInput('');
+  const [pageNumber, setPageNumber] = useState(0);
 
   const { setOffModal } = useModal();
   const { isClosing, close } = useClosing(modalAnimationTime, setOffModal);
+
+  const target = useRef(null);
+
+  const { data, fetchNextPage, isFetching } = useInfiniteQuery({
+    queryKey: ['search', value, pageNumber],
+    queryFn: ({ pageParam = 0 }) => searchDiary(value, pageParam),
+    getNextPageParam: page => {
+      const res = page.isLastPage ? undefined : Number(page.pageNumber) + 1;
+
+      return res;
+    },
+  });
 
   const navigate = useNavigate();
 
@@ -86,6 +44,34 @@ const SearchModal = () => {
     close();
     navigate(`${BROWSER_PATH.DETAIL}/${diaryId}`);
   };
+
+  useEffect(() => {
+    const onIntersection = async ([entry], observer) => {
+      if (
+        !entry.isIntersecting ||
+        isFetching ||
+        data.pages[pageNumber].isLastPage
+      )
+        return;
+
+      fetchNextPage().then(() => {
+        if (data.pages[pageNumber].isLastPage) {
+          observer.unobserve(target.current);
+        }
+        setPageNumber(prev => prev++);
+      });
+    };
+    const observer = new IntersectionObserver(onIntersection, {
+      threshold: 0.5,
+    });
+    observer.observe(target.current);
+
+    return () => observer.disconnect();
+  }, [data.pages, fetchNextPage, isFetching, pageNumber]);
+
+  const diaries = data.pages.reduce((accumulator, currentObject) => {
+    return accumulator.concat(currentObject.list);
+  }, []);
 
   return (
     <Portal to="modal">
@@ -126,6 +112,15 @@ const SearchModal = () => {
                 </S.HashtagWrapper>
               </S.Item>
             ))}
+            <div ref={target}>
+              {isFetching && (
+                <S.Loading>
+                  <p />
+                  <p />
+                  <p />
+                </S.Loading>
+              )}
+            </div>
           </S.List>
         </S.Container>
       </S.Dimmer>

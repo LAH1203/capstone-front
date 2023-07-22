@@ -29,6 +29,7 @@ const API_PATH = {
   DIARY_COUNT: '/total',
   IMAGE: '/upload',
   CALENDAR: '/calendar',
+  SEARCH: '/search',
 };
 
 const KAKAO_REDIRECT_URI = `${window.location.origin}${BROWSER_PATH.OAUTH}`;

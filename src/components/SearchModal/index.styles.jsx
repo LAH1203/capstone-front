@@ -41,6 +41,16 @@ const closeModal = keyframes`
   }
 `;
 
+const loadingAnimation = keyframes`
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, 1rem, 0);
+  }
+`;
+
 const Dimmer = styled.div`
   display: flex;
   justify-content: center;
@@ -133,13 +143,14 @@ const Item = styled.li`
 
   width: 100%;
   padding: 2rem 1rem;
+  border-bottom: 0.5px solid ${({ theme: { colors } }) => colors.GREEN_400};
 
   cursor: pointer;
 
   transition: transform 0.5s;
 
-  &:not(:last-child) {
-    border-bottom: 0.5px solid ${({ theme: { colors } }) => colors.GREEN_400};
+  :last-of-type {
+    border: 0;
   }
   &:hover {
     transform: scale3d(1.01, 1.01, 1.01);
@@ -196,6 +207,32 @@ const Hashtag = styled.span`
   white-space: nowrap;
 `;
 
+const Loading = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+
+  width: 100%;
+  margin-bottom: 3rem;
+
+  p {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+
+    background: ${({ theme: { colors } }) => colors.GREEN_400};
+
+    animation: ${loadingAnimation} 0.7s infinite alternate;
+
+    :nth-of-type(2) {
+      animation-delay: -0.25s;
+    }
+    :nth-of-type(1) {
+      animation-delay: -0.5s;
+    }
+  }
+`;
+
 export {
   Dimmer,
   Container,
@@ -206,4 +243,5 @@ export {
   Content,
   HashtagWrapper,
   Hashtag,
+  Loading,
 };

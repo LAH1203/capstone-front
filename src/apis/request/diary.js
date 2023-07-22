@@ -55,6 +55,12 @@ const requestDiaryCount = () => {
     .then(response => response.data);
 };
 
+const searchDiary = (text, pageNumber) => {
+  return axiosWithAccessToken
+    .get(`${API_PATH.SEARCH}?text=${text}&page=${pageNumber}`)
+    .then(response => response.data);
+};
+
 export {
   requestUploadImg,
   requestUploadDiary,
@@ -65,4 +71,5 @@ export {
   requestEditDiary,
   requestRandomDiary,
   requestDiaryCount,
+  searchDiary,
 };

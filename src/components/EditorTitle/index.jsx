@@ -5,16 +5,16 @@ import ErrorBoundary from '@/components/ErrorBoundary';
 import { MOOD } from '@/constants/diary';
 import { getDay } from '@/utils/date';
 
-const Title = ({ title, setTitle, date, setWeather, mood, setMood }) => {
+const EditorTitle = ({ title, setTitle, date, setWeather, mood, setMood }) => {
   return (
     <S.Container>
       <S.Input value={title} onChange={setTitle} />
       <S.Description>
         <label>date</label>
         <span>
-          {`${date.getFullYear()}/ ${
-            date.getMonth() + 1
-          }/ ${date.getDate()} (${getDay(date.getDay())})`}
+          {`${date?.getFullYear()}/ ${
+            date?.getMonth() + 1
+          }/ ${date?.getDate()} (${getDay(date?.getDay())})`}
         </span>
         <label>weather</label>
         <ErrorBoundary fallback="🤷">
@@ -33,4 +33,4 @@ const Title = ({ title, setTitle, date, setWeather, mood, setMood }) => {
   );
 };
 
-export default Title;
+export default EditorTitle;

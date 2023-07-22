@@ -9,6 +9,27 @@ const Container = styled.div`
   padding: 5%;
 `;
 
+const DescriptionBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Btn = styled.button`
+  padding: 0.5rem 1.75rem;
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: ${({ theme: { colors } }) => colors.GREEN_500};
+  background-color: ${({ theme: { colors } }) => colors.GREEN_100};
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
+    padding: 0.4rem 1.4rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    border-radius: 6px;
+  }
+`;
+
 const Description = styled.div`
   display: flex;
   flex-direction: column;
@@ -139,12 +160,14 @@ const Hashtag = styled.div`
 
 export {
   Container,
+  DescriptionBox,
   Description,
   StatusWrapper,
   Status,
   Title,
   Content,
   Block,
+  Btn,
   HashtagWrapper,
   Hashtag,
 };

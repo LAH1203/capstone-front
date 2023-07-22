@@ -13,6 +13,7 @@ import Edit from '@/pages/Edit';
 import Landing from '@/pages/Landing';
 import Main from '@/pages/Main';
 import Mypage from '@/pages/Mypage';
+import New from '@/pages/New';
 import NotFound from '@/pages/NotFound';
 import OAuth from '@/pages/OAuth';
 import Signup from '@/pages/Signup';
@@ -46,7 +47,8 @@ const App = () => {
                 <Route path={BROWSER_PATH.LANDING} element={<Landing />} />
                 <Route path={BROWSER_PATH.SIGNUP} element={<Signup />} />
                 <Route path={BROWSER_PATH.OAUTH} element={<OAuth />} />
-                <Route path={BROWSER_PATH.EDIT} element={<Edit />} />
+                <Route path={BROWSER_PATH.NEW} element={<New />} />
+                <Route path={`${BROWSER_PATH.EDIT}/:id`} element={<Edit />} />
                 <Route path={BROWSER_PATH.MYPAGE.BASE} element={<Mypage />} />
                 <Route path={BROWSER_PATH.CALENDAR} element={<Calendar />} />
                 <Route

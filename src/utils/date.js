@@ -10,4 +10,14 @@ const convertDate = dateLinkByStick => {
   )}요일`;
 };
 
-export { getDay, convertDate, getDayKorean };
+const isToday = date => {
+  const diaryDate = new Date(date);
+  const now = new Date();
+  return (
+    diaryDate.getFullYear() === now.getFullYear() &&
+    diaryDate.getMonth() === now.getMonth() &&
+    diaryDate.getDate() === now.getDate()
+  );
+};
+
+export { getDay, convertDate, getDayKorean, isToday };

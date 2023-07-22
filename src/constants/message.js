@@ -13,6 +13,7 @@ const CLIENT_MESSAGE = {
     SUCCESS_POST_DIARY: '일기 작성이 완료되었습니다.',
     CONFIRM_DELETE_IMAGE: '이미지를 삭제하시겠습니까?',
     CONFIRM_POST_DIARY: '일기를 등록하시겠습니까?',
+    CONFIRM_EDIT_DIARY: '일기를 수정하시겠습니까?',
   },
   ERROR: {
     EMPTY_ACCESS_TOKEN: '로그인 정보가 유효하지 않습니다. 다시 로그인해주세요.',

@@ -1,11 +1,12 @@
 import { useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import * as S from './index.styles';
 
 import { getDiary } from '@/apis/request/diary';
 import { MOOD } from '@/constants/diary';
-import { convertDate } from '@/utils/date';
+import { BROWSER_PATH } from '@/constants/path';
+import { convertDate, isToday } from '@/utils/date';
 import { weatherToIcon } from '@/utils/weather';
 
 const Detail = () => {
@@ -17,23 +18,30 @@ const Detail = () => {
 
   return (
     <S.Container>
-      <S.Description>
-        <div>{convertDate(data.date)}</div>
-        <S.StatusWrapper>
-          <S.Status>
-            날씨{' '}
-            <span>{data.weather ? weatherToIcon(data.weather) : '🤷'}</span>
-          </S.Status>
-          <S.Status>
-            기분{' '}
-            <span>
-              {data.mood && data.mood.toUpperCase() in MOOD
-                ? MOOD[data.mood.toUpperCase()].emoji
-                : '🤷'}
-            </span>
-          </S.Status>
-        </S.StatusWrapper>
-      </S.Description>
+      <S.DescriptionBox>
+        <S.Description>
+          <div>{convertDate(data.date)}</div>
+          <S.StatusWrapper>
+            <S.Status>
+              날씨{' '}
+              <span>{data.weather ? weatherToIcon(data.weather) : '🤷'}</span>
+            </S.Status>
+            <S.Status>
+              기분{' '}
+              <span>
+                {data.mood && data.mood.toUpperCase() in MOOD
+                  ? MOOD[data.mood.toUpperCase()].emoji
+                  : '🤷'}
+              </span>
+            </S.Status>
+          </S.StatusWrapper>
+        </S.Description>
+        {isToday(data.date) && (
+          <Link to={`${BROWSER_PATH.EDIT}/${id}`}>
+            <S.Btn type="button">수정</S.Btn>
+          </Link>
+        )}
+      </S.DescriptionBox>
       <S.Title>{data.title}</S.Title>
 
       <S.Content font={data.font}>

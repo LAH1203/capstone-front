@@ -274,17 +274,17 @@ const diaryHandlers = [
         hashtag: ['해시태그1', '해시태그2'],
       },
     ];
+    const list =
+      text === ''
+        ? diaries
+        : diaries.filter(
+            diary => diary.title.includes(text) || diary.content.includes(text),
+          );
 
     const data = {
       pageNumber,
-      isLastPage: pageNumber > 2,
-      list:
-        text === ''
-          ? diaries
-          : diaries.filter(
-              diary =>
-                diary.title.includes(text) || diary.content.includes(text),
-            ),
+      isLastPage: list.length <= 0 || pageNumber > 2,
+      list,
     };
 
     return res(ctx.status(200), ctx.json(data));

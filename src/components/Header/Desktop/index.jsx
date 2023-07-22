@@ -1,4 +1,8 @@
-import { AiOutlineLogin, AiOutlineLogout } from 'react-icons/ai';
+import {
+  AiOutlineLogin,
+  AiOutlineLogout,
+  AiOutlineSearch,
+} from 'react-icons/ai';
 import { CiCalendar } from 'react-icons/ci';
 import { RxPerson, RxPencil1 } from 'react-icons/rx';
 import { SlHome } from 'react-icons/sl';
@@ -7,15 +11,18 @@ import { Link } from 'react-router-dom';
 import * as S from './index.styles';
 
 import { requestLogout } from '@/apis/request/auth';
+import SearchModal from '@/components/SearchModal';
 import { CLIENT_MESSAGE } from '@/constants/message';
 import { BROWSER_PATH, KAKAO_REDIRECT_URI } from '@/constants/path';
 import useError from '@/hooks/useError';
+import useModal from '@/hooks/useModal';
 import useSnackbar from '@/hooks/useSnackbar';
 import useUser from '@/hooks/useUser';
 import { getKakaoAuthUri } from '@/utils/kakao';
 
 const Desktop = () => {
   const { isLogin, logout } = useUser();
+  const { modalState, showModal } = useModal();
   const { showSnackbar } = useSnackbar();
   const handleError = useError();
 
@@ -41,6 +48,9 @@ const Desktop = () => {
       </a>
       {isLogin ? (
         <S.Wrapper>
+          <S.Button type="button" onClick={showModal('search')}>
+            <AiOutlineSearch />
+          </S.Button>
           <Link to={BROWSER_PATH.EDIT}>
             <S.Button type="button">
               <RxPencil1 />
@@ -67,6 +77,7 @@ const Desktop = () => {
           </S.Button>
         </a>
       )}
+      {modalState === 'search' && <SearchModal />}
     </S.Container>
   );
 };

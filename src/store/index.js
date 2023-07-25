@@ -7,9 +7,11 @@ const userAtom = atom({
   info: null,
 });
 
+const modalAtom = atom('off');
+
 const snackbarAtom = atom({
   isShowing: false,
   message: '',
 });
 
-export { userAtom, snackbarAtom };
+export { userAtom, modalAtom, snackbarAtom };

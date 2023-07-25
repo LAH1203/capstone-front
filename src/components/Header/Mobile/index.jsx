@@ -9,9 +9,17 @@ import Slider from './Slider';
 import { BROWSER_PATH } from '@/constants/path';
 import { ANIMATION_TIME } from '@/constants/time';
 import useClosing from '@/hooks/useClosing';
+import useModal from '@/hooks/useModal';
 
 const Mobile = () => {
   const [isSliderOpen, setIsSliderOpen] = useState(false);
+
+  const { showModal } = useModal();
+
+  const showSearchModal = () => {
+    closeSlider();
+    showModal('search')();
+  };
 
   const toggleSlider = () => {
     setIsSliderOpen(prev => !prev);
@@ -33,7 +41,11 @@ const Mobile = () => {
         <RxHamburgerMenu />
       </S.MenuButton>
       {isSliderOpen && (
-        <Slider isClosing={isClosing} closeSlider={closeSlider} />
+        <Slider
+          isClosing={isClosing}
+          closeSlider={closeSlider}
+          showSearchModal={showSearchModal}
+        />
       )}
     </S.Container>
   );

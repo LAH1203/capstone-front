@@ -1,6 +1,6 @@
 import { useAtom } from 'jotai';
 
-import { requestInfo } from '@/apis/request/auth';
+import { requestInfo, requestReissueAccessToken } from '@/apis/request/auth';
 import { userAtom } from '@/store';
 import {
   accessTokenProvider,
@@ -33,7 +33,20 @@ const useUser = () => {
     });
   };
 
-  return { isLogin, login, logout, info, requestAndSetUserInfo };
+  const reissueAccessToken = () => {
+    requestReissueAccessToken().then(accessToken => {
+      accessTokenProvider.set(accessToken);
+    });
+  };
+
+  return {
+    isLogin,
+    login,
+    logout,
+    info,
+    requestAndSetUserInfo,
+    reissueAccessToken,
+  };
 };
 
 export default useUser;

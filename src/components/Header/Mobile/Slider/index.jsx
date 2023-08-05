@@ -64,7 +64,7 @@ const Slider = ({ isClosing, closeSlider, showSearchModal }) => {
               <li onClick={showSearchModal}>
                 <S.MenuButton type="button">검색</S.MenuButton>
               </li>
-              <li onClick={goToOtherPage(BROWSER_PATH.EDIT)}>
+              <li onClick={goToOtherPage(BROWSER_PATH.NEW)}>
                 <S.MenuButton type="button">일기 쓰기</S.MenuButton>
               </li>
               <li onClick={goToOtherPage(BROWSER_PATH.CALENDAR)}>

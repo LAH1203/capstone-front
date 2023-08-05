@@ -50,7 +50,7 @@ const Desktop = () => {
           <S.Button type="button" onClick={showModal('search')}>
             <AiOutlineSearch />
           </S.Button>
-          <Link to={BROWSER_PATH.EDIT}>
+          <Link to={BROWSER_PATH.NEW}>
             <S.Button type="button">
               <RxPencil1 />
             </S.Button>

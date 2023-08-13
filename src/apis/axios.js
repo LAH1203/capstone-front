@@ -2,7 +2,7 @@ import Axios from 'axios';
 
 import { accessTokenProvider, refreshTokenProvider } from '@/utils/token';
 
-const baseURL = 'http://43.200.37.79:8080';
+const baseURL = process.env.SERVER_URL;
 
 const axios = Axios.create({
   baseURL,

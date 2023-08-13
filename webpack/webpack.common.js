@@ -62,6 +62,7 @@ module.exports = {
       'process.env.WEATHER_API_KEY': JSON.stringify(
         process.env.WEATHER_API_KEY,
       ),
+      'process.env.SERVER_URL': JSON.stringify(process.env.SERVER_URL),
     }),
   ],
 };

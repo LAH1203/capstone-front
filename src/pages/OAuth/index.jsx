@@ -21,10 +21,9 @@ const OAuth = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(code);
     if (code) {
       requestLogin(code)
-        .then(({ new: newUser, accessToken, refreshToken }) => {
+        .then(({ newUser, accessToken, refreshToken }) => {
           kakaoAccessTokenProvider.set(accessToken);
 
           if (newUser) {
@@ -39,7 +38,7 @@ const OAuth = () => {
           navigate(BROWSER_PATH.BASE);
         })
         .catch(error => {
-          alert(handleError(error.code));
+          alert(handleError(error.response.data.code));
 
           navigate(BROWSER_PATH.BASE);
         });

@@ -34,7 +34,7 @@ const Desktop = () => {
         showSnackbar(CLIENT_MESSAGE.GUIDE.SUCCESS_LOGOUT);
       })
       .catch(error => {
-        alert(handleError(error.code));
+        alert(handleError(error.response.data.code));
       });
   };
 

@@ -8,7 +8,7 @@ const simplifyDiaryForCalendar = (diaries, year, month) => {
     convertedDiaries[d] = {
       id: diary.id,
       mood: MOOD[diary.mood.toUpperCase()].emoji,
-      desc: diary.desc,
+      title: diary.title,
     };
   });
   return convertedDiaries;

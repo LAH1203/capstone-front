@@ -48,7 +48,7 @@ const Signup = () => {
         navigate(BROWSER_PATH.BASE);
       })
       .catch(error => {
-        alert(handleError(error.code));
+        alert(handleError(error.response.data.code));
       });
   };
 

@@ -11,7 +11,7 @@ const useFetchQuery = (deps, fetchFunc, option = {}) => {
   const handleError = useError();
 
   useEffect(() => {
-    if (dataQuery.isError) handleError(dataQuery.error.code);
+    if (dataQuery.isError) handleError(dataQuery.error.response.data.code);
   }, [dataQuery.isError]);
 
   return { dataQuery };

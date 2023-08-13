@@ -10,6 +10,7 @@ import { requestEditDiary, getDiary } from '@/apis/request/diary';
 import EditorBox from '@/components/EditorBox';
 import EditorTitle from '@/components/EditorTitle';
 import HashtagBox from '@/components/HashtagBox';
+import { MOOD } from '@/constants/diary';
 import { CLIENT_MESSAGE } from '@/constants/message';
 import { BROWSER_PATH } from '@/constants/path';
 import useError from '@/hooks/useError';
@@ -32,7 +33,7 @@ const Edit = () => {
     value: mood,
     onChangeValue: onChangeMood,
     dangerouslySetValue: setMood,
-  } = useInput('');
+  } = useInput(MOOD.BEST.text);
   const {
     value: title,
     onChangeValue: onChangeTitle,
@@ -96,7 +97,7 @@ const Edit = () => {
       font: font,
       blocks: [...blockForEdit],
     })
-      .then(id => {
+      .then(() => {
         showSnackbar(CLIENT_MESSAGE.GUIDE.SUCCESS_POST_DIARY);
         navigate(`${BROWSER_PATH.DETAIL}/${id}`);
       })

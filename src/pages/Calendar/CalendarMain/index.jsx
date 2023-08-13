@@ -35,7 +35,7 @@ const CalendarMain = ({ currentYear, currentMonth, currentData }) => {
             </S.DateTitle>
             <div>{currentData[i + 1]?.mood}</div>
             {currentData[i + 1] && (
-              <S.DescBox className="desc">{currentData[i + 1].desc}</S.DescBox>
+              <S.DescBox className="desc">{currentData[i + 1].title}</S.DescBox>
             )}
           </S.Date>
         ))}

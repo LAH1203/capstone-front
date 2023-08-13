@@ -9,6 +9,7 @@ import { requestUploadDiary } from '@/apis/request/diary';
 import EditorBox from '@/components/EditorBox';
 import EditorTitle from '@/components/EditorTitle';
 import HashtagBox from '@/components/HashtagBox';
+import { MOOD } from '@/constants/diary';
 import { CLIENT_MESSAGE } from '@/constants/message';
 import { BROWSER_PATH } from '@/constants/path';
 import useError from '@/hooks/useError';
@@ -20,7 +21,7 @@ const New = () => {
   const date = new Date();
   const [hashtagList, setHashtagList] = useState([]);
   const [weather, setWeather] = useState(null);
-  const { value: mood, onChangeValue: onChangeMood } = useInput('');
+  const { value: mood, onChangeValue: onChangeMood } = useInput(MOOD.BEST.text);
   const { value: title, onChangeValue: onChangeTitle } = useInput('');
   const [font, setFont] = useState('basic');
   const blocks = useAtomValue(blocksAtom);

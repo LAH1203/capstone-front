@@ -39,7 +39,7 @@ const Slider = ({ isClosing, closeSlider, showSearchModal }) => {
         closeSlider();
       })
       .catch(error => {
-        alert(handleError(error.code));
+        alert(handleError(error.response.data.code));
       });
   };
 

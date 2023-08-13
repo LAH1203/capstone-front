@@ -67,7 +67,7 @@ const Info = () => {
         dangerouslySetEmail(email);
       })
       .catch(error => {
-        alert(handleError(error.code));
+        alert(handleError(error.response.data.code));
       });
   };
 
@@ -86,7 +86,7 @@ const Info = () => {
         dangerouslySetNickname(nickname);
       })
       .catch(error => {
-        alert(handleError(error.code));
+        alert(handleError(error.response.data.code));
       });
   };
 
@@ -101,7 +101,7 @@ const Info = () => {
         navigate(BROWSER_PATH.BASE);
       })
       .catch(error => {
-        alert(handleError(error.code));
+        alert(handleError(error.response.data.code));
       });
   };
 

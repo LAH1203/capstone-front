@@ -38,9 +38,7 @@ const getdiaryLisyByCalendar = (year, month) => {
 };
 
 const requestEditDiary = (id, diary) => {
-  return axiosWithAccessToken
-    .patch(`${API_PATH.DIARY}/${id}`, diary)
-    .then(response => response.data.id);
+  return axiosWithAccessToken.patch(`${API_PATH.DIARY}/${id}`, diary);
 };
 
 const requestRandomDiary = () => {

@@ -1,6 +1,6 @@
 const accessTokenProvider = {
   get: () => {
-    return localStorage.getItem('accessToken') ?? '';
+    return localStorage.getItem('accessToken') || '';
   },
   set: accessToken => {
     localStorage.setItem('accessToken', accessToken);

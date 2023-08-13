@@ -2,7 +2,7 @@ import Axios from 'axios';
 
 import { accessTokenProvider, refreshTokenProvider } from '@/utils/token';
 
-const baseURL = 'https://4e3aeb4a-2669-4973-89fe-2090262e19e8.mock.pstmn.io';
+const baseURL = 'http://43.200.37.79:8080';
 
 const axios = Axios.create({
   baseURL,
@@ -18,7 +18,7 @@ axiosWithAccessToken.interceptors.request.use(config => {
   if (config.headers && accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
-
+  // ${accessToken}
   return config;
 });
 

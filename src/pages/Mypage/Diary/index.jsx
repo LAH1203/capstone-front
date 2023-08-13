@@ -34,7 +34,7 @@ const Diary = ({ toTop }) => {
   const { dataQuery: totalDiaryCountQuery } = useFetchQuery(
     ['diaryCount'],
     requestDiaryCountByMood,
-    1000 * 60 * 5,
+    { staleTime: 1000 * 60 * 5 },
   );
 
   const { dataQuery: listQuery } = useFetchQuery(
@@ -45,7 +45,7 @@ const Diary = ({ toTop }) => {
         page,
         size: LIMIT.PAGE,
       }),
-    1000 * 60 * 5,
+    { staleTime: 1000 * 60 * 5 },
   );
 
   useEffect(() => {
@@ -68,7 +68,7 @@ const Diary = ({ toTop }) => {
     setSearchParams({
       t: BROWSER_PATH.MYPAGE.DIARY,
       mood,
-      page
+      page,
     });
   };
 

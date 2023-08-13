@@ -21,6 +21,7 @@ const OAuth = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(code);
     if (code) {
       requestLogin(code)
         .then(({ new: newUser, accessToken, refreshToken }) => {

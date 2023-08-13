@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
+
 import { useQuery } from 'react-query';
+
 import useError from '@/hooks/useError';
 
-const useFetchQuery = (deps, fetchFunc, staleTime) => {
+const useFetchQuery = (deps, fetchFunc, option = {}) => {
   const dataQuery = useQuery(deps, () => fetchFunc(), {
-    staleTime,
+    ...option,
   });
   const handleError = useError();
 

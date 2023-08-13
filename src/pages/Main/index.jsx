@@ -22,25 +22,27 @@ const Main = () => {
   const [randomDiary, setRandomDiary] = useState();
   const [diaryCount, setDiaryCount] = useState();
 
-  useEffect(() => {
-    if (!isLogin) {
-      navigate(BROWSER_PATH.LANDING);
-    }
-    if (info) return;
-    requestAndSetUserInfo();
-  }, [isLogin, navigate, info, requestAndSetUserInfo]);
-
   const { dataQuery: randomDiaryQuery } = useFetchQuery(
     ['randomDiary'],
     requestRandomDiary,
-    1000 * 60 * 60,
+    { staleTime: 1000 * 60 * 5, enabled: false },
   );
 
   const { dataQuery: diaryCountQuery } = useFetchQuery(
     ['diaryCount'],
     requestDiaryCount,
-    1000 * 60 * 5,
+    { staleTime: 1000 * 60 * 5, enabled: false },
   );
+
+  useEffect(() => {
+    if (!isLogin) {
+      navigate(BROWSER_PATH.LANDING);
+    }
+    if (info) return;
+    randomDiaryQuery.refetch();
+    diaryCountQuery.refetch();
+    requestAndSetUserInfo();
+  }, [isLogin, navigate, info, requestAndSetUserInfo]);
 
   useEffect(() => {
     setRandomDiary(randomDiaryQuery.data);

@@ -5,6 +5,7 @@ import { KAKAO_REDIRECT_URI } from '@/constants/path';
 import { getKakaoAuthUri } from '@/utils/kakao';
 
 const Landing = () => {
+  console.log(getKakaoAuthUri(KAKAO_REDIRECT_URI));
   return (
     <S.Container>
       <a href={getKakaoAuthUri(KAKAO_REDIRECT_URI)}>

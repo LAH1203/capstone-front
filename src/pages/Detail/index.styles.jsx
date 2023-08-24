@@ -111,6 +111,20 @@ const Block = styled.div`
     font-weight: 700;
     line-height: 1.85rem;
   }
+  b {
+    font-weight: 700;
+  }
+  i {
+    font-style: italic;
+  }
+  pre {
+    width: 100%;
+    border-radius: 8px;
+    padding: 1rem;
+    box-sizing: border-box;
+    white-space: pre-wrap;
+    background: ${({ theme: { colors } }) => colors.GREEN_100};
+  }
   img {
     width: 40%;
 

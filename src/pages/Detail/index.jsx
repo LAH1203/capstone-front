@@ -71,7 +71,9 @@ const Detail = () => {
               returnBlock = <img src={block.data.link} alt="이미지" />;
               break;
             case 'text':
-              returnBlock = <div>{block.data.text}</div>;
+              returnBlock = (
+                <div dangerouslySetInnerHTML={{ __html: block.data.text }} />
+              );
               break;
             default:
             // DO NOTHING

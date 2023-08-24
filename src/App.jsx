@@ -19,11 +19,11 @@ import Signup from '@/pages/Signup';
 import GlobalStyle from '@/styles/global';
 import theme from '@/styles/theme';
 
-// if (process.env.NODE_ENV === 'development') {
-//   const { worker } = require('@/mocks/browser');
+if (process.env.NODE_ENV === 'development') {
+  const { worker } = require('@/mocks/browser');
 
-//   worker.start({ onUnhandledRequest: 'bypass' });
-// }
+  worker.start({ onUnhandledRequest: 'bypass' });
+}
 
 const queryClient = new QueryClient({
   defaultOptions: {

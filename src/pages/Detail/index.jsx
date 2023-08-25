@@ -80,7 +80,7 @@ const Detail = () => {
           }
 
           return (
-            <S.Block sort={block.data.sort} key={block.id}>
+            <S.Block align={block.data.align} key={block.id}>
               {returnBlock}
             </S.Block>
           );

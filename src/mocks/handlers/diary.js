@@ -56,7 +56,7 @@ const diaryHandlers = [
   rest.get(`${baseURL}${API_PATH.DIARY}/:id`, (req, res, ctx) => {
     const diary = {
       title: '글 제목',
-      date: '2023-07-22',
+      date: '2023-08-25',
       weather: 'rain',
       hashtag: [
         '해시태그1',
@@ -74,7 +74,7 @@ const diaryHandlers = [
           data: {
             text: '제목1',
             level: 1,
-            sort: 'left',
+            align: 'left',
           },
         },
         {
@@ -83,7 +83,7 @@ const diaryHandlers = [
           data: {
             text: '제목2',
             level: 2,
-            sort: 'left',
+            align: 'left',
           },
         },
         {
@@ -92,7 +92,7 @@ const diaryHandlers = [
           data: {
             text: '제목3',
             level: 3,
-            sort: 'left',
+            align: 'left',
           },
         },
         {
@@ -101,7 +101,7 @@ const diaryHandlers = [
           data: {
             text: '제목4',
             level: 4,
-            sort: 'left',
+            align: 'left',
           },
         },
         {
@@ -109,7 +109,7 @@ const diaryHandlers = [
           type: 'img',
           data: {
             link: 'https://ssl.pstatic.net/melona/libs/1457/1457089/f5b27008d5369a1a2918_20230705172819547.jpg',
-            sort: 'center',
+            align: 'center',
           },
         },
         {
@@ -117,7 +117,7 @@ const diaryHandlers = [
           type: 'text',
           data: {
             text: '왼쪽 텍스트 블록',
-            sort: 'left',
+            align: 'left',
           },
         },
         {
@@ -125,7 +125,7 @@ const diaryHandlers = [
           type: 'text',
           data: {
             text: '가운데 텍스트 블록',
-            sort: 'center',
+            align: 'center',
           },
         },
         {
@@ -133,7 +133,7 @@ const diaryHandlers = [
           type: 'text',
           data: {
             text: '오른쪽 텍스트 블록',
-            sort: 'right',
+            align: 'right',
           },
         },
         {
@@ -141,7 +141,7 @@ const diaryHandlers = [
           type: 'text',
           data: {
             text: '<pre><code>내용이 기이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이 이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이이 이이이이이이인 블록<pre><code>',
-            sort: 'left',
+            align: 'left',
           },
         },
       ],
@@ -193,7 +193,7 @@ const diaryHandlers = [
       },
       {
         id: '2',
-        date: `${year}-${month}-04`,
+        date: `${year}-${month}-25`,
         mood: 'good',
         desc: '아 코테 내일인데 어떡하냐 ㅋㅋ',
       },

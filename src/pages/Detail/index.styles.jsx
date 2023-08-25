@@ -86,7 +86,7 @@ const Content = styled.div`
 
 const Block = styled.div`
   display: flex;
-  justify-content: ${({ sort }) => sort};
+  justify-content: ${({ align }) => align};
 
   width: 100%;
   line-height: 1.2rem;

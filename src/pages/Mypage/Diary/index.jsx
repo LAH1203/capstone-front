@@ -34,7 +34,7 @@ const Diary = ({ toTop }) => {
   const { dataQuery: totalDiaryCountQuery } = useFetchQuery(
     ['diaryCount'],
     requestDiaryCountByMood,
-    { staleTime: 1000 * 60 * 5 },
+    { staleTime: 0 },
   );
 
   const { dataQuery: listQuery } = useFetchQuery(

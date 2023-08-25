@@ -40,6 +40,7 @@ const weatherToIcon = weather => {
 };
 
 const weatherToText = weather => {
+  if (!weather) return '날씨 기록이 없던';
   switch (weather.toLowerCase()) {
     case 'clear':
       return '맑은 날의';

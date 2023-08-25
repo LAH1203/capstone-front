@@ -104,6 +104,7 @@ const Content = styled.p`
   overflow: hidden;
   line-height: 1.8rem;
   text-overflow: ellipsis;
+  white-space: pre-wrap;
 
   @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
     font-size: 0.9rem;

@@ -19,11 +19,9 @@ const Main = () => {
   }, [isLogin, navigate]);
 
   return (
-    <>
-      <Suspense fallback={<Skeleton />}>
-        <Content />
-      </Suspense>
-    </>
+    <Suspense fallback={<Skeleton />}>
+      <Content />
+    </Suspense>
   );
 };
 

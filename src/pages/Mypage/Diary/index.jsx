@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { useQuery } from 'react-query';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import FilterDiary from './FilterDiary';
@@ -13,7 +14,6 @@ import {
 import { LIMIT } from '@/constants/diary';
 import { MOOD } from '@/constants/diary';
 import { BROWSER_PATH } from '@/constants/path';
-import useFetchQuery from '@/hooks/useFetchQuery';
 import useMount from '@/hooks/useMount';
 
 const Diary = ({ toTop }) => {
@@ -31,22 +31,22 @@ const Diary = ({ toTop }) => {
   const [totalDiaryCount, setTotalDiaryCount] = useState({});
   const [list, setList] = useState([]);
 
-  const { dataQuery: totalDiaryCountQuery } = useFetchQuery(
-    ['diaryCount'],
-    requestDiaryCountByMood,
-    { staleTime: 0 },
-  );
+  const totalDiaryCountQuery = useQuery({
+    queryKey: ['diaryCount'],
+    queryFn: requestDiaryCountByMood,
+    staleTime: 1000 * 60 * 5,
+  });
 
-  const { dataQuery: listQuery } = useFetchQuery(
-    ['list', mood, page],
-    () =>
+  const listQuery = useQuery({
+    queryKey: ['list', mood, page],
+    queryFn: () =>
       requestDiaryByMood({
         mood,
         page,
         size: LIMIT.PAGE,
       }),
-    { staleTime: 1000 * 60 * 5 },
-  );
+    staleTime: 1000 * 60 * 5,
+  });
 
   useEffect(() => {
     if (type !== BROWSER_PATH.MYPAGE.DIARY) navigate(BROWSER_PATH.MYPAGE.BASE);

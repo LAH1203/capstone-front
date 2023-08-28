@@ -1,6 +1,7 @@
+import * as S from './index.styles';
+
 import { MOOD } from '@/constants/diary';
 import { weatherToText } from '@/utils/weather';
-import * as S from './index.styles';
 
 const RandomDiary = ({ content }) => {
   const hasDiary = Object.keys(content).length > 0;

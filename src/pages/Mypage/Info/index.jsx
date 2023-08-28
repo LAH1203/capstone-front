@@ -62,7 +62,9 @@ const Info = () => {
 
     requestUpdateEmail({ email })
       .then(({ email }) => {
-        requestAndSetUserInfo();
+        requestAndSetUserInfo().catch(error =>
+          alert(handleError(error.response.data.code)),
+        );
         showSnackbar(CLIENT_MESSAGE.GUIDE.SUCCESS_UPDATE_EMAIL);
         dangerouslySetEmail(email);
       })
@@ -81,7 +83,9 @@ const Info = () => {
 
     requestUpdateNickname({ nickname })
       .then(({ nickname }) => {
-        requestAndSetUserInfo();
+        requestAndSetUserInfo().catch(error =>
+          alert(handleError(error.response.data.code)),
+        );
         showSnackbar(CLIENT_MESSAGE.GUIDE.SUCCESS_UPDATE_NICKNAME);
         dangerouslySetNickname(nickname);
       })

@@ -1,5 +1,7 @@
 import { useState } from 'react';
+
 import * as S from './index.styles';
+
 import Portal from '@/components/Portal';
 
 const WithdrawalModal = ({ withdraw }) => {

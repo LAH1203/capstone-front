@@ -19,7 +19,7 @@ const Container = styled.div`
   animation: ${fade} 1.5s infinite ease-out;
 `;
 
-const OnlyMobilMenu = styled.div`
+const OnlyMobileMenu = styled.div`
   @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
     display: flex;
     justify-content: space-between;
@@ -96,7 +96,7 @@ const SideBar = styled.div`
 
 export {
   Container,
-  OnlyMobilMenu,
+  OnlyMobileMenu,
   Header,
   WrapperContent,
   RandomDiary,

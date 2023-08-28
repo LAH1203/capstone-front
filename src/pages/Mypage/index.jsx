@@ -10,6 +10,7 @@ import Skeleton from './Skeleton';
 
 import Title from '@/components/Title';
 import { BROWSER_PATH } from '@/constants/path';
+import useError from '@/hooks/useError';
 import useUser from '@/hooks/useUser';
 
 const Mypage = () => {
@@ -18,13 +19,20 @@ const Mypage = () => {
   const [searchParams] = useSearchParams();
   const topRef = useRef();
 
+  const handleError = useError();
+
   useEffect(() => {
     if (!isLogin) {
       navigate(BROWSER_PATH.LANDING);
     }
+  }, [isLogin, navigate]);
+
+  useEffect(() => {
     if (info) return;
-    requestAndSetUserInfo();
-  }, [isLogin, navigate, info, requestAndSetUserInfo]);
+    requestAndSetUserInfo().catch(error =>
+      alert(handleError(error.response.data.code)),
+    );
+  }, [info]);
 
   const toTop = () => {
     topRef.current.scrollIntoView();

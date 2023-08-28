@@ -1,11 +1,12 @@
 import { ThemeProvider } from '@emotion/react';
 import { Provider } from 'jotai';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryCache, QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Layout from '@/components/Layout';
 import Snackbar from '@/components/Snackbar';
 import { BROWSER_PATH } from '@/constants/path';
+import useError from '@/hooks/useError';
 import Calendar from '@/pages/Calendar';
 import Detail from '@/pages/Detail';
 import Edit from '@/pages/Edit';
@@ -25,15 +26,22 @@ if (process.env.NODE_ENV === 'development') {
   worker.start({ onUnhandledRequest: 'bypass' });
 }
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      suspense: true,
-    },
-  },
-});
-
 const App = () => {
+  const handleError = useError();
+
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        suspense: true,
+      },
+    },
+    queryCache: new QueryCache({
+      onError: error => {
+        alert(handleError(error.response.data.code));
+      },
+    }),
+  });
+
   return (
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>

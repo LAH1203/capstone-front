@@ -69,5 +69,4 @@ const WrapperSide = styled.div`
     margin-top: 0rem;
   }
 `;
-
 export { Container, WrapperTitle, Nickname, WrapperContent, WrapperSide };

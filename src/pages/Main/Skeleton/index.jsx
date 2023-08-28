@@ -4,10 +4,10 @@ const Skeleton = () => {
   return (
     <S.Container>
       <S.Header />
-      <S.OnlyMobilMenu>
+      <S.OnlyMobileMenu>
         <div />
         <div />
-      </S.OnlyMobilMenu>
+      </S.OnlyMobileMenu>
       <S.WrapperContent>
         <S.RandomDiary />
         <S.SideBar>

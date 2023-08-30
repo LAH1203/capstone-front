@@ -50,17 +50,24 @@ const useBlock = () => {
             (blocks[index].type === 'heading' ||
               blocks[index].type === 'text') &&
             blocks[index].data.text.length <= 0;
-
+          const newBlock = type === 'heading' ? {
+            ...initBlock,
+            data: { ...initBlock.data, level: prop.target.value },
+          } : { ...initBlock, data: { ...initBlock.data, link: prop } };
           newBlocks.splice(
             isFocusedBlockEmpty ? index : index + 1,
             isFocusedBlockEmpty ? 1 : 0,
             type === 'heading'
-              ? {
-                  ...initBlock,
-                  data: { ...initBlock.data, level: prop.target.value },
-                }
-              : { ...initBlock, data: { ...initBlock.data, link: prop }, { ...INITIAL_TEXT_BLOCK, id: Date.now() + 1 } },
+              ? newBlock
+              : ...newBlock,
           );
+          if (type === 'img') {
+            newBlocks.splice(
+              isFocusedBlockEmpty ? index + 1 : index + 2,
+              0,
+              { ...INITIAL_TEXT_BLOCK, id: Date.now() + 1 }
+            );
+          }
           setFocusId(newBlocks[isFocusedBlockEmpty ? index : type === 'img' ? index + 2 : index + 1].id);
           setBlocks(newBlocks);
         };

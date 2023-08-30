@@ -33,7 +33,7 @@ const useImage = () => {
 
     requestUploadImg(formData)
       .then(res => {
-        setImgLink(res.headers.location);
+        setImgLink(decodeURI(res.headers.location));
       })
       .catch(err => {
         alert(handleError(err.code));

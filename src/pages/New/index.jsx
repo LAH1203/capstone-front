@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useAtomValue } from 'jotai';
 import { useNavigate } from 'react-router-dom';
 
 import * as S from './index.styles';
 
+import { getdiaryListByCalendar } from '@/apis/request/diary';
 import { requestUploadDiary } from '@/apis/request/diary';
 import EditorBox from '@/components/EditorBox';
 import EditorTitle from '@/components/EditorTitle';
@@ -16,6 +17,7 @@ import useError from '@/hooks/useError';
 import useInput from '@/hooks/useInput';
 import useSnackbar from '@/hooks/useSnackbar';
 import { blocksAtom } from '@/store/blocks';
+import { checkTodayDiary } from '@/utils/date';
 
 const New = () => {
   const date = new Date();
@@ -29,6 +31,18 @@ const New = () => {
 
   const navigate = useNavigate();
   const { showSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth() + 1;
+
+    getdiaryListByCalendar(currentYear, currentMonth).then(diaries => {
+      if (checkTodayDiary(diaries)) {
+        alert(CLIENT_MESSAGE.ERROR.ALREADY_ADD_DIARY);
+        navigate(-1);
+      }
+    });
+  }, []);
 
   const addHashtag = newHashtag => {
     setHashtagList(prev => [...prev, newHashtag]);

@@ -20,4 +20,13 @@ const isToday = date => {
   );
 };
 
-export { getDay, convertDate, getDayKorean, isToday };
+const checkTodayDiary = diaries => {
+  const today = new Date().getDate();
+  const date = diaries.map(diary => {
+    const [year, month, day] = diary.date.split('-');
+    return Number(day);
+  });
+  return date.includes(today);
+};
+
+export { getDay, convertDate, getDayKorean, isToday, checkTodayDiary };

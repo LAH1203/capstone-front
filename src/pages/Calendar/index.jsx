@@ -6,7 +6,7 @@ import CalendarHeader from './CalendarHeader';
 import CalendarMain from './CalendarMain';
 import * as S from './index.style';
 
-import { getdiaryLisyByCalendar } from '@/apis/request/diary';
+import { getdiaryListByCalendar } from '@/apis/request/diary';
 import { simplifyDiaryForCalendar } from '@/utils/diaries';
 
 const Calendar = () => {
@@ -19,7 +19,7 @@ const Calendar = () => {
 
   const { data } = useQuery({
     queryKey: ['diaryList', currentYear, currentMonth],
-    queryFn: () => getdiaryLisyByCalendar(currentYear, currentMonth),
+    queryFn: () => getdiaryListByCalendar(currentYear, currentMonth),
   });
 
   useEffect(() => {

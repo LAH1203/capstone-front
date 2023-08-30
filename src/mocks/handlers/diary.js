@@ -199,7 +199,7 @@ const diaryHandlers = [
       },
       {
         id: '3',
-        date: `${year}-${month}-12`,
+        date: `${year}-${month}-30`,
         mood: 'bad',
         desc: '나는 진짜 뭐해먹고 살지..?',
       },

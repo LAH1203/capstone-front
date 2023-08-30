@@ -12,7 +12,6 @@ const EditorBox = ({ font, changeFont }) => {
   const [dragStartIdx, setDragStartIdx] = useState(0);
 
   const [blocks, setBlocks] = useAtom(blocksAtom);
-
   const dragStart = idx => () => {
     setDragStartIdx(idx);
   };

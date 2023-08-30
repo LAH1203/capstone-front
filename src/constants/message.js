@@ -28,6 +28,7 @@ const CLIENT_MESSAGE = {
     FAIL_UPDATE_NICKNAME: '닉네임 수정에 실패하였습니다.',
     INVALID_INPUT: '입력값을 확인해주세요.',
     INVALID_IMAGE_TYPE: '이미지 파일의 형식은 png, jpg, jpeg만 가능합니다.',
+    ALREADY_ADD_DIARY: '오늘 이미 일기가 등록되어 있습니다.',
   },
 };
 

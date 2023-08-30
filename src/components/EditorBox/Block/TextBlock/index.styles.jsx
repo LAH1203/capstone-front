@@ -61,6 +61,7 @@ const ContentEditable = styled(ReactContentEditable)`
     width: 100%;
     border-radius: 8px;
     padding: 1rem;
+    white-space: pre-wrap;
     box-sizing: border-box;
 
     background: ${({ theme: { colors } }) => colors.GREEN_100};

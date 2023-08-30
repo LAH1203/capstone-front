@@ -5,7 +5,7 @@ import { useQuery } from 'react-query';
 
 import * as S from './index.styles';
 
-import { getdiaryLisyByCalendar } from '@/apis/request/diary';
+import { getdiaryListByCalendar } from '@/apis/request/diary';
 import { simplifyDiaryForCalendar } from '@/utils/diaries';
 
 const SmallCalendar = () => {
@@ -18,7 +18,7 @@ const SmallCalendar = () => {
 
   const { data } = useQuery({
     queryKey: ['diaryList'],
-    queryFn: () => getdiaryLisyByCalendar(year, month),
+    queryFn: () => getdiaryListByCalendar(year, month),
   });
 
   useEffect(() => {

@@ -59,9 +59,9 @@ const useBlock = () => {
                   ...initBlock,
                   data: { ...initBlock.data, level: prop.target.value },
                 }
-              : { ...initBlock, data: { ...initBlock.data, link: prop } },
+              : { ...initBlock, data: { ...initBlock.data, link: prop }, { ...INITIAL_TEXT_BLOCK, id: Date.now() + 1 } },
           );
-          setFocusId(newBlocks[isFocusedBlockEmpty ? index : index + 1].id);
+          setFocusId(newBlocks[isFocusedBlockEmpty ? index : type === 'img' ? index + 2 : index + 1].id);
           setBlocks(newBlocks);
         };
 

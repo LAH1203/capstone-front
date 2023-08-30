@@ -57,9 +57,7 @@ const useBlock = () => {
           newBlocks.splice(
             isFocusedBlockEmpty ? index : index + 1,
             isFocusedBlockEmpty ? 1 : 0,
-            type === 'heading'
-              ? newBlock
-              : ...newBlock,
+            newBlock
           );
           if (type === 'img') {
             newBlocks.splice(

@@ -15,7 +15,7 @@ const ImageBlock = ({ block }) => {
   return (
     <S.Wrapper className={block.data.align || 'left'}>
       <S.Image
-        src={block.data.link}
+        src={decodeURI(block.data.link)}
         alt="이미지"
         onClick={changeFocusId(block.id)}
         onDoubleClick={deleteImage}

@@ -6,7 +6,7 @@ import {
 import { CiCalendar } from 'react-icons/ci';
 import { RxPerson, RxPencil1 } from 'react-icons/rx';
 import { SlHome } from 'react-icons/sl';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import * as S from './index.styles';
 
@@ -25,6 +25,8 @@ const Desktop = () => {
   const { showSnackbar } = useSnackbar();
   const handleError = useError();
 
+  const navigate = useNavigate();
+
   const confirmLogout = () => {
     if (!window.confirm(CLIENT_MESSAGE.GUIDE.CONFIRM_LOGOUT)) return;
 
@@ -32,6 +34,7 @@ const Desktop = () => {
       .then(() => {
         logout();
         showSnackbar(CLIENT_MESSAGE.GUIDE.SUCCESS_LOGOUT);
+        navigate(BROWSER_PATH.BASE);
       })
       .catch(error => {
         alert(handleError(error.response.data.code));

@@ -37,6 +37,7 @@ const Slider = ({ isClosing, closeSlider, showSearchModal }) => {
         logout();
         showSnackbar(CLIENT_MESSAGE.GUIDE.SUCCESS_LOGOUT);
         closeSlider();
+        navigate(BROWSER_PATH.BASE);
       })
       .catch(error => {
         alert(handleError(error.response.data.code));

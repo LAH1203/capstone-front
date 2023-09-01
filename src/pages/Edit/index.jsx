@@ -90,7 +90,10 @@ const Edit = () => {
 
     const blockForEdit = blocks.map(block => ({
       type: block.type,
-      data: { ...block.data, text: block.contentRef.current },
+      data:
+        block.type === 'img'
+          ? { ...block.data }
+          : { ...block.data, text: block.contentRef.current },
     }));
     requestEditDiary(id, {
       title: title,

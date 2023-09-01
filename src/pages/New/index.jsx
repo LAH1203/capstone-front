@@ -77,7 +77,10 @@ const New = () => {
 
     const blockForSave = blocks.map(block => ({
       type: block.type,
-      data: { ...block.data, text: block.contentRef.current },
+      data:
+        block.type === 'img'
+          ? { ...block.data }
+          : { ...block.data, text: block.contentRef.current },
     }));
     requestUploadDiary({
       title: title,

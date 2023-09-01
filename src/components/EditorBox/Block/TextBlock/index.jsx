@@ -9,10 +9,10 @@ const TextBlock = ({ block }) => {
   const contentRef = useRef(block.data.text);
   const blockRef = useRef(null);
 
-  const { editBlock, focusId, changeFocusId } = useBlock();
+  const { setContentRef, focusId, changeFocusId } = useBlock();
 
   useEffect(() => {
-    editBlock({ ...block, contentRef });
+    setContentRef(block.id, contentRef);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -25,10 +25,6 @@ const TextBlock = ({ block }) => {
 
   const changeContent = e => {
     contentRef.current = e.target.value;
-    editBlock({
-      ...block,
-      data: { ...block.data, text: contentRef.current },
-    });
   };
 
   return (

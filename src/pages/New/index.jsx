@@ -66,7 +66,10 @@ const New = () => {
 
   const makeNewDiary = e => {
     e.preventDefault();
-    if (blocks.length === 1 && blocks[0].data.text === '') {
+    if (
+      blocks.length === 1 &&
+      (blocks[0].type === 'img' || blocks[0].contentRef.current.length <= 0)
+    ) {
       showSnackbar(CLIENT_MESSAGE.ERROR.EMPTY_DIARY);
       return;
     }
@@ -74,7 +77,7 @@ const New = () => {
 
     const blockForSave = blocks.map(block => ({
       type: block.type,
-      data: { ...block.data },
+      data: { ...block.data, text: block.contentRef.current },
     }));
     requestUploadDiary({
       title: title,
@@ -93,14 +96,8 @@ const New = () => {
       });
   };
 
-  const preventEnter = e => {
-    if (e.code === 'Enter') {
-      e.preventDefault();
-    }
-  };
-
   return (
-    <S.Container onSubmit={makeNewDiary} onKeyDown={preventEnter}>
+    <S.Container onSubmit={makeNewDiary}>
       <EditorTitle
         title={title}
         setTitle={onChangeTitle}

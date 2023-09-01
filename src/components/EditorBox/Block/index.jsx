@@ -12,13 +12,7 @@ import useBlock from '@/hooks/useBlock';
 const Block = ({ block, index, dragStart, onDropItem }) => {
   const [isDragOver, setIsDragOver] = useState(false);
 
-  const {
-    addTextBlock,
-    removeBlock,
-    mergeContentToPrevBlock,
-    changeFocusId,
-    changeFocusToPrevBlock,
-  } = useBlock();
+  const { addTextBlock, removeBlock, changeFocusId } = useBlock();
 
   const makeNewBlock = e => {
     e.stopPropagation();
@@ -26,23 +20,18 @@ const Block = ({ block, index, dragStart, onDropItem }) => {
   };
 
   const controlBlock = e => {
-    const { startOffset, endOffset } = window.getSelection().getRangeAt(0);
-
     switch (e.key) {
       case 'Enter':
-        if (!e.shiftKey) return;
+        if (!e.shiftKey) {
+          e.stopPropagation();
+          return;
+        }
         e.preventDefault();
 
         addTextBlock(block.id);
         break;
 
       case 'Backspace':
-        if (startOffset <= 0 && startOffset === endOffset) {
-          e.preventDefault();
-          mergeContentToPrevBlock();
-
-          return;
-        }
         if (
           block.contentRef.current.length > 0 &&
           block.contentRef.current !== '<br>'
@@ -52,13 +41,6 @@ const Block = ({ block, index, dragStart, onDropItem }) => {
         e.preventDefault();
 
         removeBlock(block.id);
-        break;
-
-      case 'ArrowLeft':
-        if (startOffset <= 0) {
-          changeFocusToPrevBlock(block.id);
-          e.preventDefault();
-        }
         break;
 
       default:

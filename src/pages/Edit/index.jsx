@@ -77,9 +77,12 @@ const Edit = () => {
     navigate(-1);
   };
 
-  const makeNewDiary = e => {
+  const editDiary = e => {
     e.preventDefault();
-    if (blocks.length === 1 && blocks[0].data.text === '') {
+    if (
+      blocks.length === 1 &&
+      (blocks[0].type === 'img' || blocks[0].contentRef.current.length <= 0)
+    ) {
       showSnackbar(CLIENT_MESSAGE.ERROR.EMPTY_DIARY);
       return;
     }
@@ -87,7 +90,7 @@ const Edit = () => {
 
     const blockForEdit = blocks.map(block => ({
       type: block.type,
-      data: { ...block.data },
+      data: { ...block.data, text: block.contentRef.current },
     }));
     requestEditDiary(id, {
       title: title,
@@ -106,14 +109,8 @@ const Edit = () => {
       });
   };
 
-  const preventEnter = e => {
-    if (e.code === 'Enter') {
-      e.preventDefault();
-    }
-  };
-
   return (
-    <S.Container onSubmit={makeNewDiary} onKeyDown={preventEnter}>
+    <S.Container onSubmit={editDiary}>
       <EditorTitle
         title={title}
         setTitle={onChangeTitle}

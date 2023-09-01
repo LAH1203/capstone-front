@@ -30,7 +30,6 @@ const Content = () => {
   const diaryCountQuery = useQuery({
     queryKey: ['totalCount'],
     queryFn: requestDiaryCount,
-    staleTime: 1000 * 60 * 5,
   });
 
   useEffect(() => {

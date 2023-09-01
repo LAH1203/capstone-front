@@ -34,7 +34,6 @@ const Diary = ({ toTop }) => {
   const totalDiaryCountQuery = useQuery({
     queryKey: ['diaryCount'],
     queryFn: requestDiaryCountByMood,
-    staleTime: 1000 * 60 * 5,
   });
 
   const listQuery = useQuery({
@@ -45,7 +44,6 @@ const Diary = ({ toTop }) => {
         page,
         size: LIMIT.PAGE,
       }),
-    staleTime: 1000 * 60 * 5,
   });
 
   useEffect(() => {

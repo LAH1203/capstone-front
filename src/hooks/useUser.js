@@ -26,10 +26,10 @@ const useUser = () => {
     setUser({ isLogin: false, info: null });
   };
 
-  const requestAndSetUserInfo = () => {
+  const requestAndSetUserInfo = async () => {
     if (!isLogin) return;
 
-    return requestInfo().then(info => {
+    return await requestInfo().then(info => {
       setUser({ isLogin: true, info });
     });
   };

@@ -46,7 +46,7 @@ const useBlock = () => {
           const isFocusedBlockEmpty =
             (blocks[index].type === 'heading' ||
               blocks[index].type === 'text') &&
-            blocks[index].data.text.length <= 0;
+            blocks[index].contentRef.current.length <= 0;
           const newBlock =
             type === 'heading'
               ? {

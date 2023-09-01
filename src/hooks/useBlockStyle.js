@@ -28,16 +28,21 @@ const useBlockStyle = () => {
         ? '</strike>'
         : '</code></pre>';
 
-   blocks.forEach(block => {
+    const newBlocks = blocks.map(block => {
       if (block.id !== focusId || block.type === 'img') return block;
 
       const content = block.contentRef.current;
       const text = content.includes(openTag)
         ? content.split(openTag).join('').split(closeTag).join('')
         : `${openTag}${content}${closeTag}`;
+      console.log(text);
 
       block.contentRef.current = text;
+
+      return block;
     });
+
+    setBlocks(newBlocks);
   };
 
   const changeAlign = align => () => {

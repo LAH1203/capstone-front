@@ -14,8 +14,9 @@ const HashtagBox = ({ addHashtag, removeHashtag, hashtagList }) => {
   } = useInput('');
   const { showSnackbar } = useSnackbar();
 
-  const addHashtagByInput = ({ nativeEvent: { key, isComposing } }) => {
-    if (key !== 'Enter' || isComposing) return;
+  const addHashtagByInput = e => {
+    if (e.nativeEvent.key !== 'Enter' || e.nativeEvent.isComposing) return;
+    e.preventDefault();
     if (isBlank(newHashtag)) {
       showSnackbar(CLIENT_MESSAGE.ERROR.EMPTY_HASHTAG);
       return;
@@ -38,12 +39,8 @@ const HashtagBox = ({ addHashtag, removeHashtag, hashtagList }) => {
     resetNewHashtag();
   };
 
-  const preventBubbling = e => {
-    e.stopPropagation();
-  };
-
   return (
-    <S.Container onKeyDown={preventBubbling}>
+    <S.Container>
       <S.InputBox>
         <S.Input>
           <p>#</p>

@@ -96,7 +96,7 @@ const useBlock = () => {
   };
 
   const setContentRef = (blockId, contentRef) => {
-    setBlocks(
+    setBlocks(blocks =>
       blocks.map(block => {
         if (block.id !== blockId) return block;
         return {

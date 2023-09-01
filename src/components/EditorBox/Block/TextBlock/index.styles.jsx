@@ -59,6 +59,7 @@ const ContentEditable = styled(ReactContentEditable)`
   }
   pre {
     width: 100%;
+    min-height: 3.7rem;
     border-radius: 8px;
     padding: 1rem;
     white-space: pre-wrap;

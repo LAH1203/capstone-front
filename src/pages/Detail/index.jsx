@@ -49,30 +49,18 @@ const Detail = () => {
           let returnBlock;
 
           switch (block.type) {
-            case 'heading':
-              switch (block.data.level) {
-                case 1:
-                  returnBlock = <h1>{block.data.text}</h1>;
-                  break;
-                case 2:
-                  returnBlock = <h2>{block.data.text}</h2>;
-                  break;
-                case 3:
-                  returnBlock = <h3>{block.data.text}</h3>;
-                  break;
-                case 4:
-                  returnBlock = <h4>{block.data.text}</h4>;
-                  break;
-                default:
-                // DO NOTHING
-              }
-              break;
             case 'img':
               returnBlock = <img src={block.data.link} alt="이미지" />;
               break;
+            case 'heading':
             case 'text':
               returnBlock = (
-                <div dangerouslySetInnerHTML={{ __html: block.data.text }} />
+                <div
+                  className={
+                    block.type === 'heading' ? `h${block.data.level}` : ''
+                  }
+                  dangerouslySetInnerHTML={{ __html: block.data.text }}
+                />
               );
               break;
             default:

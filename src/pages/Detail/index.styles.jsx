@@ -91,22 +91,22 @@ const Block = styled.div`
   width: 100%;
   line-height: 1.2rem;
 
-  h1 {
+  .h1 {
     font-size: 1.6rem;
     font-weight: 700;
     line-height: 2.3rem;
   }
-  h2 {
+  .h2 {
     font-size: 1.45rem;
     font-weight: 700;
     line-height: 2.15rem;
   }
-  h3 {
+  .h3 {
     font-size: 1.3rem;
     font-weight: 700;
     line-height: 2rem;
   }
-  h4 {
+  .h4 {
     font-size: 1.15rem;
     font-weight: 700;
     line-height: 1.85rem;
@@ -119,6 +119,7 @@ const Block = styled.div`
   }
   pre {
     width: 100%;
+    min-height: 3.2rem;
     border-radius: 8px;
     padding: 1rem;
     box-sizing: border-box;

@@ -35,7 +35,6 @@ const useBlockStyle = () => {
       const text = content.includes(openTag)
         ? content.split(openTag).join('').split(closeTag).join('')
         : `${openTag}${content}${closeTag}`;
-      console.log(text);
 
       block.contentRef.current = text;
 

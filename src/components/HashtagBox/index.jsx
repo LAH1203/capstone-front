@@ -38,8 +38,12 @@ const HashtagBox = ({ addHashtag, removeHashtag, hashtagList }) => {
     resetNewHashtag();
   };
 
+  const preventBubbling = e => {
+    e.stopPropagation();
+  };
+
   return (
-    <S.Container>
+    <S.Container onKeyDown={preventBubbling}>
       <S.InputBox>
         <S.Input>
           <p>#</p>
